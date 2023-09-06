@@ -1,0 +1,10 @@
+{% include 'includes/header.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<main>
+    <h1>Nuevo evento</h1>
+    <form method="post" novalidate enctype="multipart/form-data" class="form_registro">
+        {{ wtf.quick_form(form) }}
+    </form>
+</main>
+{% include 'includes/footer.html' %}

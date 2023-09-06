@@ -1,0 +1,52 @@
+{% include 'includes/header.html' %}
+<main>
+ 
+    <div class="m-5 w-75">
+        
+        <a href="/admin/users/newadmin" style="margin: 10px;" class="btn btn-warning">+</a>
+        
+        <table class="table table-bordered border-warning table-light m-5 p-5" id="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>password</th>
+                    <th>Rol</th>
+                    <th colspan="2" scope="colgroup">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td scope="row">{{ user.idUser }}</td>
+                    <td>{{ user.emailUser }}</td>
+                    <td>{{ user.passwordUser }}</td>
+                    <td>{{ user.rol }}</td>
+                    <td>
+                        <a href="edit_event">
+                            <button type="button" class="btn btn-warning" >
+                                EDITAR
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="POST" class="confirmar">  
+                            <input type="hidden" value="" name="dropEvent">              
+                            <button type="submit" class="btn btn-danger">
+                                BORRAR
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                            
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</main>
+    
+{% include 'includes/footer.html' %}
+    

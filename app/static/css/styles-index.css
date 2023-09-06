@@ -1,0 +1,70 @@
+.navbar {
+    transition: background-color 0.3s ease;
+}
+.nav-link{
+    color: white;
+}
+
+#ini{
+    height: 100vh;
+}
+
+.cover{
+    background-image: url(../img/cover.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.txt.cover{display: flex; align-items: center; text-align: center; align-items: center; width: 50%;}
+.cover h3{font-size: 2.5em;}
+
+.btn-down {
+    position: absolute; /* Posición absoluta para la flecha */
+    bottom: 20px; /* Ajusta este valor según tus preferencias */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Centra horizontalmente */
+}
+
+.btn-down i {
+    font-size: 2em;
+    color: white;
+}
+
+.animacion-fadeup {
+    opacity: 0; /* Inicialmente oculto */
+    transform: translateY(50px); /* Empieza ligeramente hacia abajo */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones suaves */
+}
+
+.sms-mir{
+    background-color: white;
+    height: 50vh;
+}
+
+.sms-mir h5{font-size: 3.5em;}
+
+#eventos{
+    margin-top: -6%;
+    height: 50vh;
+    border-radius: 50% 50% 0 0;
+    padding-top: 5%;
+}
+
+
+.img-sms img{height: 5%; max-width: 50%; border-radius: 30px;}
+.icon{display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px;}
+.icon-event{width: 150px; height: 150px;}
+
+.planes-title{font-size: 3em;}
+
+.planes-mir img{
+    width: 100%;
+}
+.planes-mir p{font-size: 1.5em}

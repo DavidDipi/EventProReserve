@@ -1,0 +1,46 @@
+{% include 'ini/includes/header.html' %}
+
+    <section class="">
+        <div class="title">
+            <h3>Registro de usuario</h3>
+        </div>
+        <div class="container form-registro">
+            <form class="row g-3 form w-50" method="post" action="/register">
+                <form class="row g-3">
+                    <div class="col-md-12">
+                      <label for="inputEmail4" class="form-label">Nombre Completo</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="fullname" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="formGroupExampleInput2" name="email" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="telInput" class="form-label">Telefono</label>
+                        <input type="phones" class="form-control" id="telInput" name="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordInput" class="form-label">Escriba una contraseña</label>
+                        <input type="password" class="form-control" id="passwordInput" required name="password">
+                    </div>
+                        
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                            <label class="form-check-label" for="invalidCheck2">
+                                He leido los terminos y condiciones 
+                            </label>
+                            <div class="terminos">
+                                <a href="">terminos y condiciones </a>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning">Enviar</button>
+                    <a href="/login">Iniciar sesión</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% include 'ini/includes/footer.html' %}

@@ -1,0 +1,13 @@
+__pycache__/*
+migrations/*
+venv/*
+flask_session/*
+app/__pycache__/*
+app/admin/__pycache__/*
+app/admin/events/__pycache__/*
+app/admin/users/__pycache__/*
+app/blueprints/*
+app/client/__pycache__/*
+app/users/__pycache__/*
+
+

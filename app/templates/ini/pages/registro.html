@@ -1,46 +1,68 @@
 {% include 'ini/includes/header.html' %}
 
-    <section class="">
-        <div class="title">
-            <h3>Registro de usuario</h3>
-        </div>
-        <div class="container form-registro">
-            <form class="row g-3 form w-50" method="post" action="/register">
-                <form class="row g-3">
-                    <div class="col-md-12">
-                      <label for="inputEmail4" class="form-label">Nombre Completo</label>
-                      <input type="text" class="form-control" id="inputEmail4" name="fullname" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="formGroupExampleInput2" name="email" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="telInput" class="form-label">Telefono</label>
-                        <input type="phones" class="form-control" id="telInput" name="telefono">
-                    </div>
-                    <div class="mb-3">
-                        <label for="passwordInput" class="form-label">Escriba una contraseña</label>
-                        <input type="password" class="form-control" id="passwordInput" required name="password">
-                    </div>
-                        
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                            <label class="form-check-label" for="invalidCheck2">
-                                He leido los terminos y condiciones 
-                            </label>
-                            <div class="terminos">
-                                <a href="">terminos y condiciones </a>
+    <section class="form-login">
+        <div class="container d-flex justify-content-center">
+
+            <div class="card bg-dark text-white text-center card-login">
+                <div class="logo-login">
+                    <img src="/static/img/logo.png" alt="Logo mirvaj">
+                </div>
+                <div class="d-flex justify-content-center links w-100">
+                    <a href="/login" class="me-auto ms-auto">Login</a>
+                    <a href="/register" class="active ms-auto me-auto">Sign in</a>
+                </div>
+                <form class="form" method="post" action="/register">
+                    <div class="row">
+                        <div class="mb-3">
+                            <div class="input-container">
+                                <input type="text" class="form-control input-text" id="fullnameInput" name="fullname" required autofocus>
+                                <label for="fullnameInput">Nombre Completo</label>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <div class="input-container">
+                                <input type="email" class="form-control" id="emailInput" name="email" required>
+                                <label for="emailInput">Email</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="input-container">
+                                <input type="text" class="form-control input-text" id="telInput" name="telefono" required>
+                                <label for="telInput">Telefono</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="input-container">
+                                <input type="password" class="form-control" id="passwordInput" name="password" required>
+                                <label for="passwordInput">Ingrese una contraseña</label>
+                            </div>
+                        </div>
+                            
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-warning">Registrarme</button>
+                        </div>
+
                     </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-warning">Enviar</button>
-                    <a href="/login">Iniciar sesión</a>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </section>
 
+    
 {% include 'ini/includes/footer.html' %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <script>
+                Swal.fire({
+                    position: 'center',
+                    icon: '{{ category }}',
+                    text: "{{ message }}",
+                    showConfirmButton: true,
+                    timer: 5000
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+    {% endwith  %}
+

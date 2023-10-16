@@ -21,7 +21,7 @@
                     <td>{{ event.nameTypeEvent }}</td>
                     <td>{{ event.descriptionTypeEvent }}</td>
                     <td>
-                        <a href="edit_event">
+                        <a href="edit_event/{{event.idTypeEvent}}">
                             <button type="button" class="btn btn-warning" >
                                 EDITAR
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -29,13 +29,12 @@
                         </a>
                     </td>
                     <td>
-                        <form method="POST" class="confirmar">  
-                            <input type="hidden" value="" name="dropEvent">              
+                        <form method="POST" class="confirmar" >  
+                            <input type="hidden" value="{{ event.idTypeEvent }}" name="deleteRecord">              
                             <button type="submit" class="btn btn-danger">
                                 BORRAR
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
-                            
                         </form>
                     </td>
                 </tr>

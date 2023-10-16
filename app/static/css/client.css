@@ -1,0 +1,84 @@
+/*.card-events {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    transition: 2s;
+    height: 14vh;
+}
+.card-events.flipped {
+    transform: perspective(500px) rotateY(0deg);
+}
+.card-events .card-events-back {
+    display: none;
+    transform: perspective(500px) rotateY(180deg);
+}
+.card-events.flipped .card-events-front {
+    transform: perspective(500px) rotateY(180deg);
+    display: none;
+}
+.card-events.flipped .card-events-back {
+
+    display: flex;
+    transform: perspective(500px) rotateY(360deg);
+}
+
+.card-events-front, .card-events-back {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card-events-back {
+    display: none;
+    transform: perspective(500px) rotateY(180deg) translateY(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}*/
+
+:root{--bs-warning-rgb: rgb(255,193,7)}
+
+.card-events {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    transition: 2s;
+    height: 14vh;
+}
+
+.card-events div {
+    position: absolute;
+    width: 100%;
+    height: 14vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    transition: 1s;
+}
+
+.card-events .card-events-front {
+    border: 2px solid var(--bs-warning-rgb);
+    transform: perspective(500px) rotateY(0deg);
+}
+
+.card-events .card-events-back {
+    background: var(--bs-warning-rgb);
+    transform: perspective(500px) rotateY(180deg);
+}
+
+
+.card-events:hover .card-events-front {
+   
+    transform: perspective(500px) rotateY(180deg);
+}
+
+.card-events:hover .card-events-back {
+   
+    transform: perspective(500px) rotateY(360deg);
+}
+
+.card-events div h1 {
+    font-size: 100px;
+    color: #f1f1f1;
+}

@@ -1,0 +1,23 @@
+{% include 'includes/header.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<main>
+    <h1>Editar evento</h1>
+    <div class="d-flex justify-content-center align-items-center h-75">
+        <div class="card w-50 p-3">
+            <form method="post" class="form_edit" action="{{ event.idTypeEvent }}">
+                <div class="row g-3 justify-content-center">
+                    <div class="col-12">
+                        <input type="text" class="form-control"  name= "nameTypeEvent" placeholder="Escriba el nuevo nombre del evento" value = "{{ event.nameTypeEvent }}" />
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control"  name= "descriptionTypeEvent" placeholder="Escriba la nueva descripción del evento" value = "{{ event.descriptionTypeEvent }}" />
+                    </div>
+                    <button class="w-50 btn btn-outline-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% include 'includes/footer.html' %}

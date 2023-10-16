@@ -1,0 +1,65 @@
+{% include 'includes/headerCli.html' %}
+
+    <!-- Tabs new event -->
+    <div class="container my-5 card">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active text-dark" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Inicio</button>
+
+                <button class="nav-link text-dark" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Tipo de evento</button>
+
+                <button class="nav-link text-dark" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Cantidad de personas</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active p-3 text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <h2>¡Hola!, bienvenido a <b>EventPro</b></h2>
+                <p>A continuación puede realizar su cotización paso a paso.</p>
+                <div class="w-100 d-flex">
+                    <button class="return btn btn-dark mx-auto">Volver</button>
+                    <button class="btn btn-warning mx-auto" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Siguiente </button>
+                </div>
+            </div>
+
+            <div class="tab-pane fade p-3 text-center" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+                <h2>Seleccione el tipo de evento.</h2>
+                <p>Pase por encima sobre un evento para conocer más.</p>
+
+                    <div class="row">
+                        {% for event in events %}
+
+                            <div class="col-3 mb-3">
+                                <div class="card card-events" >
+                                    <div class="card-events-front">
+                                        <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
+                                    </div>
+                                    <div class="card-events-back">
+                                        <div class="card-body">{{ event.descriptionTypeEvent }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}                        
+                    </div>
+
+                <div class="w-100 d-flex mt-5">
+                    <button class="return btn btn-dark mx-auto">Volver</button>
+                    <button class="btn btn-warning mx-auto" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Siguiente </button>
+                </div>
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
+                <h2>Hola esto es una prueba</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam necessitatibus magni ab, ratione molestiae perferendis nam possimus inventore suscipit illum nisi consequatur ipsam velit natus mollitia perspiciatis cumque! Aliquid eaque fugiat, illo expedita, exercitationem quisquam omnis fugit ipsum repellendus voluptatem nulla dignissimos voluptate. Perferendis fugit cupiditate soluta reprehenderit exercitationem pariatur.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% include 'includes/footerCli.html' %}

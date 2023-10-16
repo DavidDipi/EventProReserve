@@ -190,7 +190,7 @@ body{
     left: 60px;
 }
 
-.content nav{
+.content .navi{
     height: 56px;
     background: var(--light);
     padding: 0 24px 0 0;

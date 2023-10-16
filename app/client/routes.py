@@ -7,3 +7,14 @@ import os
 def client_home():
     pagina_actual = request.path
     return render_template('home-client.html', pagina_actual = pagina_actual)
+
+@client_blueprint.route('/my-events')
+def my_events():
+    pagina_actual = request.path
+    return render_template('/pages/my-events.html', pagina_actual = pagina_actual)
+
+@client_blueprint.route('/new-event')
+def new_events():
+    pagina_actual = request.path
+    events = app.models.TypeEvents.query.all()
+    return render_template('/pages/new-event.html', pagina_actual = pagina_actual, events = events)

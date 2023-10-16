@@ -19,6 +19,33 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
     window.addEventListener("scroll", mostrarElementos);
+
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const textInputs = document.getElementsByClassName('input-text');
+
+    emailInput.addEventListener('input', handleInput);
+    passwordInput.addEventListener('input', handleInput);
+    // Agregar el evento a todos los elementos con la clase 'input-text'
+    for (let i = 0; i < textInputs.length; i++) {
+        textInputs[i].addEventListener('input', handleInput);
+    }
+
+    console.log(emailInput);
+    console.log(passwordInput);
+
+    function handleInput() {
+        const value = this.value.trim();
+        if (value !== '') {
+          this.classList.add('has-value');
+        } else {
+          this.classList.remove('has-value');
+        }
+    }
+
+
+  
+
 /*
     // Cambiar color de la barra de navegación
     var nav = document.querySelector(".navbar");

@@ -1,3 +1,100 @@
+:root {
+  --light: #f6f6f9;
+  --primary: #efb810;
+  --light-primary: #CFE8FF;
+  --grey: #eee;
+  --dark-grey: #AAAAAA;
+  --dark: rgb(33,37,41);
+  --danger: #D32F2F;
+  --light-danger: #FECDD3;
+  --warning: #aa9a66;
+  --light-warning: #FFF2C6;
+  --success: #388E3C;
+  --light-success: #BBF7D0;
+}
+
+.form-login{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  background-color: var(--primary);
+  bottom: 0;
+}
+
+.form-login .logo-login{
+  margin: 3%;
+}
+
+.form-login .logo-login img{
+  width: 20%;
+  height: 100%;
+}
+
+.form-login a{
+  padding: 2%;
+  text-decoration: none;
+  color: var(--warning);
+  margin-bottom: 5%;
+}
+
+.form-login .links a:hover {
+  border-bottom: 2px solid var(--warning);
+}
+
+.form-login .links a.active {
+  border-bottom: 2px solid var(--warning);
+}
+
+.card-login{
+  width: 40%;
+  padding: 2% 5%;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.form-control {
+  margin-top: 3%;
+  border-radius: 0%;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--warning); /* Color de la línea inferior */
+  padding: 5px;
+  font-size: 16px;
+  background-color: transparent;
+  color: white;
+}
+.form-control:focus{ background-color: transparent; border-bottom: 3px solid var(--primary); color: white;}
+
+.form-control:focus + label,
+.form-control.has-value + label {
+  font-size: 10px;
+  top: -20px;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label { /* Agrega esta línea para mantener el label oculto */
+  color: var(--warning);
+}
+
+.form-control + label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  display: block;
+  margin-bottom: 5px;
+  color: #999999;
+}
+
+/*
+
 .form-register{
     top: 50%;
   
@@ -68,4 +165,4 @@
     color: #ddd;
     font-size: 18px;
     border-radius: 20px;
-  }
+  }*/

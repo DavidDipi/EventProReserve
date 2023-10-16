@@ -58,3 +58,17 @@ toggler.addEventListener('change', function () {
 
     }
 });
+
+// Selecciona todos los botones con la clase flip-button
+const flipButtons = document.querySelectorAll('.flip-button');
+
+// Recorre cada botón
+flipButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        // Encuentra la tarjeta asociada a este botón
+        const card = button.closest('.card-events');
+
+        // Alterna la clase 'flipped' en la tarjeta
+        card.classList.toggle('flipped');
+    });
+});

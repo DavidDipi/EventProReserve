@@ -5,8 +5,12 @@ import os
 
 @admin_blueprint.route('/')
 def admin_home():
+    from app.models import Cliente
     pagina_actual = request.path
-    return render_template('home.html', pagina_actual = pagina_actual)
+    total_clients = Cliente.query.count()
+    return render_template('home.html', 
+                           pagina_actual = pagina_actual,
+                           total_clients = total_clients)
 
 @admin_blueprint.route('/static/css/<path:filename>')
 def serve_css(filename):

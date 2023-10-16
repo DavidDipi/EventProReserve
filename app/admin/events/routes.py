@@ -34,3 +34,27 @@ def new_Event():
         return redirect(url_for("events.listar_events")) 
     
     return render_template("/pages/newEvent.html", form=form)
+
+@events.route("/edit_event/<id>", methods=["GET", "POST"])
+def edit_event(id):
+    if request.method == "POST":
+        p = app.models.TypeEvents()
+        event = p.query.get(id)
+        event.nameTypeEvent = request.form["nameTypeEvent"]
+        event.descriptionTypeEvent = request.form["descriptionTypeEvent"]
+        
+        app.db.session.commit()
+        
+        return redirect(url_for("events.listar_events"))
+    p = app.models.TypeEvents()
+    event = p.query.get(id)
+    return render_template("/pages/editEvent.html", event = event)
+
+@events.route("/delete_event/<id>", methods=["POST"])
+def delete_event(id):
+    p = app.models.TypeEvents()
+    event_to_delete = p.query.get(id)  # Load the event from the database
+    if event_to_delete:
+        app.db.session.delete(event_to_delete)
+        app.db.session.commit()
+    return redirect(url_for("events.listar_events"))

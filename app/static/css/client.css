@@ -1,3 +1,158 @@
+:root{
+    --light: #f6f6f9;
+    --primary: #ffc107;
+    --light-primary: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #363949;
+    --danger: #D32F2F;
+	--light-danger: #FECDD3;
+    --warning: #FBC02D;
+    --light-warning: #FFF2C6;
+    --success: #388E3C;
+    --light-success: #BBF7D0;
+    --fondo: #f6f6f9;
+}
+body{
+    background-color: var(--fondo);
+}
+.text-mirvaj{
+    color: var(--primary);
+}
+
+.text-mirvaj:hover{
+    color: var(--light-warning);
+}
+
+.brand{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.nav-link.show{
+    color: var(--primary) !important;
+}
+/* DASHBOARD CLIENTE */
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 3%;
+    color: var(--primary);
+    background: black;
+    width: 230px;
+    height: 100%;
+    z-index: 100;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar{
+    display: none;
+}
+
+.sidebar.close{
+    width: 60px;
+}
+
+
+
+.sidebar .logo .logo-name span{
+    color: var(--dark);
+}
+
+.sidebar .logo .bx{
+    min-width: 60px;
+    display: flex;
+    justify-content: center;
+    font-size: 2.2rem;
+}
+
+.sidebar .side-menu{
+    width: 100%;
+    margin-top: 48px;
+}
+
+.sidebar .side-menu li{
+    height: 48px;
+    margin-left: 1%;
+    border-radius: 48px 0 0 48px;
+    padding: 4px;
+    list-style: none;
+}
+
+.sidebar .side-menu li.active{
+    background: var(--grey);
+    position: relative;
+}
+
+.sidebar .side-menu li.active::before{
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: -40px;
+    right: 0;
+    box-shadow: 20px 20px 0 var(--grey);
+    z-index: -1;
+}
+
+.sidebar .side-menu li.active::after{
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    bottom: -40px;
+    right: 0;
+    box-shadow: 20px -20px 0 var(--grey);
+    z-index: -1;
+}
+
+.sidebar .side-menu li a{
+    width: 100%;
+    height: 100%;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.sidebar .side-menu li.active a{
+    color: var(--primary);
+}
+
+.sidebar.close .side-menu li a{
+    width: calc(48px - (4px * 2));
+    transition: all 0.3s ease;
+}
+
+.sidebar .side-menu li a .bx{
+    min-width: calc(60px - ((4px + 6px) * 2));
+    display: flex;
+    font-size: 1.6rem;
+    justify-content: center;
+}
+
+.sidebar .side-menu li a.logout{
+    color: var(--danger);
+}
+
+.content{
+    margin-top: 10%;
+    position: relative;
+    width: calc(100% - 230px);
+    left: 230px;
+    transition: all 0.3s ease;
+}
+
 /*.card-events {
     position: relative;
     width: 100%;

@@ -15,7 +15,22 @@ class User(db.Model):
     emailUser = db.Column(db.String(30))
     passwordUser = db.Column(db.String(255))
     rol = db.Column(db.Integer, db.ForeignKey('rol.idRol'))
+    active = db.Column(db.Boolean, default=True)
     
+    @property
+    def is_active(self):
+        return self.active
+
+    def get_id(self):
+        return self.idUser
+
+    @property
+    def is_authenticated(self):
+        return True  # Puedes personalizar esto según tus necesidades
+
+    @property
+    def is_anonymous(self):
+        return False  # Puedes personalizar esto según tus necesidades    
 
 class Rol(db.Model):
     __tablename__ = 'rol'

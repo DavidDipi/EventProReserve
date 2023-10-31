@@ -22,6 +22,7 @@ CREATE TABLE userstbl (
   `emailUser` varchar(60) NOT NULL,
   `passwordUser` varchar(255) NOT NULL, -- Cambiar tamaño para almacenar contraseñas cifradas
   rol INT,
+  `active` boolean not null DEFAULT 1,
   FOREIGN KEY (rol) REFERENCES rol(idRol),
   PRIMARY KEY (`idUser`)
 );

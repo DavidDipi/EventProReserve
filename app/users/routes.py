@@ -2,36 +2,47 @@ from flask import render_template, request, flash, redirect, url_for, jsonify
 from . import users_blueprint  # Importa el blueprint localmente
 import app  # Importa los modelos necesarios
 import bcrypt
+from flask_login import login_user, login_required, logout_user, current_user, LoginManager
+
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
 def login():
-    from app import session
     if request.method == 'POST':
         _email = request.form['email']
-        _pasword = request.form['password']
+        _password = request.form['password']
         
         # Encuentra el usuario en la base de datos por su correo electrónico
-        usuario = app.models.User.query.filter_by(emailUser=_email).first()
+        user = app.models.User.query.filter_by(emailUser=_email).first()
         
-        if usuario:
-            # Verificar contraseña almacenada
-            if bcrypt.checkpw(_pasword.encode('utf-8'), usuario.passwordUser.encode('utf-8')):
-                session['user_id'] = usuario.idUser
-                flash('Inicio exitoso', 'success')
-                
-                # Verificar rol
-                if usuario.rol == 1:
-                    return redirect(url_for('admin.admin_home'))
-                elif usuario.rol == 2:
-                    return redirect(url_for('client.client_home'))
-                else:
-                    return 'Ocurrio un problema'
-            else:
-                flash('Contraseña incorrecta', 'error')
+        if user and bcrypt.checkpw(_password.encode('utf-8'), user.passwordUser.encode('utf-8')):
+            login_user(user)  # Iniciar sesión al usuario
+            flash('Inicio exitoso', 'success')
+            
+            # Redirigir a la página de inicio del usuario o a donde sea necesario
+            return redirect(url_for('client.client_home'))
         else:
-            flash('Usuario no encontrado', 'error')
-        
+            flash('Credenciales incorrectas', 'error')
+    
     return render_template("/ini/pages/login.html")
+
+@users_blueprint.route('/dashboard')
+@login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
+def dashboard():
+    # Aquí puedes acceder al usuario autenticado a través de current_user
+    user_id = current_user.id
+    # Ahora puedes usar user_id para buscar en la tabla de Cliente u otras acciones relacionadas con el usuario
+    return render_template("dashboard.html")
+
+@users_blueprint.route('/logout')
+@login_required  # Asegura que el usuario esté autenticado para cerrar sesión
+def logout():
+    logout_user()  # Cerrar sesión al usuario
+    flash('Sesión cerrada', 'info')
+    return redirect(url_for('users.login'))
+
+
+
+
 
 
 @users_blueprint.route("/register", methods=["GET", "POST"])

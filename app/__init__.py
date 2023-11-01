@@ -18,6 +18,11 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
+# Registra el context processor
+from .context_processors import inject_client_name
+app.context_processor(inject_client_name)
+
+# Obtener ID de usuario
 @login_manager.user_loader
 def load_user(user_id):
     from app.models import User  # Importa tu modelo de usuario

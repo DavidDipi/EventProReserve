@@ -76,9 +76,9 @@ body{
 
 .sidebar .side-menu li{
     height: 48px;
-    margin-left: 1%;
+    margin-left: 0%;
     border-radius: 48px 0 0 48px;
-    padding: 4px;
+    padding: 0px;
     list-style: none;
 }
 
@@ -151,6 +151,19 @@ body{
     width: calc(100% - 300px);
     left: 300px;
     transition: all 0.3s ease;
+}
+
+.sidebar.hidden{
+    width: 100px;
+    content: "";
+}
+
+ol, ul{
+    padding-left: 1.5rem  ;
+}
+
+.sidebar.hidden .text-hidden{
+    display:none;
 }
 
 /*.card-events {

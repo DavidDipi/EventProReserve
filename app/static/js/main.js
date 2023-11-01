@@ -73,4 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
         nav.classList.add("bg-warning");
         nav.classList.remove("bg-transparent", "fixed-top");
     }*/
+
+    
 });

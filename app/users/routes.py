@@ -3,6 +3,8 @@ from . import users_blueprint  # Importa el blueprint localmente
 import app  # Importa los modelos necesarios
 import bcrypt
 from flask_login import login_user, login_required, logout_user, current_user, LoginManager
+# from app.context_processors import inject_client_name
+
 
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
@@ -15,13 +17,26 @@ def login():
         user = app.models.User.query.filter_by(emailUser=_email).first()
         
         if user and bcrypt.checkpw(_password.encode('utf-8'), user.passwordUser.encode('utf-8')):
+            
+            
             login_user(user)  # Iniciar sesión al usuario
             flash('Inicio exitoso', 'success')
             
+            # Redirigir a la página de inicio del usuario según su rol
+            if user.rol == 1:
+                return redirect(url_for('admin.admin_home'))
+            elif user.rol == 2:
+                return redirect(url_for('client.client_home'))
+            # Añade más condiciones para otros roles si es necesario
+            
+            flash('Rol de usuario no válido', 'error')
+            
             # Redirigir a la página de inicio del usuario o a donde sea necesario
-            return redirect(url_for('client.client_home'))
+            return render_template("/ini/pages/login.html")
         else:
             flash('Credenciales incorrectas', 'error')
+            
+            
     
     return render_template("/ini/pages/login.html")
 

@@ -146,10 +146,10 @@ body{
 }
 
 .content{
-    margin-top: 10%;
+    margin-top: 6%;
     position: relative;
-    width: calc(100% - 230px);
-    left: 230px;
+    width: calc(100% - 300px);
+    left: 300px;
     transition: all 0.3s ease;
 }
 

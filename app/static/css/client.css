@@ -20,6 +20,10 @@ body{
     color: var(--primary);
 }
 
+.text-mirvaj span{
+    font-size: 1rem ;
+}
+
 .text-mirvaj:hover{
     color: var(--light-warning);
 }
@@ -166,6 +170,13 @@ ol, ul{
     display:none;
     transition: all 0.3s ease;
 }
+
+.content.expand{
+    width: calc(100% - 150px);
+    left: 150px;
+}
+
+
 
 /*.card-events {
     position: relative;

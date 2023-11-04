@@ -16,37 +16,31 @@
             <div class="tab-pane fade show active p-3 text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h2>¡Hola!, bienvenido a <b>EventPro</b></h2>
                 <p>A continuación puede realizar su cotización paso a paso.</p>
-                <div class="w-100 d-flex">
-                    <button class="return btn btn-dark mx-auto">Volver</button>
-                    <button class="btn btn-warning mx-auto" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Siguiente </button>
+                <div class="w-100 d-flex" role="tablist">
                 </div>
             </div>
 
             <div class="tab-pane fade p-3 text-center" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
                 <h2>Seleccione el tipo de evento.</h2>
-                <p>Pase por encima sobre un evento para conocer más.</p>
+                <p>Pase por encima sobre un evento para conocer más información.</p>
 
-                    <div class="row">
-                        {% for event in events %}
+                <div class="row">
+                    {% for event in events %}
 
-                            <div class="col-3 mb-3">
-                                <div class="card card-events" >
-                                    <div class="card-events-front">
-                                        <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
-                                    </div>
-                                    <div class="card-events-back">
-                                        <div class="card-body">{{ event.descriptionTypeEvent }}</div>
-                                    </div>
+                        <div class="col-3 mb-3">
+                            <div class="card card-events" >
+                                <div class="card-events-front">
+                                    <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
+                                </div>
+                                <div class="card-events-back">
+                                    <div class="card-body">{{ event.descriptionTypeEvent }}</div>
                                 </div>
                             </div>
+                        </div>
 
-                        {% endfor %}                        
-                    </div>
-
-                <div class="w-100 d-flex mt-5">
-                    <button class="return btn btn-dark mx-auto">Volver</button>
-                    <button class="btn btn-warning mx-auto" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Siguiente </button>
+                    {% endfor %}                        
                 </div>
+
             </div>
 
             <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">

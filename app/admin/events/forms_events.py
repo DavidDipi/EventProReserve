@@ -7,4 +7,4 @@ class RegistrarTipoEvento(FlaskForm):
     nameTypeEvent = StringField("Nombre del evento: ",validators=[InputRequired(message="Nombre del evento requerido"),
         Length(max=30, message="Nombre del evento debe tener menos de 30 caracteres")])
     descriptionTypeEvent = StringField("Descripción del evento: ",validators=[InputRequired(message="Descripción del evento requerido"), Length(max=60, message="Nombre del evento debe tener menos de 60 caracteres")])      
-    submit = SubmitField("Guardar", render_kw={'class': 'btn-warning'})                                                   
+    submit = SubmitField("Guardar", render_kw={'class': 'btn-danger'})                                                   

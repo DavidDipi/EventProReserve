@@ -6,16 +6,11 @@ import os
 
 # Rutas del modulo "EVENTOS"
 
-@events.route("/")
+@events.route("/", methods=["GET", "POST"])
 def listar_events():
     pagina_actual = request.path
-    # Listar eventos
-    events = app.models.TypeEvents.query.all()
-    return render_template ("/pages/events.html", events = events, pagina_actual = pagina_actual)
-
-@events.route("/new_event", methods=["GET", "POST"])
-def new_Event():
-    # Definir el formulario
+    
+    # Agregar evento
     form = RegistrarTipoEvento()
     # Objeto vacío
     p = app.models.TypeEvents()
@@ -24,8 +19,6 @@ def new_Event():
         app.db.session.add(p)
         app.db.session.commit()
         
-        
-        
         response = {
             "status": "success",
             "message": "Evento registrado"
@@ -33,7 +26,10 @@ def new_Event():
 
         return redirect(url_for("events.listar_events")) 
     
-    return render_template("/pages/newEvent.html", form=form)
+    # Listar eventos
+    events = app.models.TypeEvents.query.all()
+    return render_template ("/pages/events.html", events = events, pagina_actual = pagina_actual, form = form)
+
 
 @events.route("/edit_event/<id>", methods=["GET", "POST"])
 def edit_event(id):

@@ -33,11 +33,19 @@ def client_home():
 
 @client_blueprint.route('/my-events')
 def my_events():
+    # Asegura que el usuario esté autenticado
+    if not current_user.is_authenticated:
+        flash('Debe iniciar sesión para acceder a esta página', 'warning')
+        return redirect(url_for('users.login'))
     pagina_actual = request.path
     return render_template('/pages/my-events.html', pagina_actual = pagina_actual)
 
 @client_blueprint.route('/new-event')
 def new_events():
+    # Asegura que el usuario esté autenticado
+    if not current_user.is_authenticated:
+        flash('Debe iniciar sesión para acceder a esta página', 'warning')
+        return redirect(url_for('users.login'))
     pagina_actual = request.path
     events = app.models.TypeEvents.query.all()
     return render_template('/pages/new-event.html', pagina_actual = pagina_actual, events = events)

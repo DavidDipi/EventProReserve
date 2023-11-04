@@ -8,8 +8,8 @@
                     <img src="/static/img/logo.png" alt="Logo mirvaj">
                 </div>
                 <div class="d-flex justify-content-center links w-100">
-                    <a href="/login" class="active me-auto ms-auto">Login</a>
-                    <a href="/register" class="ms-auto me-auto">Sign in</a>
+                    <a href="/login" class="active me-auto ms-auto">Iniciar Sesión</a>
+                    <a href="/register" class="ms-auto me-auto">Registrarme</a>
                 </div>
                 <form class="form" method="post" action="/login">
                     <div class="row">
@@ -39,13 +39,13 @@
 
 {% include 'ini/includes/footer.html' %}
 
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        {% for message in messages %}
+        {% for category, message in messages %}
             <script>
                 Swal.fire({
                     position: 'center',
-                    icon: 'error',
+                    icon: '{{category}}',
                     text: "{{message}}",
                     showConfirmButton: true,
                     timer: 5000

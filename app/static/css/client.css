@@ -164,6 +164,7 @@ ol, ul{
 
 .sidebar.hidden .text-hidden{
     display:none;
+    transition: all 0.3s ease;
 }
 
 /*.card-events {

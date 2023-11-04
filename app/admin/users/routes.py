@@ -7,28 +7,6 @@ import bcrypt
 
 # Rutas del modulo "USUARIOS"
 
-@users.route("/")
-def list_users():
-    pagina_actual = request.path
-    
-    # Obtener el número de página actual de la solicitud del usuario
-    pagina_actual = request.args.get('pag', type=int, default=1)
-    
-    # Listar usuarios
-    registros_por_pagina = 8
-    offset = (pagina_actual - 1) * registros_por_pagina
-    
-    users = app.models.User.query.offset(offset).limit(registros_por_pagina)
-    total_users = app.models.Cliente.query.count()
-    
-    cantidad_paginas = total_users // registros_por_pagina
-    if total_users % registros_por_pagina != 0:
-        cantidad_paginas += 1
-        
-    return render_template ("/pages/users.html", 
-                            users = users, 
-                            pagina_actual = pagina_actual,
-                            cantidad_paginas = cantidad_paginas)
 
 @users.route("/newadmin", methods = ["GET", "POST"])
 def new_admin():

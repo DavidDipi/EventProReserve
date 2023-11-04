@@ -9,6 +9,10 @@ from flask_login import login_user, login_required, logout_user, current_user, L
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    
+    if current_user.is_authenticated:
+        flash('No puedes acceder a está pagina', 'warning')
+        return redirect(url_for('client.client_home'))
     if request.method == 'POST':
         _email = request.form['email']
         _password = request.form['password']
@@ -40,6 +44,7 @@ def login():
     
     return render_template("/ini/pages/login.html")
 
+
 @users_blueprint.route('/dashboard')
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
 def dashboard():
@@ -47,6 +52,7 @@ def dashboard():
     user_id = current_user.id
     # Ahora puedes usar user_id para buscar en la tabla de Cliente u otras acciones relacionadas con el usuario
     return render_template("dashboard.html")
+
 
 @users_blueprint.route('/logout')
 @login_required  # Asegura que el usuario esté autenticado para cerrar sesión
@@ -56,14 +62,14 @@ def logout():
     return redirect(url_for('users.login'))
 
 
-
-
-
-
 @users_blueprint.route("/register", methods=["GET", "POST"])
 def new_User():
     from app.models import User, Cliente
     from app import db
+    
+    if current_user.is_authenticated:
+        flash('No puedes acceder a está pagina', 'warning')
+        return redirect(url_for('client.client_home'))
 
     if request.method == 'POST':
         _email = request.form['email']
@@ -102,7 +108,7 @@ def new_User():
                 db.session.add(cliente)
                 db.session.commit()
 
-                flash('Registro exitoso', 'info')
+                flash('Registro exitoso', 'success')
                 return redirect(url_for("users.login"))
             except Exception as e:
                 # Manejar cualquier excepción que pueda ocurrir durante la inserción

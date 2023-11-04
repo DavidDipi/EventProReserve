@@ -8,8 +8,8 @@
                     <img src="/static/img/logo.png" alt="Logo mirvaj">
                 </div>
                 <div class="d-flex justify-content-center links w-100">
-                    <a href="/login" class="me-auto ms-auto">Login</a>
-                    <a href="/register" class="active ms-auto me-auto">Sign in</a>
+                    <a href="/login" class="me-auto ms-auto">Iniciar Sesión</a>
+                    <a href="/register" class="active ms-auto me-auto">Registrarme</a>
                 </div>
                 <form class="form" method="post" action="/register">
                     <div class="row">
@@ -54,6 +54,7 @@
     {% if messages %}
         {% for category, message in messages %}
             <script>
+                alert("{{category}}")
                 Swal.fire({
                     position: 'center',
                     icon: '{{ category }}',

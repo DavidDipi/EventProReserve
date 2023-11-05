@@ -1,6 +1,24 @@
 CREATE DATABASE mirvaj;
 USE mirvaj;
 
+CREATE TABLE rol(
+	idRol INT NOT NULL PRIMARY KEY,
+  nameRol VARCHAR(15) NOT NULL
+);
+
+INSERT INTO rol VALUES (1, "Administrador");
+INSERT INTO rol VALUES (2, "Cliente");
+
+CREATE TABLE userstbl (
+  `idUser` int NOT NULL AUTO_INCREMENT,
+  `emailUser` varchar(60) NOT NULL,
+  `passwordUser` varchar(255) NOT NULL, -- Cambiar tamaño para almacenar contraseñas cifradas
+  rol INT,
+  `active` boolean not null DEFAULT 1,
+  FOREIGN KEY (rol) REFERENCES rol(idRol),
+  PRIMARY KEY (`idUser`)
+);
+
 CREATE TABLE clientsTbl(
 	idCliente INT AUTO_INCREMENT PRIMARY KEY,
   `fullnameClient` varchar(60) NOT NULL,
@@ -17,34 +35,54 @@ CREATE TABLE adminTbl(
   FOREIGN KEY (idUser) REFERENCES userstbl(idUser)
 );
 
-CREATE TABLE userstbl (
-  `idUser` int NOT NULL AUTO_INCREMENT,
-  `emailUser` varchar(60) NOT NULL,
-  `passwordUser` varchar(255) NOT NULL, -- Cambiar tamaño para almacenar contraseñas cifradas
-  rol INT,
-  `active` boolean not null DEFAULT 1,
-  FOREIGN KEY (rol) REFERENCES rol(idRol),
-  PRIMARY KEY (`idUser`)
-);
-
-CREATE TABLE rol(
-	idRol INT NOT NULL PRIMARY KEY,
-    nameRol VARCHAR(15) NOT NULL
-);
-
 CREATE TABLE `typeeventstbl` (
   `idTypeEvent` int NOT NULL AUTO_INCREMENT,
   `nameTypeEvent` varchar(30) NOT NULL,
   `descriptionTypeEvent` varchar(60) NOT NULL,
   PRIMARY KEY (`idTypeEvent`)
 );
-CREATE TABLE `decorationtbl` (
-  `idDecoration` int NOT NULL AUTO_INCREMENT,
-  `typeDecoration` varchar(50) DEFAULT NULL,
-  `precioDecoration` int DEFAULT NULL,
-  PRIMARY KEY (`idDecoration`)
+
+CREATE TABLE amountPeople(
+	idAmountPe INT AUTO_INCREMENT PRIMARY KEY,
+    AmountPe INT NOT NULL,
+    costAmountPe INT NOT NULL
+);
+CREATE TABLE additionalMob(
+	idAdMob INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nameAdMob VARCHAR(25) NOT NULL,
+    costAdMob INT NOT NULL
+);
+CREATE TABLE additionalDec(
+	idAdDec INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nameAdDec VARCHAR(25) NOT NULL,
+    costAdDec INT NOT NULL
+);
+CREATE TABLE additionalAli(
+	idAdAli INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nameAdAli VARCHAR(25) NOT NULL,
+    costAdAli INT NOT NULL
+);
+CREATE TABLE othersServ(
+	idOtServ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nameOtServ VARCHAR(25) NOT NULL,
+    costOtServ INT NOT NULL
+);
+CREATE TABLE eventsTbl(
+	idEvent INT AUTO_INCREMENT PRIMARY KEY,
+    idClient INT NOT NULL,
+    idTypeEvent INT NOT NULL,
+    idAmountPe INT NOT NULL,
+    idAdMob INT NOT NULL,
+    idAdDec INT NOT NULL,
+    idAdAli INT NOT NULL,
+    idOtServ INT NOT NULL,
+    FOREIGN KEY (idClient) REFERENCES clientsTbl(idCliente),
+    FOREIGN KEY (idTypeEvent) REFERENCES typeeventstbl(idTypeEvent),
+    FOREIGN KEY (idAmountPe) REFERENCES amountPeople(idAmountPe),
+    FOREIGN KEY (idAdMob) REFERENCES additionalMob(idAdMob),
+    FOREIGN KEY (idAdDec) REFERENCES additionalDec(idAdDec),
+    FOREIGN KEY (idAdAli) REFERENCES additionalAli(idAdAli),
+    FOREIGN KEY (idOtServ) REFERENCES othersServ(idOtServ)
 );
 
 SELECT * FROM userstbl;
-INSERT INTO rol VALUES (1, "Administrador");
-INSERT INTO rol VALUES (2, "Cliente");

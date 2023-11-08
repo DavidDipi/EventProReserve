@@ -50,3 +50,55 @@ class Admin(db.Model):
     fullnameAdmin = db.Column(db.String(60))
     phoneAdmin = db.Column(db.String(11))
     idUser = db.Column(db.Integer, db.ForeignKey('userstbl.idUser'))
+    
+class AmountPeople(db.Model):
+    __tablename__ = 'amountPeople'
+    idAmountPe = db.Column(db.Integer, primary_key=True)
+    AmountPe = db.Column(db.Integer, nullable=False)
+    costAmountPe = db.Column(db.Integer, nullable=False)
+
+class AdditionalMob(db.Model):
+    __tablename__ = 'additionalMob'
+    idAdMob = db.Column(db.Integer, primary_key=True)
+    nameAdMob = db.Column(db.String(25), nullable=False)
+    costAdMob = db.Column(db.Integer, nullable=False)
+
+class AdditionalDec(db.Model):
+    __tablename__ = 'additionalDec'
+    idAdDec = db.Column(db.Integer, primary_key=True)
+    nameAdDec = db.Column(db.String(25), nullable=False)
+    costAdDec = db.Column(db.Integer, nullable=False)
+
+class AdditionalAli(db.Model):
+    __tablename__ = 'additionalAli'
+    idAdAli = db.Column(db.Integer, primary_key=True)
+    nameAdAli = db.Column(db.String(25), nullable=False)
+    costAdAli = db.Column(db.Integer, nullable=False)
+
+class OthersServ(db.Model):
+    __tablename__ = 'othersServ'
+    idOtServ = db.Column(db.Integer, primary_key=True)
+    nameOtServ = db.Column(db.String(25), nullable=False)
+    costOtServ = db.Column(db.Integer, nullable=False)
+
+"""
+class EventsTbl(db.Model):
+    __tablename__ = 'eventsTbl'
+    idEvent = db.Column(db.Integer, primary_key=True)
+    idClient = db.Column(db.Integer, nullable=False)
+    idTypeEvent = db.Column(db.Integer, nullable=False)
+    idAmountPe = db.Column(db.Integer, nullable=False)
+    idAdMob = db.Column(db.Integer, nullable=False)
+    idAdDec = db.Column(db.Integer, nullable=False)
+    idAdAli = db.Column(db.Integer, nullable=False)
+    idOtServ = db.Column(db.Integer, nullable=False)
+
+    client = db.relationship('Cliente', foreign_keys=[idClient])
+    type_event = db.relationship('TypeEvents', foreign_keys=[idTypeEvent])
+    amount_people = db.relationship('AmountPeople', foreign_keys=[idAmountPe])
+    additional_mob = db.relationship('AdditionalMob', foreign_keys=[idAdMob])
+    additional_dec = db.relationship('AdditionalDec', foreign_keys=[idAdDec])
+    additional_ali = db.relationship('AdditionalAli', foreign_keys=[idAdAli])
+    others_serv = db.relationship('OthersServ', foreign_keys=[idOtServ])
+
+"""

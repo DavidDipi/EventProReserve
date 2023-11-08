@@ -3,14 +3,14 @@
 {% block content %}
 
     <!-- Tabs new event -->
-    <div class="container my-5 card">
+    <div class="container my-5 card me-5">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active text-dark" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Tipo de evento</button>
 
-                <button class="nav-link text-dark" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Cantidad de personas</button>
+                <button class="nav-link text-dark" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Cantidad de personas</button>
 
-                <button class="nav-link text-dark" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Mobiliario adicional</button>
+                <button class="nav-link text-dark" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-admob" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Mobiliario adicional</button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -112,7 +112,7 @@
 
             <!-- CANTIDAD DE PERSONAS -->
 
-            <div class="tab-pane fade p-3" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+            <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
 
                 <!--Modal to add a cantPersons-->
                 <!-- Button trigger modal -->
@@ -217,9 +217,127 @@
 
             </div>
 
-            <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
-                <h2>Hola esto es una prueba</h2>
+            <!-- MOBILIARIO ADICIONAL -->
+
+            <div class="tab-pane fade p-3" id="nav-admob" role="tabpanel" aria-labelledby="nav-cant-tab">
+
+                <!--Modal to add a adMobiliario-->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addAdMob">
+                    Agregar mobiliario adicional
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="addAdMob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar mobiliario adicional</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3 form w-100" method="post" action="/admin/events/c_ad_mob">
+
+                                <div class="col-md-12">
+                                  <label for="nameMob" class="form-label">Nombre del mobiliario</label>
+                                  <input type="text" class="form-control" id="nameMob" name="nameMob" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="costMob" class="form-label">Costo del mobiliario</label>
+                                    <input type="number" class="form-control" id="costMob" name="costMob" >
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select" aria-label="Default select" name="state">
+                                        {% for act in active %}
+                                            <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                        
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-warning ms-1">Enviar</button>
+                                </div>
+                            </form>
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!--End modal to add a new event-->
+        
+                <table class="table table-bordered border-black text-center" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cantidad</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th colspan="2" scope="colgroup">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for adMob in adMobs %}
+                        <tr>
+                            <td scope="row">{{ adMob.idAdMob }}</td>
+                            <td>{{ adMob.nameAdMob }}</td>
+                            <td>{{ adMob.costAdMob }}</td>
+                            {% for act in active %}
+                                {% if adMob.idAct == act.idAct %}
+                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            <td>
+
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCantPers{{ adMob.idAdMob }}">
+                                    EDITAR
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="editCantPers{{ adMob.idAdMob }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" class="form_edit_cPer">
+                                                <div class="row g-3 justify-content-center">
+                                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="editCantPers"> 
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "AmountPe" placeholder="Escriba la nueva cantidad de personas" value = "{{ adMob.nameAdMob }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "costAmountPe" placeholder="Escriba el nuevo costo" value = "{{ adMob.costAdMob }}" />
+                                                    </div>
+                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!--End modal to add a new event-->
+                            </td>
+                            <td>
+                                <form method="POST" class="confirmar_cPer" >  
+                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="deleteRecord">              
+                                    <button type="submit" class="btn btn-danger">
+                                        BORRAR
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
+
         </div>
     </div>
     

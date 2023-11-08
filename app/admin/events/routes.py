@@ -32,7 +32,18 @@ def listar_events():
     events = app.models.TypeEvents.query.all()
     # Listar cantidad de personas
     amountPers = app.models.AmountPeople.query.all()
-    return render_template ("/pages/events.html", events = events, pagina_actual = pagina_actual, form = form, amountPers = amountPers)
+    # Listar mobiliario adicional
+    adMobs = app.models.AdditionalMob.query.all()
+    # Listar active
+    active = app.models.Est_Active.query.all()
+    return render_template ("/pages/events.html", 
+                            events = events, 
+                            pagina_actual = 
+                            pagina_actual, 
+                            form = form, 
+                            amountPers = amountPers,
+                            adMobs = adMobs,
+                            active = active)
 
 
 # Editar tipos de eventos
@@ -128,4 +139,40 @@ def d_cant_pers(id):
     if d_cant_pers:
         app.db.session.delete(d_cant_pers)
         app.db.session.commit()
+    return redirect(url_for("events.listar_events"))
+
+
+
+# CREAR REGISTRO MOBILIARIO ADICIONAL
+@events.route("/c_ad_mob", methods=["POST"])
+def agg_ad_mob():
+    from app.models import AdditionalMob
+    from app import db
+    
+    if request.method == 'POST':
+    
+        _nameAdMob = request.form['nameMob']
+    
+        # Verificar que no existe el mismo mobiliario
+        existing_adMob = AdditionalMob.query.filter_by( nameAdMob = _nameAdMob ).first()
+    
+        
+        if existing_adMob:
+            flash('Esta mobiliario ya esta registrado', 'error')
+        else:   
+            _costAdMob = request.form['costMob']
+            _estAct = request.form['state']
+                        
+            try:
+                p = AdditionalMob( nameAdMob = _nameAdMob, costAdMob = _costAdMob, idAct = _estAct )
+                
+                db.session.add(p)
+                db.session.commit()
+
+                flash('Registro exitoso', 'success')
+                
+                return redirect(url_for("events.listar_events"))
+            except Exception as e:
+                # Manejar cualquier excepción que pueda ocurrir durante la inserción
+                flash(f'Error: {str(e)}', 'danger')
     return redirect(url_for("events.listar_events"))

@@ -1,6 +1,11 @@
 from app import db
 from datetime import datetime
 
+class Est_Active(db.Model):
+    __tablename__ = 'est_active'
+    idAct = db.Column(db.Integer, primary_key=True)
+    estAct = db.Column(db.String(10), nullable=False)
+
 ## Modelos
 class TypeEvents(db.Model):
     __tablename__ = 'typeeventstbl'
@@ -62,6 +67,7 @@ class AdditionalMob(db.Model):
     idAdMob = db.Column(db.Integer, primary_key=True)
     nameAdMob = db.Column(db.String(25), nullable=False)
     costAdMob = db.Column(db.Integer, nullable=False)
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
 
 class AdditionalDec(db.Model):
     __tablename__ = 'additionalDec'
@@ -80,6 +86,8 @@ class OthersServ(db.Model):
     idOtServ = db.Column(db.Integer, primary_key=True)
     nameOtServ = db.Column(db.String(25), nullable=False)
     costOtServ = db.Column(db.Integer, nullable=False)
+    
+
 
 """
 class EventsTbl(db.Model):

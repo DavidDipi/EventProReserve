@@ -61,6 +61,7 @@ class AmountPeople(db.Model):
     idAmountPe = db.Column(db.Integer, primary_key=True)
     AmountPe = db.Column(db.Integer, nullable=False)
     costAmountPe = db.Column(db.Integer, nullable=False)
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
 
 class AdditionalMob(db.Model):
     __tablename__ = 'additionalMob'

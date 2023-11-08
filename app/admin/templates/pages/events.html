@@ -139,6 +139,13 @@
                                     <label for="costPersons" class="form-label">Costo</label>
                                     <input type="number" class="form-control" id="costPersons" name="costPersons" >
                                 </div>
+                                <div class="mb-3">
+                                    <select class="form-select" aria-label="Default select" name="state">
+                                        {% for act in active %}
+                                            <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                                         
                                 <div class="col-12 d-flex justify-content-end">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -158,6 +165,7 @@
                             <th>ID</th>
                             <th>Cantidad</th>
                             <th>Costo</th>
+                            <th>Estado</th>
                             <th colspan="2" scope="colgroup">Acción</th>
                         </tr>
                     </thead>
@@ -167,6 +175,11 @@
                             <td scope="row">{{ amountPer.idAmountPe }}</td>
                             <td>{{ amountPer.AmountPe }}</td>
                             <td>{{ amountPer.costAmountPe }}</td>
+                            {% for act in active %}
+                                {% if amountPer.idAct == act.idAct %}
+                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
+                                {% endif %}
+                            {% endfor %}
                             <td>
 
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCantPers{{ amountPer.idAmountPe }}">
@@ -191,6 +204,13 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <input type="text" class="form-control"  name= "costAmountPe" placeholder="Escriba el nuevo costo" value = "{{ amountPer.costAmountPe }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select" name="state">
+                                                            {% for act in active %}
+                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                                            {% endfor %}
+                                                        </select>
                                                     </div>
                                                     <button class="w-50 btn btn-outline-success">Guardar</button>
                                                 </div>
@@ -290,13 +310,13 @@
 
                             <td>
 
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCantPers{{ adMob.idAdMob }}">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob{{ adMob.idAdMob }}">
                                     EDITAR
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 
                                 <!-- Modal -->
-                                <div class="modal fade" id="editCantPers{{ adMob.idAdMob }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="editAdMob{{ adMob.idAdMob }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -304,14 +324,21 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="post" class="form_edit_cPer">
+                                            <form method="post" class="form_edit_adMob">
                                                 <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="editCantPers"> 
+                                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="editAdMob"> 
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "AmountPe" placeholder="Escriba la nueva cantidad de personas" value = "{{ adMob.nameAdMob }}" />
+                                                        <input type="text" class="form-control"  name= "nameAdMob" placeholder="Escriba la nueva cantidad de personas" value = "{{ adMob.nameAdMob }}" />
                                                     </div>
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costAmountPe" placeholder="Escriba el nuevo costo" value = "{{ adMob.costAdMob }}" />
+                                                        <input type="text" class="form-control"  name= "costAdMob" placeholder="Escriba el nuevo costo" value = "{{ adMob.costAdMob }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select" name="state">
+                                                            {% for act in active %}
+                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                                            {% endfor %}
+                                                        </select>
                                                     </div>
                                                     <button class="w-50 btn btn-outline-success">Guardar</button>
                                                 </div>
@@ -320,10 +347,10 @@
                                     </div>
                                     </div>
                                 </div>
-                                <!--End modal to add a new event-->
+                                <!--End modal-->
                             </td>
                             <td>
-                                <form method="POST" class="confirmar_cPer" >  
+                                <form method="POST" class="confirmar_adMob" >  
                                     <input type="hidden" value="{{ adMob.idAdMob }}" name="deleteRecord">              
                                     <button type="submit" class="btn btn-danger">
                                         BORRAR

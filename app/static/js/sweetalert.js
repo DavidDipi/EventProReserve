@@ -1,3 +1,5 @@
+/* ----------------- TIPO DE EVENTO -------------- */
+
 // EDITAR TIPO DE EVENTO
 $(".form_edit_tEvent").submit(function(e) {
     e.preventDefault();
@@ -82,6 +84,8 @@ $(".confirmar_tEvent").submit(function(e) {
   })
 });
 
+/* ----------------- CANTIDAD DE PERSONAS -------------- */
+
 // EDITAR CANTIDAD DE PERSONAS
 $(".form_edit_cPer").submit(function(e) {
   e.preventDefault();
@@ -144,6 +148,87 @@ $(".confirmar_cPer").submit(function(e) {
   }).then((result) => {
       if (result.isConfirmed) {
           form.action = 'd_cant_pers/' + cantPersId;
+    
+          // Muestra la alerta de éxito
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El registro se ha borrado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+    
+          // Envía el formulario con la nueva URL después de un breve retraso
+          setTimeout(function() {
+            form.submit();
+          }, 1500);
+      }
+  })
+});
+
+/* ----------------- MOBILIARIO ADICIONAL -------------- */
+// EDITAR CANTIDAD DE PERSONAS
+$(".form_edit_adMob").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdMob = $(form).find('input[name="editAdMob"]').val(); // Obtén el valor del campo oculto
+  const nameAdMob = $(form).find('input[name="nameAdMob"]').val();
+  const costAdMob = $(form).find('input[name="costAdMob"]').val();
+
+  if (nameAdMob == '' || costAdMob == ''){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Campos no validos!',
+    });
+  }else{
+    Swal.fire({
+        title: '¿Está seguro de editar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, editar!',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.action = 'e_ad_mob/' + idAdMob;
+      
+            // Muestra la alerta de éxito
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'El registro se ha editado con éxito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+      
+            // Envía el formulario con la nueva URL después de un breve retraso
+            setTimeout(function() {
+              form.submit();
+            }, 1500);
+        }
+    })
+  }
+});
+
+// ELIMINAR CANTIDAD DE PERSONAS
+$(".confirmar_adMob").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdMob = $(form).find('input[name="deleteRecord"]').val(); // Obtén el valor del campo oculto
+
+  Swal.fire({
+      title: '¿Está seguro de eliminar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          form.action = 'd_ad_mob/' + idAdMob;
     
           // Muestra la alerta de éxito
           Swal.fire({

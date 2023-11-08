@@ -93,11 +93,12 @@ def agg_cant_pers():
             flash('Esta cantidad de personas ya esta registrada', 'error')
         else:   
             _cost_pers = request.form['costPersons']
+            _estAct = request.form['state']
             
             cantPers = app.models.User()
             
             try:
-                cantPers = AmountPeople( AmountPe = _AmountPe, costAmountPe = _cost_pers )
+                cantPers = AmountPeople( AmountPe = _AmountPe, costAmountPe = _cost_pers, idAct = _estAct )
                 
                 db.session.add(cantPers)
                 db.session.commit()
@@ -117,6 +118,7 @@ def e_cant_pers(id):
     
     AmountPe = request.form["AmountPe"]
     costAmountPe = request.form["costAmountPe"]
+    active = request.form['state']
     
     if AmountPe == '' or costAmountPe == '':
         flash('Registro no valido', 'error')
@@ -124,8 +126,9 @@ def e_cant_pers(id):
     else:
         p = app.models.AmountPeople()
         cantPers = p.query.get(id)
-        cantPers.AmountPe = request.form["AmountPe"]
-        cantPers.costAmountPe = request.form["costAmountPe"]
+        cantPers.AmountPe = AmountPe
+        cantPers.costAmountPe = costAmountPe
+        cantPers.idAct = active
         
         app.db.session.commit()
         
@@ -140,7 +143,6 @@ def d_cant_pers(id):
         app.db.session.delete(d_cant_pers)
         app.db.session.commit()
     return redirect(url_for("events.listar_events"))
-
 
 
 # CREAR REGISTRO MOBILIARIO ADICIONAL
@@ -175,4 +177,41 @@ def agg_ad_mob():
             except Exception as e:
                 # Manejar cualquier excepción que pueda ocurrir durante la inserción
                 flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for("events.listar_events"))
+
+
+# EDITAR REGISTRO MOBILIARIO ADICIONAL
+@events.route("/e_ad_mob/<id>", methods=["POST"])
+def e_ad_mob(id):
+    
+    nameAdMob = request.form["nameAdMob"]
+    costAdMob = request.form["costAdMob"]
+    active = request.form['state']
+    
+    if nameAdMob == '' or costAdMob == '':
+        flash('Registro no valido', 'error')
+        return redirect(url_for("events.listar_events"))
+    else:
+        p = app.models.AdditionalMob()
+        adMob = p.query.get(id)
+        adMob.nameAdMob = nameAdMob
+        adMob.costAdMob = costAdMob
+        adMob.idAct = active
+        
+        app.db.session.commit()
+        
+        return redirect(url_for("events.listar_events"))
+    
+    
+# BORRAR REGISTRO MOBILIARIO ADICIONAL
+@events.route("/d_ad_mob/<id>", methods=["POST"])
+def d_ad_mob(id):
+    p = app.models.AdditionalMob()
+    d_ad_mob = p.query.get(id)
+    if d_ad_mob:
+        app.db.session.delete(d_ad_mob)
+        app.db.session.commit()
+    else:
+        flash('No se ha encontrado el registro a eliminar', 'error')
+        
     return redirect(url_for("events.listar_events"))

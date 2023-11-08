@@ -52,7 +52,9 @@ CREATE TABLE `typeeventstbl` (
 CREATE TABLE amountPeople(
 	idAmountPe INT AUTO_INCREMENT PRIMARY KEY,
     AmountPe INT NOT NULL,
-    costAmountPe INT NOT NULL
+    costAmountPe INT NOT NULL,
+    idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
 CREATE TABLE additionalMob(
 	idAdMob INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

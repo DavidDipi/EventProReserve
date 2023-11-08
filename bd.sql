@@ -9,6 +9,13 @@ CREATE TABLE rol(
 INSERT INTO rol VALUES (1, "Administrador");
 INSERT INTO rol VALUES (2, "Cliente");
 
+CREATE TABLE EST_ACTIVE(
+	idAct INT AUTO_INCREMENT PRIMARY KEY,
+    estAct VARCHAR(10) NOT NULL
+);
+
+INSERT INTO EST_ACTIVE(estAct) VALUES('INACTIVO'); -- Cambiar entre activo o inactivo
+
 CREATE TABLE userstbl (
   `idUser` int NOT NULL AUTO_INCREMENT,
   `emailUser` varchar(60) NOT NULL,
@@ -50,22 +57,31 @@ CREATE TABLE amountPeople(
 CREATE TABLE additionalMob(
 	idAdMob INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nameAdMob VARCHAR(25) NOT NULL,
-    costAdMob INT NOT NULL
+    costAdMob INT NOT NULL,
+    idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
+
 CREATE TABLE additionalDec(
 	idAdDec INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nameAdDec VARCHAR(25) NOT NULL,
-    costAdDec INT NOT NULL
+    costAdDec INT NOT NULL,
+	idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
 CREATE TABLE additionalAli(
 	idAdAli INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nameAdAli VARCHAR(25) NOT NULL,
-    costAdAli INT NOT NULL
+    costAdAli INT NOT NULL,
+	idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
 CREATE TABLE othersServ(
 	idOtServ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nameOtServ VARCHAR(25) NOT NULL,
-    costOtServ INT NOT NULL
+    costOtServ INT NOT NULL,
+	idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
 CREATE TABLE eventsTbl(
 	idEvent INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,6 +92,8 @@ CREATE TABLE eventsTbl(
     idAdDec INT NOT NULL,
     idAdAli INT NOT NULL,
     idOtServ INT NOT NULL,
+	idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct),
     FOREIGN KEY (idClient) REFERENCES clientsTbl(idCliente),
     FOREIGN KEY (idTypeEvent) REFERENCES typeeventstbl(idTypeEvent),
     FOREIGN KEY (idAmountPe) REFERENCES amountPeople(idAmountPe),

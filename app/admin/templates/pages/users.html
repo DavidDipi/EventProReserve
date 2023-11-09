@@ -1,8 +1,9 @@
 {% extends "includes/header.html" %}
 {% block content %}
 
+    <div class="container my-5 card ms-5">
         
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerAdmin" style="margin: 10px;">Agregar administrador</button>
+        <button type="button" class="btn btn-warning w-25 m-3" data-bs-toggle="modal" data-bs-target="#registerAdmin" style="margin: 10px;">Agregar administrador</button>
 
         <!-- Modal Registrar Administrador-->
         <div class="modal fade" id="registerAdmin" tabindex="-1" aria-labelledby="registerAdminLabel" aria-hidden="true">
@@ -95,6 +96,8 @@
                 </ul>
             </nav>
         </div>
+
+    </div>
 
 
 {% endblock %}

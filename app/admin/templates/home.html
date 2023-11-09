@@ -1,109 +1,26 @@
 {% extends "includes/header.html" %}
 {% block content %}
 
-
-<main>
-    <div class="header">
-        <div class="left">
-            <h1>Inicio</h1>
-        </div>
-        <!--
-        <a href="#" class="report">
-            <i class='bx bx-cloud-download'></i>
-            <span>Download CSV</span>
-        </a>-->
+    <div class="container">
+        <ul class="d-flex gap-3 row w-100">
+            <li class="card p-4 col-3 bg-mirvaj " style="max-width: 20%;">
+                <h2>{{ total_clients }}</h2>
+                <h3>Clientes</h3>
+            </li>
+            <li class="card p-4 col-3 bg-info-subtle" style="max-width: 20%;">
+                <h2>{{ total_clients }}</h2>
+                <h3>Eventos por realizar</h3>
+            </li>
+            <li class="card p-4 col-3 bg-danger" style="max-width: 20%;">
+                <h2>{{ total_clients }}</h2>
+                <h3>Eventos realizados</h3>
+            </li>
+            <li class="card p-4 col-3 bg-danger-subtle" style="max-width: 20%;">
+                <h2>{{ total_clients }}</h2>
+                <h3>Eventos totales</h3>
+            </li>
+        </ul>
     </div>
 
-    <!-- Insights -->
-    <ul class="insights">
-        <li>
-            <i class='bx bx-calendar-check'></i>
-            <span class="info">
-                <h3>
-                    -
-                </h3>
-                <p>Ordenes</p>
-            </span>
-        </li>
-        <li><i class='bx bx-show-alt'></i>
-            <span class="info">
-                <h3>
-                    {{ total_clients }}
-                </h3>
-                <p>Clientes</p>
-            </span>
-        </li>
-        <li><i class='bx bx-line-chart'></i>
-            <span class="info">
-                <h3>
-                    -
-                </h3>
-                <p>Busquedas</p>
-            </span>
-        </li>
-        <li><i class='bx bx-dollar-circle'></i>
-            <span class="info">
-                <h3>
-                    -
-                </h3>
-                <p>Ventas totales</p>
-            </span>
-        </li>
-    </ul>
-    <!-- End of Insights -->
-
-    <div class="bottom-data">
-        <div class="orders">
-            <div class="header">
-                <i class='bx bx-receipt'></i>
-                <h3>Eventos</h3>
-                <i class='bx bx-filter'></i>
-                <i class='bx bx-search'></i>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="images/profile-1.jpg">
-                            <p>Juan Peréz</p>
-                        </td>
-                        <td>14-08-2023</td>
-                        <td><span class="status completed">Completed</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Reminders -->
-        <div class="reminders">
-            <div class="header">
-                <i class='bx bx-note'></i>
-                <h3>Remiders</h3>
-                <i class='bx bx-filter'></i>
-                <i class='bx bx-plus'></i>
-            </div>
-            <ul class="task-list">
-                <li class="completed">
-                    <div class="task-title">
-                        <i class='bx bx-check-circle'></i>
-                        <p>Start Our Meeting</p>
-                    </div>
-                    <i class='bx bx-dots-vertical-rounded'></i>
-                </li>
-            </ul>
-        </div>
-
-        <!-- End of Reminders-->
-
-    </div>
-
-</main>
 
 {% endblock %}

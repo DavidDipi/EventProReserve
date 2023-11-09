@@ -1,18 +1,29 @@
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from . import users_blueprint  # Importa el blueprint localmente
+from functools import wraps
 import app  # Importa los modelos necesarios
 import bcrypt
 from flask_login import login_user, login_required, logout_user, current_user, LoginManager
 # from app.context_processors import inject_client_name
 
 
+def redirect_if_authenticated(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.is_authenticated:
+            if current_user.rol == 1:
+                return redirect(url_for('admin.admin_home'))
+            elif current_user.rol == 2:
+                return redirect(url_for('client.client_home'))
+            # Añade más condiciones para otros roles si es necesario
+        return func(*args, **kwargs)
+    return decorated_function
+
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
+@redirect_if_authenticated
 def login():
     
-    if current_user.is_authenticated:
-        flash('No puedes acceder a está pagina', 'warning')
-        return redirect(url_for('client.client_home'))
     if request.method == 'POST':
         _email = request.form['email']
         _password = request.form['password']
@@ -45,15 +56,6 @@ def login():
     return render_template("/ini/pages/login.html")
 
 
-@users_blueprint.route('/dashboard')
-@login_required  # Asegura que el usuario esté autenticado para acceder a esta vista
-def dashboard():
-    # Aquí puedes acceder al usuario autenticado a través de current_user
-    user_id = current_user.id
-    # Ahora puedes usar user_id para buscar en la tabla de Cliente u otras acciones relacionadas con el usuario
-    return render_template("dashboard.html")
-
-
 @users_blueprint.route('/logout')
 @login_required  # Asegura que el usuario esté autenticado para cerrar sesión
 def logout():
@@ -63,13 +65,11 @@ def logout():
 
 
 @users_blueprint.route("/register", methods=["GET", "POST"])
+@redirect_if_authenticated
 def new_User():
     from app.models import User, Cliente
     from app import db
-    
-    if current_user.is_authenticated:
-        flash('No puedes acceder a está pagina', 'warning')
-        return redirect(url_for('client.client_home'))
+
 
     if request.method == 'POST':
         _email = request.form['email']

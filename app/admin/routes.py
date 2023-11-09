@@ -1,5 +1,6 @@
 from flask import render_template, request, send_from_directory, flash, redirect, url_for
 from . import admin_blueprint
+from flask_login import current_user
 import app
 import os
 import bcrypt
@@ -7,6 +8,11 @@ import bcrypt
 # PAGINA DE INICIO
 @admin_blueprint.route('/')
 def admin_home():
+    if not current_user.is_authenticated or current_user.rol == 2:
+        flash('Debe iniciar sesión para acceder a esta página', 'warning')
+        return redirect(url_for('users.login'))
+    
+    
     from app.models import Cliente
     pagina_actual = request.path
     total_clients = Cliente.query.count()
@@ -18,6 +24,10 @@ def admin_home():
 # LISTA DE USUARIOS   
 @admin_blueprint.route('/users')
 def admin_users():
+    
+    if not current_user.is_authenticated or current_user.rol == 2:
+        flash('Debe iniciar sesión para acceder a esta página', 'warning')
+        return redirect(url_for('users.login'))
     
     ### LISTAR USUARIOS ###
     
@@ -49,6 +59,11 @@ def admin_users():
 def new_admin():
     from app.models import User, Admin
     from app import db
+    
+    if not current_user.is_authenticated or current_user.rol == 2:
+        flash('Debe iniciar sesión para acceder a esta página', 'warning')
+        return redirect(url_for('users.login'))
+    
     if request.method == 'POST':
         _email = request.form['email']
         

@@ -30,9 +30,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-mirvaj" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {% if current_user.is_authenticated %}
-                        <b>Bienvenido, </b> {{ nombre_cliente }}
+                        <b>Bienvenido, </b> {{ nombre_admin }}
                       {% endif %}
-
                       <i class="fa-solid fa-circle-user"></i>
                   
                     </a>
@@ -63,12 +62,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              ¡Hola {{ nombre_cliente }}! 
+              ¡Hola {{ nombre_admin }}! 
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Nombre: {{ nombre_cliente }}</p>
+            <p>Nombre: {{ nombre_admin }}</p>
 
             
 

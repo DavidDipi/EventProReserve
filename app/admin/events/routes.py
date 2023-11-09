@@ -1,5 +1,7 @@
 from flask import render_template, request, jsonify, url_for, redirect, flash
 from . import events
+from flask_login import current_user
+from functools import wraps
 import app
 from .forms_events import RegistrarTipoEvento
 import os
@@ -8,7 +10,18 @@ import os
 
 # Listar y agregar tipos de eventos
 
+# Decorador personalizado para verificar la autorización
+def admin_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.rol != 1:
+            flash('Debe iniciar sesión como administrador para acceder a esta página', 'warning')
+            return redirect(url_for('users.login'))
+        return func(*args, **kwargs)
+    return decorated_function
+
 @events.route("/", methods=["GET", "POST"])
+@admin_required
 def listar_events():
     pagina_actual = request.path
     
@@ -48,6 +61,7 @@ def listar_events():
 
 # Editar tipos de eventos
 @events.route("/edit_event/<id>", methods=["GET", "POST"])
+@admin_required
 def edit_event(id):
     if request.method == "POST":
         p = app.models.TypeEvents()
@@ -65,6 +79,7 @@ def edit_event(id):
 
 # Borrar tipos de eventos
 @events.route("/delete_event/<id>", methods=["POST"])
+@admin_required
 def delete_event(id):
     p = app.models.TypeEvents()
     event_to_delete = p.query.get(id)  # Load the event from the database
@@ -76,6 +91,7 @@ def delete_event(id):
 
 # CREAR REGISTRO CANTIDAD DE PERSONAS
 @events.route("/c_cant_pers", methods=["POST"])
+@admin_required
 def agg_cant_pers():
     from app.models import AmountPeople
     from app import db
@@ -114,6 +130,7 @@ def agg_cant_pers():
 
 # EDITAR REGISTRO CANTIDAD DE PERSONAS
 @events.route("/e_cant_pers/<id>", methods=["POST"])
+@admin_required
 def e_cant_pers(id):
     
     AmountPe = request.form["AmountPe"]
@@ -136,6 +153,7 @@ def e_cant_pers(id):
 
 # BORRAR REGISTRO CANTIDAD DE PERSONAS
 @events.route("/d_cant_pers/<id>", methods=["POST"])
+@admin_required
 def d_cant_pers(id):
     p = app.models.AmountPeople()
     d_cant_pers = p.query.get(id)  # Load the event from the database
@@ -147,6 +165,7 @@ def d_cant_pers(id):
 
 # CREAR REGISTRO MOBILIARIO ADICIONAL
 @events.route("/c_ad_mob", methods=["POST"])
+@admin_required
 def agg_ad_mob():
     from app.models import AdditionalMob
     from app import db
@@ -182,6 +201,7 @@ def agg_ad_mob():
 
 # EDITAR REGISTRO MOBILIARIO ADICIONAL
 @events.route("/e_ad_mob/<id>", methods=["POST"])
+@admin_required
 def e_ad_mob(id):
     
     nameAdMob = request.form["nameAdMob"]
@@ -205,6 +225,7 @@ def e_ad_mob(id):
     
 # BORRAR REGISTRO MOBILIARIO ADICIONAL
 @events.route("/d_ad_mob/<id>", methods=["POST"])
+@admin_required
 def d_ad_mob(id):
     p = app.models.AdditionalMob()
     d_ad_mob = p.query.get(id)

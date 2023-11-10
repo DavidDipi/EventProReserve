@@ -167,7 +167,7 @@ $(".confirmar_cPer").submit(function(e) {
 });
 
 /* ----------------- MOBILIARIO ADICIONAL -------------- */
-// EDITAR CANTIDAD DE PERSONAS
+// EDITAR MOBILIARIO ADICIONAL
 $(".form_edit_adMob").submit(function(e) {
   e.preventDefault();
   const form = this;
@@ -212,7 +212,7 @@ $(".form_edit_adMob").submit(function(e) {
   }
 });
 
-// ELIMINAR CANTIDAD DE PERSONAS
+// ELIMINAR MOBILIARIO ADICIONAL
 $(".confirmar_adMob").submit(function(e) {
   e.preventDefault();
   const form = this;
@@ -229,6 +229,89 @@ $(".confirmar_adMob").submit(function(e) {
   }).then((result) => {
       if (result.isConfirmed) {
           form.action = 'd_ad_mob/' + idAdMob;
+    
+          // Muestra la alerta de éxito
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El registro se ha borrado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+    
+          // Envía el formulario con la nueva URL después de un breve retraso
+          setTimeout(function() {
+            form.submit();
+          }, 1500);
+      }
+  })
+});
+
+/* ----------------- MOBILIARIO ADICIONAL -------------- */
+// EDITAR DECORACION ADICIONAL
+$(".form_edit_adDec").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdDec = $(form).find('input[name="editAdDec"]').val(); // Obtén el valor del campo oculto
+  const nameAdDec = $(form).find('input[name="nameAdDec"]').val();
+  const costAdDec = $(form).find('input[name="costAdDec"]').val();
+
+  if (nameAdDec == '' || costAdDec == ''){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Campos no validos!',
+    });
+  }else{
+    Swal.fire({
+        title: '¿Está seguro de editar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, editar!',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.action = 'e_ad_dec/' + idAdDec;
+      
+            // Muestra la alerta de éxito
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'El registro se ha editado con éxito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+      
+            // Envía el formulario con la nueva URL después de un breve retraso
+            setTimeout(function() {
+              form.submit();
+            }, 1500);
+        }
+    })
+  }
+});
+
+// ELIMINAR DECORACION ADICIONAL
+$(".confirmar_adDec").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdDec = $(form).find('input[name="deleteRecord"]').val(); // Obtén el valor del campo oculto
+
+  console.log(idAdDec)
+
+  Swal.fire({
+      title: '¿Está seguro de eliminar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          form.action = 'd_ad_dec/' + idAdDec;
     
           // Muestra la alerta de éxito
           Swal.fire({

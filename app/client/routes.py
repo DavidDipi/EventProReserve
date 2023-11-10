@@ -49,4 +49,5 @@ def new_events():
 
     pagina_actual = request.path
     events = app.models.TypeEvents.query.all()
-    return render_template('/pages/new-event.html', pagina_actual = pagina_actual, events = events)
+    cantPers = app.models.AmountPeople.query.all()
+    return render_template('/pages/new-event.html', pagina_actual = pagina_actual, events = events, cantPers = cantPers)

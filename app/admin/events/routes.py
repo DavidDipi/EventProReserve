@@ -49,6 +49,8 @@ def listar_events():
     adMobs = app.models.AdditionalMob.query.all()
     # Listar active
     active = app.models.Est_Active.query.all()
+    # Listar decoracion adicional
+    adDecs = app.models.AdditionalDec.query.all()
     return render_template ("/pages/events.html", 
                             events = events, 
                             pagina_actual = 
@@ -56,7 +58,8 @@ def listar_events():
                             form = form, 
                             amountPers = amountPers,
                             adMobs = adMobs,
-                            active = active)
+                            active = active,
+                            adDecs = adDecs)
 
 
 # Editar tipos de eventos
@@ -236,3 +239,63 @@ def d_ad_mob(id):
         flash('No se ha encontrado el registro a eliminar', 'error')
         
     return redirect(url_for("events.listar_events"))
+
+
+# CREAR REGISTRO DE DECORACION ADICIONAL
+@events.route("/c_ad_dec", methods=["POST"])
+@admin_required
+def agg_ad_dec():
+    from app.models import AdditionalDec
+    from app import db
+    
+    if request.method == 'POST':
+    
+        _nameAdDec = request.form['nameDec']
+    
+        # Verificar que no existe el mismo decoracion
+        existing_adDec = AdditionalDec.query.filter_by( nameAdDec = _nameAdDec ).first()
+    
+        
+        if existing_adDec:
+            flash('Esta decoracion ya esta registrado', 'error')
+        else:   
+            _costAdDec = request.form['costDec']
+            _estAct = request.form['state']
+                        
+            try:
+                p = AdditionalDec( nameAdDec = _nameAdDec, costAdDec = _costAdDec, idAct = _estAct )
+                
+                db.session.add(p)
+                db.session.commit()
+
+                flash('Registro exitoso', 'success')
+                
+                return redirect(url_for("events.listar_events"))
+            except Exception as e:
+                # Manejar cualquier excepción que pueda ocurrir durante la inserción
+                flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for("events.listar_events"))
+
+
+# EDITAR REGISTRO DE DECORACION ADICIONAL
+@events.route("/e_ad_dec/<id>", methods=["POST"])
+@admin_required
+def e_ad_dec(id):
+    
+    nameAdDec = request.form["nameAdDec"]
+    costAdDec = request.form["costAdDec"]
+    active = request.form['state']
+    
+    if nameAdDec == '' or costAdDec == '':
+        flash('Registro no valido', 'error')
+        return redirect(url_for("events.listar_events"))
+    else:
+        p = app.models.AdditionalDec()
+        adMob = p.query.get(id)
+        adMob.nameAdDec = nameAdDec
+        adMob.costAdDec = costAdDec
+        adMob.idAct = active
+        
+        app.db.session.commit()
+        
+        return redirect(url_for("events.listar_events"))

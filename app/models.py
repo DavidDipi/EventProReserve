@@ -75,6 +75,8 @@ class AdditionalDec(db.Model):
     idAdDec = db.Column(db.Integer, primary_key=True)
     nameAdDec = db.Column(db.String(25), nullable=False)
     costAdDec = db.Column(db.Integer, nullable=False)
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
+
 
 class AdditionalAli(db.Model):
     __tablename__ = 'additionalAli'

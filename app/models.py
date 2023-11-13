@@ -83,12 +83,14 @@ class AdditionalAli(db.Model):
     idAdAli = db.Column(db.Integer, primary_key=True)
     nameAdAli = db.Column(db.String(25), nullable=False)
     costAdAli = db.Column(db.Integer, nullable=False)
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
 
 class OthersServ(db.Model):
     __tablename__ = 'othersServ'
     idOtServ = db.Column(db.Integer, primary_key=True)
     nameOtServ = db.Column(db.String(25), nullable=False)
     costOtServ = db.Column(db.Integer, nullable=False)
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
     
 
 

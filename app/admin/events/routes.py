@@ -20,6 +20,7 @@ def admin_required(func):
         return func(*args, **kwargs)
     return decorated_function
 
+
 @events.route("/", methods=["GET", "POST"])
 @admin_required
 def listar_events():
@@ -51,6 +52,8 @@ def listar_events():
     active = app.models.Est_Active.query.all()
     # Listar decoracion adicional
     adDecs = app.models.AdditionalDec.query.all()
+    # Listar alimentos adicionales
+    adAlis = app.models.AdditionalAli.query.all()
     return render_template ("/pages/events.html", 
                             events = events, 
                             pagina_actual = 
@@ -59,7 +62,8 @@ def listar_events():
                             amountPers = amountPers,
                             adMobs = adMobs,
                             active = active,
-                            adDecs = adDecs)
+                            adDecs = adDecs,
+                            adAlis = adAlis)
 
 
 # Editar tipos de eventos
@@ -299,3 +303,94 @@ def e_ad_dec(id):
         app.db.session.commit()
         
         return redirect(url_for("events.listar_events"))
+
+
+# BORRAR REGISTRO DECORACION ADICIONAL
+@events.route("/d_ad_dec/<id>", methods=["POST"])
+@admin_required
+def d_ad_dec(id):
+    p = app.models.AdditionalDec()
+    d_ad_dec = p.query.get(id)
+    if d_ad_dec:
+        app.db.session.delete(d_ad_dec)
+        app.db.session.commit()
+    else:
+        flash('No se ha encontrado el registro a eliminar', 'error')
+        
+    return redirect(url_for("events.listar_events"))
+
+
+# CREAR REGISTRO DE ALIMENTO ADICIONAL
+@events.route("/c_ad_ali", methods=["POST"])
+@admin_required
+def agg_ad_ali():
+    from app.models import AdditionalAli
+    from app import db
+    
+    if request.method == 'POST':
+    
+        _name = request.form['nameAli']
+        existing = AdditionalAli.query.filter_by( nameAdAli = _name ).first()
+        
+        
+        if existing:
+            flash('Esta decoracion ya esta registrado', 'error')
+        else:   
+            _cost = request.form['costAli']
+            _est = request.form['state']
+                        
+            try:
+                p = AdditionalAli( nameAdAli = _name, costAdAli = _cost, idAct = _est )
+                
+                print(p)
+                
+                db.session.add(p)
+                db.session.commit()
+
+                flash('Registro exitoso', 'success')
+                
+                return redirect(url_for("events.listar_events"))
+            except Exception as e:
+                # Manejar cualquier excepción que pueda ocurrir durante la inserción
+                flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for("events.listar_events"))
+
+
+# EDITAR REGISTRO DE ALIMENTO ADICIONAL
+@events.route("/e_ad_ali/<id>", methods=["POST"])
+@admin_required
+def e_ad_ali(id):
+    
+    _name = request.form["nameAdAli"]
+    _cost = request.form["costAdAli"]
+    active = request.form['state']
+    
+    if _name == '' or _cost == '':
+        flash('Registro no valido', 'error')
+        return redirect(url_for("events.listar_events"))
+    else:
+        p = app.models.AdditionalAli()
+        adAli = p.query.get(id)
+        adAli.nameAdAli = _name
+        adAli.costAdAli = _cost
+        adAli.idAct = active
+        
+        app.db.session.commit()
+        
+        return redirect(url_for("events.listar_events"))
+    
+
+# BORRAR REGISTRO ALIMENTO ADICIONAL
+@events.route("/d_ad_ali/<id>", methods=["POST"])
+@admin_required
+def d_ad_ali(id):
+    p = app.models.AdditionalAli()
+    d_ad_ali = p.query.get(id)
+    if d_ad_ali:
+        app.db.session.delete(d_ad_ali)
+        app.db.session.commit()
+    else:
+        flash('No se ha encontrado el registro a eliminar', 'error')
+        
+    return redirect(url_for("events.listar_events"))
+

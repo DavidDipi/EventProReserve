@@ -14,6 +14,10 @@
 
                 <button class="nav-link text-dark" id="nav-dec-tab" data-bs-toggle="tab" data-bs-target="#nav-adDec" type="button" role="tab" aria-controls="nav-addec" aria-selected="false">Decoración adicional</button>
 
+                <button class="nav-link text-dark" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
+
+                <button class="nav-link text-dark" id="nav--tab" data-bs-toggle="tab" data-bs-target="#nav-ad" type="button" role="tab" aria-controls="nav-ad" aria-selected="false">Otros servicios</button>
+
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -489,6 +493,131 @@
                     </tbody>
                 </table>
             </div>
+
+
+
+            <!-- ALIMENTOS ADICIONAL -->
+            <div class="tab-pane fade p-3" id="nav-adAli" role="tabpanel" aria-labelledby="nav-ali-tab">
+                <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addAdAli">
+                    Agregar alimentos adicionales
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="addAdAli" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar alimentos adicionales</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="row g-3 form w-100" method="post" action="/admin/events/c_ad_ali">
+
+                                    <div class="col-md-12">
+                                    <label for="nameAli" class="form-label">Nombre del alimento</label>
+                                    <input type="text" class="form-control" id="nameAli" name="nameAli">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="costAli" class="form-label">Costo del alimento</label>
+                                        <input type="number" class="form-control" id="costAli" name="costAli">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select" name="state">
+                                            {% for act in active %}
+                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                            
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-warning ms-1">Enviar</button>
+                                    </div>
+                                </form>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-black text-center" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cantidad</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th colspan="2" scope="colgroup">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for adAli in adAlis %}
+                        <tr>
+                            <td scope="row">{{ adAli.idAdAli }}</td>
+                            <td>{{ adAli.nameAdAli }}</td>
+                            <td>{{ adAli.costAdAli }}</td>
+                            {% for act in active %}
+                                {% if adAli.idAct == act.idAct %}
+                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            <td>
+
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdAli{{ adAli.idAdAli }}">
+                                    EDITAR
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="editAdAli{{ adAli.idAdAli }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" class="form_edit_adAli">
+                                                <div class="row g-3 justify-content-center">
+                                                    <input type="hidden" value="{{ adAli.idAdAli }}" name="editAdAli"> 
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "nameAdAli" placeholder="Escriba la nueva cantidad de personas" value = "{{ adAli.nameAdAli }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "costAdAli" placeholder="Escriba el nuevo costo" value = "{{ adAli.costAdAli }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select" name="state">
+                                                            {% for act in active %}
+                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!--End modal-->
+                            </td>
+                            <td>
+                                <form method="POST" class="confirmar_adAli" >  
+                                    <input type="hidden" value="{{ adAli.idAdAli }}" name="deleteRecord">              
+                                    <button type="submit" class="btn btn-danger">
+                                        BORRAR
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
 
 
         </div>

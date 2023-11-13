@@ -152,8 +152,8 @@ body{
 .content{
     margin-top: 6%;
     position: relative;
-    width: calc(100% - 300px);
-    left: 300px;
+    width: calc(100% - 230px);
+    left: 0px;
     transition: all 0.3s ease;
 }
 
@@ -172,8 +172,8 @@ ol, ul{
 }
 
 .content.expand{
-    width: calc(100% - 150px);
-    left: 150px;
+    width: calc(100% - 350px);
+    left: 0px;
 }
 
 .active-event{

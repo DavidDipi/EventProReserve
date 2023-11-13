@@ -247,7 +247,7 @@ $(".confirmar_adMob").submit(function(e) {
   })
 });
 
-/* ----------------- MOBILIARIO ADICIONAL -------------- */
+/* ----------------- DECORACION ADICIONAL -------------- */
 // EDITAR DECORACION ADICIONAL
 $(".form_edit_adDec").submit(function(e) {
   e.preventDefault();
@@ -312,6 +312,88 @@ $(".confirmar_adDec").submit(function(e) {
   }).then((result) => {
       if (result.isConfirmed) {
           form.action = 'd_ad_dec/' + idAdDec;
+    
+          // Muestra la alerta de éxito
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El registro se ha borrado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+    
+          // Envía el formulario con la nueva URL después de un breve retraso
+          setTimeout(function() {
+            form.submit();
+          }, 1500);
+      }
+  })
+});
+
+
+/* ----------------- ALIMENTO ADICIONAL -------------- */
+// EDITAR ALIMENTO ADICIONAL
+$(".form_edit_adAli").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdAli = $(form).find('input[name="editAdAli"]').val(); // Obtén el valor del campo oculto
+  const nameAdAli = $(form).find('input[name="nameAdAli"]').val();
+  const costAdAli = $(form).find('input[name="costAdAli"]').val();
+
+  if (nameAdAli == '' || costAdAli == ''){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Campos no validos!',
+    });
+  }else{
+    Swal.fire({
+        title: '¿Está seguro de editar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, editar!',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.action = 'e_ad_ali/' + idAdAli;
+      
+            // Muestra la alerta de éxito
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'El registro se ha editado con éxito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+      
+            // Envía el formulario con la nueva URL después de un breve retraso
+            setTimeout(function() {
+              form.submit();
+            }, 1500);
+        }
+    })
+  }
+});
+
+// ELIMINAR ALIMENTO ADICIONAL
+$(".confirmar_adAli").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idAdAli = $(form).find('input[name="deleteRecord"]').val(); // Obtén el valor del campo oculto
+
+  Swal.fire({
+      title: '¿Está seguro de eliminar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          form.action = 'd_ad_ali/' + idAdAli;
     
           // Muestra la alerta de éxito
           Swal.fire({

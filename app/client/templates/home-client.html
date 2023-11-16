@@ -20,6 +20,9 @@
                 <button class="nav-link text-dark" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
 
                 <button class="nav-link text-dark" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
+
+                <button class="nav-link text-dark" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
+
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -30,6 +33,7 @@
                 </div>
             </div>
 
+            <!-- TIPO DE EVENTO -->
             <div class="tab-pane fade p-3 text-center" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
                 <h2>Seleccione el tipo de evento.</h2>
                 <p>Pase por encima sobre un evento para conocer más información.</p>
@@ -37,22 +41,25 @@
                 <div class="row">
                     {% for event in events %}
 
-                        <div class="col-3 mb-3">
-                            <div class="card card-events typeEvent" id="cardTypeEvent{{event.idTypeEvent}}">
-                                <div class="card-events-front">
-                                    <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
-                                </div>
-                                <div class="card-events-back">
-                                    <div class="card-body">{{ event.descriptionTypeEvent }}</div>
+                        {% if event.idAct == 1 %}
+                            <div class="col-3 mb-3">
+                                <div class="card card-events typeEvent" id="cardTypeEvent{{event.idTypeEvent}}">
+                                    <div class="card-events-front">
+                                        <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
+                                    </div>
+                                    <div class="card-events-back">
+                                        <div class="card-body">{{ event.descriptionTypeEvent }}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
 
                     {% endfor %}                        
                 </div>
 
             </div>
 
+            <!-- CANTIDAD DE PERSONAS -->
             <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
                 <h2 class="text-center">Selecciona la cantidad de personas</h2>
                 {% for cantPer in cantPers %}
@@ -72,23 +79,141 @@
                 {% endfor %}  
             </div>
 
+            <!-- MOBILIARIO ADICIONAL -->
             <div class="tab-pane fade p-3" id="nav-adMob" role="tabpanel" aria-labelledby="nav-cant-tab">
                 <h2 class="text-center">Selecciona mobiliario adicional</h2>
-                {% for adMob in adMobs %}
+                <form id="mobiliarioForm" class="row">
+                    {% for adMob in adMobs %}
+                        {% if adMob.idAct == 1 %}
+                            <div class="col-3 mb-3">
+                                <div class="card adMob" id="cardadMob{{ adMob.idAdMob }}" style="min-height: 10rem; max-height: 10rem;">
+                                    <div class="">
+                                        <div class="card-body text-center">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <input type="checkbox" id="mobiliario{{ adMob.idAdMob }}" name="mobiliario[]" value="{{ adMob.idAdMob }}">
+                                                </div>
+                                                <div class="col-8 d-flex flex-column">
+                                                    <p class="m-0">{{ adMob.nameAdMob }}</p>
+                                                    <span class="text-success"><b>&#36;{{ adMob.costAdMob }}</b></span>
 
-                    {% if adMob.idAct == 1 %}
-
-                        <div class="col-3 mb-3">
-                            <div class="card adMob" id="cardadMob{{ adMob.idAdMob }}">
-                                <div class="">
-                                    <div class="card-body text-center">{{ adMob.nameAdMob }}</div>
+                                                    <label for="quantity{{ adMob.idAdMob }}" class="form-label">Cantidad:</label>
+                                                    <input class="form-control" type="number" id="quantity{{ adMob.idAdMob }}" name="cantidadAlimento[]" min="1" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" onclick="agregarMobiliario()" class="btn btn-outline-success">Agregar Mobiliario</button>
+                </form>
+            </div>
 
-                    {% endif %}                    
+            <!-- Decoración adicional -->
+            <div class="tab-pane fade p-3" id="nav-adDec" role="tabpanel" aria-labelledby="nav-dec-tab">
+                <h2 class="text-center">Selecciona decoración adicional</h2>
+                <form id="decoracionForm" class="row">
+                    {% for adDec in adDecs %}
+                        {% if adDec.idAct == 1 %}
+                            <div class="col-3 mb-3">
+                                <div class="card adDec" id="cardadDec{{ adDec.idAdDec }}" style="min-height: 10rem; max-height: 10rem;">
+                                    <div class="">
+                                        <div class="card-body text-center">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <input type="checkbox" id="decoracion{{ adDec.idAdDec }}" name="decoracion[]" value="{{ adDec.idAdDec }}">
+                                                </div>
+                                                <div class="col-8 d-flex flex-column">
+                                                    <p class="m-0">{{ adDec.nameAdDec }}</p>
+                                                    <span class="text-success"><b>&#36;{{ adDec.costAdDec }}</b></span>
 
-                {% endfor %}  
+                                                    
+                                                    <label for="quantity{{ adDec.idAdDec }}" class="form-label">Cantidad:</label>
+                                                    <input class="form-control" type="number" id="quantity{{ adDec.idAdDecb }}" name="cantidadAlimento[]" min="1" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" onclick="agregarDecoracion()" class="btn btn-outline-success">Agregar Decoración</button>
+                </form>
+            </div>
+
+            <!-- Alimentos adicionales -->
+            <div class="tab-pane fade p-3" id="nav-adAli" role="tabpanel" aria-labelledby="nav-ali-tab">
+                <h2 class="text-center">Selecciona alimentos adicionales</h2>
+                <form id="alimentosForm" class="row">
+                    {% for adAli in adAlis %}
+                        {% if adAli.idAct == 1 %}
+                            <div class="col-3 mb-3">
+                                <div class="card adAli" id="cardadAli{{ adAli.idAdAli }}" style="min-height: 10rem; max-height: 10rem;">
+                                    <div class="">
+                                        <div class="card-body text-center">
+                                            <div class="row">
+
+                                                <div class="col-2">
+                                                    <input type="checkbox" id="alimento{{ adAli.idAdAli }}" name="alimentos[]" value="{{ adAli.idAdAli }}">
+                                                </div>
+                                                <div class="col-8 d-flex flex-column">
+
+                                                    <p class="m-0">{{ adAli.nameAdAli }}</p>
+                                                    <span class="text-success"><b>&#36;{{ adAli.costAdAli }}</b></span>
+                                                    
+                                                    <label for="quantity{{ adAli.idAdAli }}" class="form-label">Cantidad:</label>
+                                                    <input class="form-control" type="number" id="quantity{{ adAli.idAdAli }}" name="cantidadAlimento[]" min="1" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" onclick="agregarAlimentos()" class="btn btn-outline-success">Agregar</button>
+                </form>
+            </div>
+
+            <!-- Otros servicios -->
+            <div class="tab-pane fade p-3" id="nav-ots" role="tabpanel" aria-labelledby="nav-ots-tab">
+                <h2 class="text-center">Selecciona otros servicios</h2>
+                <form id="serviciosForm" class="row">
+                    {% for ot in ots %}
+                        {% if ot.idAct == 1 %}
+                            <div class="col-3 mb-3">
+                                <div class="card ots" id="cardots{{ ot.idOtServ }}" style="min-height: 10rem; max-height: 10rem;">
+                                    <div class="">
+                                        <div class="card-body text-center">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <input type="checkbox" id="servicio{{ ot.idOtServ }}" name="servicios[]" value="{{ ot.idOtServ }}">
+                                                </div>
+                                                <div class="col-8 d-flex flex-column">
+                                                    <p class="m-0">{{ ot.nameOtServ }}</p>
+                                                    <span class="text-success"><b>&#36;{{ ot.costOtServ }}</b></span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" onclick="agregarServicios()" class="btn btn-outline-success">Agregar Servicios</button>
+                </form>
+            </div>
+
+            <div class="tab-pane fade p-3 text-center" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
+                <form action="">
+                    <div class="" id="resume">
+                        
+                    </div>
+                </form>
             </div>
 
         </div>

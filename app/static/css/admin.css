@@ -5,3 +5,7 @@
 .text-INACTIVO{
     color: red !important;
 }
+
+.main-class{
+    height: 100vh;
+}

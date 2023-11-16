@@ -1,4 +1,97 @@
 {% extends "includes/headerCli.html" %}
 {% block content %}
-<h1>ESTA ES LA VISTA DEL CLIENTE.</h1>
+
+    <a href="/client/new-event" class="btn btn-outline-info">NUEVO EVENTO</a>
+
+    <!-- Tabs new event -->
+    <div class="container my-5 card ">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active text-dark" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Inicio</button>
+
+                <button class="nav-link text-dark" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Tipo de evento</button>
+
+                <button class="nav-link text-dark" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Cantidad de personas</button>
+
+                <button class="nav-link text-dark" id="nav-admob-tab" data-bs-toggle="tab" data-bs-target="#nav-adMob" type="button" role="tab" aria-controls="nav-adMob" aria-selected="false">Mobiliario adicional</button>
+
+                <button class="nav-link text-dark" id="nav-dec-tab" data-bs-toggle="tab" data-bs-target="#nav-adDec" type="button" role="tab" aria-controls="nav-addec" aria-selected="false">Decoración adicional</button>
+
+                <button class="nav-link text-dark" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
+
+                <button class="nav-link text-dark" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active p-3 text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <h2>¡Hola!, bienvenido a <b>Mirvaj</b></h2>
+                <p>A continuación puede realizar su cotización paso a paso.</p>
+                <div class="w-100 d-flex" role="tablist">
+                </div>
+            </div>
+
+            <div class="tab-pane fade p-3 text-center" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+                <h2>Seleccione el tipo de evento.</h2>
+                <p>Pase por encima sobre un evento para conocer más información.</p>
+
+                <div class="row">
+                    {% for event in events %}
+
+                        <div class="col-3 mb-3">
+                            <div class="card card-events typeEvent" id="cardTypeEvent{{event.idTypeEvent}}">
+                                <div class="card-events-front">
+                                    <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
+                                </div>
+                                <div class="card-events-back">
+                                    <div class="card-body">{{ event.descriptionTypeEvent }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}                        
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
+                <h2 class="text-center">Selecciona la cantidad de personas</h2>
+                {% for cantPer in cantPers %}
+
+                    {% if cantPer.idAct == 1 %}
+
+                        <div class="col-3 mb-3">
+                            <div class="card numberPerson" id="cardAmountPeople{{cantPer.idAmountPe}}">
+                                <div class="">
+                                    <div class="card-body text-center">{{ cantPer.AmountPe }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}  
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-adMob" role="tabpanel" aria-labelledby="nav-cant-tab">
+                <h2 class="text-center">Selecciona mobiliario adicional</h2>
+                {% for adMob in adMobs %}
+
+                    {% if adMob.idAct == 1 %}
+
+                        <div class="col-3 mb-3">
+                            <div class="card adMob" id="cardadMob{{ adMob.idAdMob }}">
+                                <div class="">
+                                    <div class="card-body text-center">{{ adMob.nameAdMob }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}                    
+
+                {% endfor %}  
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}

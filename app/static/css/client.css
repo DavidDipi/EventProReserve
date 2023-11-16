@@ -38,7 +38,6 @@ body{
 }
 /* DASHBOARD CLIENTE */
 .sidebar{
-    position: fixed;
     top: 0;
     left: 0;
     padding-top: 3%;
@@ -150,10 +149,6 @@ body{
 }
 
 .content{
-    margin-top: 6%;
-    position: relative;
-    width: calc(100% - 230px);
-    left: 0px;
     transition: all 0.3s ease;
 }
 
@@ -171,10 +166,7 @@ ol, ul{
     transition: all 0.3s ease;
 }
 
-.content.expand{
-    width: calc(100% - 350px);
-    left: 0px;
-}
+
 
 .active-event{
     border: #D32F2F 5px solid;

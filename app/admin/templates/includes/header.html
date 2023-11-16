@@ -77,37 +77,40 @@
     </div>
 
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <ul class="side-menu">
-            <li class="d-flex justify-content-center">
-              <a href="/admin/">
-                <i class='bx bxs-home'></i>
-                <p class="text-hidden pt-2">Inicio</p>
-              </a>
-            </li>
-            <li>
-              <a href="/admin/events">
-                <i class='bx bxs-calendar-event'></i>
-                <p class="text-hidden pt-2">Eventos</p>
-              </a>
-            </li>
-            <li>
-              <a href="/admin/users">
-                <i class='bx bxs-user'></i>
-                <p class="text-hidden pt-2">Usuarios</p>
-              </a>
-            </li>
-            <button class="btn btn-outline-warning mt-5" id="toggleSidebar">
-              <i class='bx bxs-arrow-to-left' id="btnIcon"></i>
-            </button>
-        </ul>
-    </div>
-    <!-- End of Sidebar -->
 
-    <!-- Main Content -->
-    <div class="content d-flex align-items-center flex-column" id="content">
-        {% block content %}{% endblock %}
+    <div class="w-100 row main-class">
+      <!-- Sidebar -->
+      <div class="sidebar col-3" id="sidebar">
+          <ul class="side-menu">
+              <li class="d-flex justify-content-center">
+                <a href="/admin/">
+                  <i class='bx bxs-home'></i>
+                  <p class="text-hidden pt-2">Inicio</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/events">
+                  <i class='bx bxs-calendar-event'></i>
+                  <p class="text-hidden pt-2">Eventos</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/users">
+                  <i class='bx bxs-user'></i>
+                  <p class="text-hidden pt-2">Usuarios</p>
+                </a>
+              </li>
+              <button class="btn btn-outline-warning mt-5" id="toggleSidebar">
+                <i class='bx bxs-arrow-to-left' id="btnIcon"></i>
+              </button>
+          </ul>
+      </div>
+      <!-- End of Sidebar -->
+
+      <!-- Main Content -->
+      <div class="content col-9 d-flex align-items-center flex-column mt-5" id="content">
+          {% block content %}{% endblock %}
+      </div>
     </div>
 
     <!-- jQuery 3.4.0 -->

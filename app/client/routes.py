@@ -29,8 +29,30 @@ def client_home():
     
 
     pagina_actual = request.path
-    client = app.models.Cliente.query.all()
-    return render_template('home-client.html', pagina_actual = pagina_actual)
+    # client = app.models.Cliente.query.all()
+    # Tipo de evento
+    events = app.models.TypeEvents.query.all()
+    # Cantidad de personas
+    cantPers = app.models.AmountPeople.query.all()
+    # Mobiliario adicional
+    adMobs = app.models.AdditionalMob.query.all()
+    # Active
+    active = app.models.Est_Active.query.all()
+    # Decoracion adicional
+    adDecs = app.models.AdditionalDec.query.all()
+    # Alimentos adicionales
+    adAlis = app.models.AdditionalAli.query.all()
+    # Servicios adicionales
+    ots = app.models.OthersServ.query.all()
+    return render_template('home-client.html', 
+                           pagina_actual = pagina_actual,
+                           events = events,
+                           cantPers = cantPers,
+                           adMobs = adMobs,
+                           active = active,
+                           adDecs = adDecs,
+                           adAlis = adAlis,
+                           ots = ots)
 
 
 @client_blueprint.route('/my-events')

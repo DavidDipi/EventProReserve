@@ -54,6 +54,8 @@ def listar_events():
     adDecs = app.models.AdditionalDec.query.all()
     # Listar alimentos adicionales
     adAlis = app.models.AdditionalAli.query.all()
+    # Listar servicios adicionales
+    ots = app.models.OthersServ.query.all()
     return render_template ("/pages/events.html", 
                             events = events, 
                             pagina_actual = 
@@ -63,7 +65,8 @@ def listar_events():
                             adMobs = adMobs,
                             active = active,
                             adDecs = adDecs,
-                            adAlis = adAlis)
+                            adAlis = adAlis,
+                            ots = ots)
 
 
 # Editar tipos de eventos
@@ -75,6 +78,7 @@ def edit_event(id):
         event = p.query.get(id)
         event.nameTypeEvent = request.form["nameTypeEvent"]
         event.descriptionTypeEvent = request.form["descriptionTypeEvent"]
+        event.idAct = request.form["state"]
         
         app.db.session.commit()
         
@@ -394,3 +398,79 @@ def d_ad_ali(id):
         
     return redirect(url_for("events.listar_events"))
 
+
+# CREAR REGISTRO DE OTROS SERVICIOS
+@events.route("/c_ots", methods=["POST"])
+@admin_required
+def agg_ots():
+    from app.models import OthersServ
+    from app import db
+    
+    if request.method == 'POST':
+    
+        _name = request.form['nameOts']
+        existing = OthersServ.query.filter_by( nameOtServ = _name ).first()        
+        
+        if existing:
+            flash('Esta servicio ya esta registrado', 'error')
+        else:   
+            _cost = request.form['costOts']
+            _est = request.form['state']
+                        
+            try:
+                p = OthersServ( nameOtServ = _name, costOtServ = _cost, idAct = _est )
+                
+                print(p)
+                
+                db.session.add(p)
+                db.session.commit()
+
+                flash('Registro exitoso', 'success')
+                
+                return redirect(url_for("events.listar_events"))
+            except Exception as e:
+                # Manejar cualquier excepción que pueda ocurrir durante la inserción
+                flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for("events.listar_events"))
+
+
+# EDITAR REGISTRO DE OTROS SERVICIOS
+@events.route("/e_ots/<id>", methods=["POST"])
+@admin_required
+def e_ots(id):
+    
+    _name = request.form["nameOts"]
+    _cost = request.form["costOts"]
+    active = request.form['state']
+    
+    print(_name)
+    
+    if _name == '' or _cost == '':
+        flash('Registro no valido', 'error')
+        return redirect(url_for("events.listar_events"))
+    else:
+        p = app.models.OthersServ()
+        ots = p.query.get(id)
+        ots.nameOtServ = _name
+        ots.costOtServ = _cost
+        ots.idAct = active
+        
+        app.db.session.commit()
+        
+        return redirect(url_for("events.listar_events"))
+    
+    
+
+# BORRAR REGISTRO ALIMENTO ADICIONAL
+@events.route("/d_ots/<id>", methods=["POST"])
+@admin_required
+def d_ots(id):
+    p = app.models.OthersServ()
+    d_ots = p.query.get(id)
+    if d_ots:
+        app.db.session.delete(d_ots)
+        app.db.session.commit()
+    else:
+        flash('No se ha encontrado el registro a eliminar', 'error')
+        
+    return redirect(url_for("events.listar_events"))

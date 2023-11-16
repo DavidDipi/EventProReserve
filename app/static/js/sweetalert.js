@@ -411,3 +411,85 @@ $(".confirmar_adAli").submit(function(e) {
       }
   })
 });
+
+
+/* ----------------- OTROS SERVICIOS -------------- */
+// EDITAR OTROS SERVICIOS
+$(".form_edit_ots").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idOts = $(form).find('input[name="editOts"]').val(); // Obtén el valor del campo oculto
+  const nameOts = $(form).find('input[name="nameOts"]').val();
+  const costOts = $(form).find('input[name="costOts"]').val();
+
+  if (nameOts == '' || costOts == ''){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Campos no validos!',
+    });
+  }else{
+    Swal.fire({
+        title: '¿Está seguro de editar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, editar!',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.action = 'e_ots/' + idOts;
+      
+            // Muestra la alerta de éxito
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'El registro se ha editado con éxito',
+              showConfirmButton: false,
+              timer: 1500
+            });
+      
+            // Envía el formulario con la nueva URL después de un breve retraso
+            setTimeout(function() {
+              form.submit();
+            }, 1500);
+        }
+    })
+  }
+});
+
+// ELIMINAR OTROS SERVICIOS
+$(".confirmar_ots").submit(function(e) {
+  e.preventDefault();
+  const form = this;
+  const idOts = $(form).find('input[name="deleteRecord"]').val(); // Obtén el valor del campo oculto
+
+  Swal.fire({
+      title: '¿Está seguro de eliminar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          form.action = 'd_ots/' + idOts;
+    
+          // Muestra la alerta de éxito
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El registro se ha borrado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+    
+          // Envía el formulario con la nueva URL después de un breve retraso
+          setTimeout(function() {
+            form.submit();
+          }, 1500);
+      }
+  })
+});

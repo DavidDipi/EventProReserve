@@ -12,6 +12,7 @@ class TypeEvents(db.Model):
     idTypeEvent = db.Column(db.Integer, primary_key = True)
     nameTypeEvent = db.Column(db.String(30))
     descriptionTypeEvent = db.Column(db.String(60))
+    idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
     
     
 class User(db.Model):
@@ -88,7 +89,7 @@ class AdditionalAli(db.Model):
 class OthersServ(db.Model):
     __tablename__ = 'othersServ'
     idOtServ = db.Column(db.Integer, primary_key=True)
-    nameOtServ = db.Column(db.String(25), nullable=False)
+    nameOtServ = db.Column(db.String(35), nullable=False)
     costOtServ = db.Column(db.Integer, nullable=False)
     idAct = db.Column(db.Integer, db.ForeignKey('est_active.idAct'))
     

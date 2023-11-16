@@ -46,6 +46,8 @@ CREATE TABLE `typeeventstbl` (
   `idTypeEvent` int NOT NULL AUTO_INCREMENT,
   `nameTypeEvent` varchar(30) NOT NULL,
   `descriptionTypeEvent` varchar(60) NOT NULL,
+    idAct INT NOT NULL,
+    FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct),
   PRIMARY KEY (`idTypeEvent`)
 );
 

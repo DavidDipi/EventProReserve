@@ -13,7 +13,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-black fixed-top bg-black">
+    <nav class="navbar navbar-expand-lg bg-body-black bg-black">
         <div class="container-fluid ">
           <a class="navbar-brand ms-5 text-mirvaj brand" href="#">
             MIRVAJ 
@@ -75,33 +75,8 @@
       </div>
     </div>
 
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <ul class="side-menu">
-            <li class="d-flex justify-content-center">
-              <a href="/client/">
-                <i class='bx bxs-home'></i>
-                <p class="text-hidden pt-2">Inicio</p>
-              </a>
-            </li>
-            <li>
-              <a href="/client/my-events">
-                <i class='bx bxs-calendar-event'></i>
-                <p class="text-hidden pt-2">Mis eventos</p>
-              </a>
-            </li>
-            <button class="btn btn-outline-warning mt-5" id="toggleSidebar">
-              <i class='bx bxs-arrow-to-left' id="btnIcon"></i>
-            </button>
-        </ul>
-
-
-    </div>
-    <!-- End of Sidebar -->
-
     <!-- Main Content -->
-    <div class="content" id="content">
+    <div class="content container mt-5" id="content">
         <!-- Navbar -->
         <nav class="navi">
           {% block content %}{% endblock %}

@@ -16,7 +16,7 @@
 
                 <button class="nav-link text-dark" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
 
-                <button class="nav-link text-dark" id="nav--tab" data-bs-toggle="tab" data-bs-target="#nav-ad" type="button" role="tab" aria-controls="nav-ad" aria-selected="false">Otros servicios</button>
+                <button class="nav-link text-dark" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
 
             </div>
         </nav>
@@ -58,6 +58,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Estado</th>
                             <th colspan="2" scope="colgroup">Acción</th>
                         </tr>
                     </thead>
@@ -67,6 +68,11 @@
                             <td scope="row">{{ event.idTypeEvent }}</td>
                             <td>{{ event.nameTypeEvent }}</td>
                             <td>{{ event.descriptionTypeEvent }}</td>
+                            {% for act in active %}
+                                {% if event.idAct == act.idAct %}
+                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
+                                {% endif %}
+                            {% endfor %}
                             <td>
 
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editTypeEvent{{ event.idTypeEvent }}">
@@ -91,6 +97,13 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <input type="text" class="form-control"  name= "descriptionTypeEvent" placeholder="Escriba la nueva descripción del evento" value = "{{ event.descriptionTypeEvent }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select" name="state">
+                                                            {% for act in active %}
+                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                                            {% endfor %}
+                                                        </select>
                                                     </div>
                                                     <button class="w-50 btn btn-outline-success">Guardar</button>
                                                 </div>
@@ -297,7 +310,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cantidad</th>
+                            <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
                             <th colspan="2" scope="colgroup">Acción</th>
@@ -420,7 +433,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cantidad</th>
+                            <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
                             <th colspan="2" scope="colgroup">Acción</th>
@@ -494,8 +507,6 @@
                 </table>
             </div>
 
-
-
             <!-- ALIMENTOS ADICIONAL -->
             <div class="tab-pane fade p-3" id="nav-adAli" role="tabpanel" aria-labelledby="nav-ali-tab">
                 <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addAdAli">
@@ -544,7 +555,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cantidad</th>
+                            <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
                             <th colspan="2" scope="colgroup">Acción</th>
@@ -606,6 +617,128 @@
                             <td>
                                 <form method="POST" class="confirmar_adAli" >  
                                     <input type="hidden" value="{{ adAli.idAdAli }}" name="deleteRecord">              
+                                    <button type="submit" class="btn btn-danger">
+                                        BORRAR
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- OTROS SERVICIOS -->
+            <div class="tab-pane fade p-3" id="nav-ots" role="tabpanel" aria-labelledby="nav-ots-tab">
+                <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addOts">
+                    Agregar servicios adicionales
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="addOts" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Servicios adicionales</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="row g-3 form w-100" method="post" action="/admin/events/c_ots">
+
+                                    <div class="col-md-12">
+                                        <label for="nameOts" class="form-label">Nombre del servicio</label>
+                                        <input type="text" class="form-control" id="nameOts" name="nameOts">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="costOts" class="form-label">Costo del servcio</label>
+                                        <input type="number" class="form-control" id="costOts" name="costOts">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select" name="state">
+                                            {% for act in active %}
+                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                            
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-warning ms-1">Enviar</button>
+                                    </div>
+                                </form>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered border-black text-center" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th colspan="2" scope="colgroup">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ot in ots %}
+                        <tr>
+                            <td scope="row">{{ ot.idOtServ }}</td>
+                            <td>{{ ot.nameOtServ }}</td>
+                            <td>{{ ot.costOtServ }}</td>
+                            {% for act in active %}
+                                {% if ot.idAct == act.idAct %}
+                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            <td>
+
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editOts{{ ot.idOtServ }}">
+                                    EDITAR
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="editOts{{ ot.idOtServ }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" class="form_edit_ots">
+                                                <div class="row g-3 justify-content-center">
+                                                    <input type="hidden" value="{{ ot.idOtServ }}" name="editOts"> 
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "nameOts" placeholder="Escriba la nueva cantidad de personas" value = "{{ ot.nameOtServ }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control"  name= "costOts" placeholder="Escriba el nuevo costo" value = "{{ ot.costOtServ }}" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select" name="state">
+                                                            {% for act in active %}
+                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!--End modal-->
+                            </td>
+                            <td>
+                                <form method="POST" class="confirmar_ots" >  
+                                    <input type="hidden" value="{{ ot.idOtServ }}" name="deleteRecord">              
                                     <button type="submit" class="btn btn-danger">
                                         BORRAR
                                         <i class="fa-regular fa-trash-can"></i>

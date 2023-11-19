@@ -215,49 +215,59 @@
 
             <div class="tab-pane fade p-3 text-center" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
                 <form action="">
-                    <div class="resume" id="resume">
-                        <div class="mb-3 row">
-                            <label for="rTypeEvent" class="col-sm-2 col-form-label">Tipo de evento:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="rTypeEvent" type="text" aria-label="readonly" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
 
-                            <label for="" class="col-sm-2 col-form-label">Cantidad de personas:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                        <div class="resume" id="resume">
+                            <div class="mb-3 row">
+                                <label for="rTypeEvent" class="col-sm-2 col-form-label">Tipo de evento:</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select " aria-label="Default select" name="state" disabled>
+                                        {% for event in events %}
+                                            {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                <option value="" selected>{{ event.nameTypeEvent }}</option>
+                                            {% endif %}
+                                            {% if adAli.idAct == 1 %}                                              
+                                                <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
+                            <div class="mb-3 row">
 
-                            <label for="" class="col-sm-2 col-form-label">Mobiliario adicional:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                <label for="" class="col-sm-2 col-form-label">Cantidad de personas:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
+                            <div class="mb-3 row">
 
-                            <label for="" class="col-sm-2 col-form-label">Decoracion adicional:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                <label for="" class="col-sm-2 col-form-label">Mobiliario adicional:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
+                            <div class="mb-3 row">
 
-                            <label for="" class="col-sm-2 col-form-label">Alimentos adicionales:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                <label for="" class="col-sm-2 col-form-label">Decoracion adicional:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
+                            <div class="mb-3 row">
 
-                            <label for="" class="col-sm-2 col-form-label">Otros servicios:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                <label for="" class="col-sm-2 col-form-label">Alimentos adicionales:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+
+                                <label for="" class="col-sm-2 col-form-label">Otros servicios:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </form>
             </div>
 

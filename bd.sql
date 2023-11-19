@@ -92,21 +92,17 @@ CREATE TABLE eventsTbl(
     idClient INT NOT NULL,
     idTypeEvent INT NOT NULL,
     idAmountPe INT NOT NULL,
-    idAdMob INT NOT NULL,
-    idAdDec INT NOT NULL,
-    idAdAli INT NOT NULL,
-    idOtServ INT NOT NULL,
+    adMob VARCHAR(150) NOT NULL,
+    adDec VARCHAR(150) NOT NULL,
+    adAli VARCHAR(150) NOT NULL,
+    otServ VARCHAR(30) NULL,
 	  idAct INT NOT NULL,
     dateCreateCot DATE NOT NULL,
-    dateRealizationEvent DATE NOT NULL,
+    dateRealizationEvent DATE NULL,
     FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct),
     FOREIGN KEY (idClient) REFERENCES clientsTbl(idCliente),
     FOREIGN KEY (idTypeEvent) REFERENCES typeeventstbl(idTypeEvent),
-    FOREIGN KEY (idAmountPe) REFERENCES amountPeople(idAmountPe),
-    FOREIGN KEY (idAdMob) REFERENCES additionalMob(idAdMob),
-    FOREIGN KEY (idAdDec) REFERENCES additionalDec(idAdDec),
-    FOREIGN KEY (idAdAli) REFERENCES additionalAli(idAdAli),
-    FOREIGN KEY (idOtServ) REFERENCES othersServ(idOtServ)
+    FOREIGN KEY (idAmountPe) REFERENCES amountPeople(idAmountPe)
 );
 
 SELECT * FROM userstbl;

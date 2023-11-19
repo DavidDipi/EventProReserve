@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
 
 // Definir variables
@@ -105,44 +105,81 @@ $( document ).ready(function() {
 
 });
 
+// Función para deshabilitar todos los botones de pestañas
+function disableTabs() {
+    const tabs = document.querySelectorAll('.select-tab');
+    tabs.forEach(tab => {
+        tab.classList.add('disabled');
+    });
+}
+// Función para habilitar un botón de pestaña específico
+function enableTab() {
+    const tabs = document.querySelectorAll('.select-tab-resume');
+    tabs.forEach(tab => {
+        tab.classList.remove('disabled');
+    });
+}
+
 
 function sendForm() {
 
     const idUser = $('#idUser').val();
     // Aquí se recopilan todos los datos
 
-    console.log(idUser + " " + typeEvent + " " + numberPerson + " " + dataMob + " " + dataDec + " " + dataAli + " " + others );
+    // console.log(idUser + " " + typeEvent + " " + numberPerson + " " + dataMob + " " + dataDec + " " + dataAli + " " + others );
 
     
-    const datosParaEnviar = {
-        idUser: idUser,
-        typeEvent: typeEvent,
-        numberPerson: numberPerson,
-        dataMob: dataMob,
-        dataDec: dataDec,
-        dataAli: dataAli,
-        others: others
-    };
+    if (typeEvent != null || numberPerson != null){
 
-    // Enviar los datos al servidor usando AJAX
-    $.ajax({
-        type: 'POST', // Método HTTP para enviar los datos (puede ser GET, POST, etc.)
-        url: '/c_event', // URL a la que se enviarán los datos
-        data: datosParaEnviar, // Los datos que se enviarán al servidor
-        success: function(response) {
-            // Manejar la respuesta del servidor si la solicitud se realiza correctamente
-            console.log('Datos enviados correctamente:', response);
-            // ... Puedes hacer algo más con la respuesta si es necesario
-        },
-        error: function(error) {
-            // Manejar errores si la solicitud falla
-            console.error('Error al enviar datos:', error);
-        }
-    });
+        const datosParaEnviar = {
+            idUser: idUser,
+            typeEvent: typeEvent,
+            numberPerson: numberPerson,
+            dataMob: dataMob || '',
+            dataDec: dataDec || '',
+            dataAli: dataAli || '',
+            others: others || ''
+        };
+
+
+        console.log('Datos a enviar:', datosParaEnviar);
+
+        // Enviar los datos al servidor usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: 'c_event',
+            data: JSON.stringify(datosParaEnviar),  // Convertir a JSON
+            contentType: 'application/json',  // Establecer Content-Type a application/json
+            success: function(response) {
+                console.log('Datos enviados correctamente:', response);
+                disableTabs();
+                enableTab();
+                // ... Puedes hacer algo más con la respuesta si es necesario
+            },
+            error: function(error) {
+                console.error('Error al enviar datos:', error);
+            }
+        });
+    } else{
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Opps, ocurrió un error',
+            text: 'Debes seleccionar por lo menos un tipo de evento, y la cantidad de personas',
+            showConfirmButton: false,
+            timer: 1500
+          });
+    
+    }
 }
+
 
 $('#sendForm').on('click', function() {
     sendForm();
+    setTimeout(function() {
+        // El código que deseas ejecutar después de un retraso de 8 segundos
+        $("#nav-resume-tab").click();
+    }, 500);   
 });
 
 

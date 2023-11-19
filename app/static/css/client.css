@@ -169,8 +169,8 @@ ol, ul{
 
 
 .active-event{
-    border: #D32F2F 5px solid;
-    background-color: var(--primary);
+    border: #0061c1 5px solid;
+    /*background-color: var(--primary);*/
 }
 
 /*.card-events {
@@ -237,9 +237,17 @@ ol, ul{
     transform: perspective(500px) rotateY(0deg);
 }
 
+.card-events .card-events-front.select {
+    border: none;
+}
+
 .card-events .card-events-back {
     background: var(--bs-warning-rgb);
     transform: perspective(500px) rotateY(180deg);
+}
+
+.card-events .card-events-back.select {
+    background: transparent;
 }
 
 

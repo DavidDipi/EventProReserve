@@ -65,6 +65,13 @@ function agregarServicios() {
     });
 }
 
+function enableEdit(selectId) {
+    // Obtén el elemento select por su ID
+    var selectElement = document.getElementById(selectId);
+    selectElement.disabled = !selectElement.disabled;
+
+}
+
 
 
 $( document ).ready(function() {
@@ -77,8 +84,13 @@ $( document ).ready(function() {
         console.log(typeEvent);
         
         $(document).find(".typeEvent").removeClass("active-event");
+        $(document).find(".card-events-front").removeClass("select");
+        $(document).find(".card-events-back").removeClass("select");
 
         $(this).toggleClass("active-event");
+        $(document).find(".card-events-front").addClass("select");
+        $(document).find(".card-events-back").addClass("select");
+
 
         setTimeout(function() {
             // El código que deseas ejecutar después de un retraso de 8 segundos
@@ -103,6 +115,10 @@ $( document ).ready(function() {
 
     });
 
+
+
+
+
 });
 
 // Función para deshabilitar todos los botones de pestañas
@@ -110,6 +126,7 @@ function disableTabs() {
     const tabs = document.querySelectorAll('.select-tab');
     tabs.forEach(tab => {
         tab.classList.add('disabled');
+        tab.classList.add('bg-body-secondary')
     });
 }
 // Función para habilitar un botón de pestaña específico
@@ -117,6 +134,7 @@ function enableTab() {
     const tabs = document.querySelectorAll('.select-tab-resume');
     tabs.forEach(tab => {
         tab.classList.remove('disabled');
+        tab.classList.remove('bg-body-secondary')
     });
 }
 
@@ -180,6 +198,11 @@ $('#sendForm').on('click', function() {
         // El código que deseas ejecutar después de un retraso de 8 segundos
         $("#nav-resume-tab").click();
     }, 500);   
+});
+
+
+$( document ).ready(function() {
+    enableEdit()
 });
 
 

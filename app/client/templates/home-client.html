@@ -21,7 +21,7 @@
 
                 <button class="nav-link text-dark select-tab" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
 
-                <button class="nav-link text-dark select-tab-resume disabled bg-body-secondary" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
+                <button class="nav-link text-dark select-tab-resume  bg-body-secondary" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
 
             </div>
         </nav>
@@ -62,21 +62,24 @@
             <!-- CANTIDAD DE PERSONAS -->
             <div class="tab-pane fade p-3" id="nav-cant" role="tabpanel" aria-labelledby="nav-cant-tab">
                 <h2 class="text-center">Selecciona la cantidad de personas</h2>
-                {% for cantPer in cantPers %}
+                <div class="row">
 
-                    {% if cantPer.idAct == 1 %}
-
-                        <div class="col-3 mb-3">
+                    {% for cantPer in cantPers %}
+                    
+                        {% if cantPer.idAct == 1 %}
+                    
+                            <div class="col-3 mb-3">
                             <div class="card numberPerson" id="{{cantPer.idAmountPe}}">
-                                <div class="">
-                                    <div class="card-body text-center">{{ cantPer.AmountPe }}</div>
+                                    <div class="">
+                                        <div class="card-body text-center">{{ cantPer.AmountPe }}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                    {% endif %}
-
-                {% endfor %}  
+                            
+                        {% endif %}
+                        
+                    {% endfor %}  
+                </div>
             </div>
 
             <!-- MOBILIARIO ADICIONAL -->
@@ -213,58 +216,156 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade p-3 text-center" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
+            <div class="tab-pane fade p-3 text-center mt-3" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
                 <form action="">
 
                         <div class="resume" id="resume">
                             <div class="mb-3 row">
                                 <label for="rTypeEvent" class="col-sm-2 col-form-label">Tipo de evento:</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select " aria-label="Default select" name="state" disabled>
-                                        {% for event in events %}
-                                            {% if event.idTypeEvent == ult_evts.idTypeEvent %}
-                                                <option value="" selected>{{ event.nameTypeEvent }}</option>
-                                            {% endif %}
-                                            {% if adAli.idAct == 1 %}                                              
-                                                <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 row">
 
                                 <label for="" class="col-sm-2 col-form-label">Cantidad de personas:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 row">
 
                                 <label for="" class="col-sm-2 col-form-label">Mobiliario adicional:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!--
                             <div class="mb-3 row">
 
                                 <label for="" class="col-sm-2 col-form-label">Decoracion adicional:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 row">
 
                                 <label for="" class="col-sm-2 col-form-label">Alimentos adicionales:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            -->
+
                             <div class="mb-3 row">
 
                                 <label for="" class="col-sm-2 col-form-label">Otros servicios:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                                    <div class="row">
+
+                                        <div class="col-sm-10">
+    
+                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
+                                                {% for event in events %}
+                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
+                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
+                                                    {% elif event.idAct == 1 %}
+                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

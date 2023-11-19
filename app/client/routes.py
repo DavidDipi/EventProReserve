@@ -1,5 +1,6 @@
 from flask import render_template, request, send_from_directory, flash, redirect, url_for
 from flask_login import current_user
+from datetime import datetime
 from . import client_blueprint
 from functools import wraps
 import app
@@ -78,10 +79,35 @@ def new_events():
 @client_blueprint.route('/c_event', methods=['POST'])
 @client_required
 def c_event():
-    data = request.json  # Asumiendo que los datos se envían como JSON
-    
-    # Hacer algo con los datos, por ejemplo, imprimirlos
-    print('Datos recibidos en el servidor:', data)
+    try:
+        data = request.json  # Ajusta esto según el formato de tus datos
 
-    # Realizar alguna lógica con los datos y devolver una respuesta
-    return jsonify({'message': 'Datos recibidos correctamente'})
+        # Obtén la fecha y hora actuales
+        fecha_actual = datetime.now()
+
+        print(fecha_actual)
+
+        # Crea una instancia de EventsTbl y asigna los valores
+        event = EventsTbl(
+            idClient=data['idClient'],
+            idTypeEvent=data['idTypeEvent'],
+            idAmountPe=data['idAmountPe'],
+            idAdMob=data['idAdMob'],
+            idAdDec=data['idAdDec'],
+            idAdAli=data['idAdAli'],
+            idOtServ=data['idOtServ'],
+            idAct=data['idAct'],
+            dateCreateCot=fecha_actual,
+            dateRealizationEvent=fecha_actual.replace(hour=0, minute=0, second=0, microsecond=0)
+        )
+
+        # Agrega la instancia a la sesión y confirma los cambios
+        db.session.add(event)
+        db.session.commit()# Asumiendo que los datos se envían como JSON
+
+
+        return jsonify({'message': 'Datos recibidos y guardados correctamente'})
+    except Exception as e:
+        # Maneja cualquier error que pueda ocurrir durante el proceso
+        print('Error al procesar y guardar datos:', str(e))
+        return jsonify({'error': 'Error al procesar y guardar datos'}), 500

@@ -34,7 +34,7 @@ $(document).ready(function() {
                 console.log(response.events)
 
                  // Inicializa DataTable
-                var tabla = $('#miTabla').DataTable({
+                var tabla = $('#evento').DataTable({
                     "data":response.events,
                     "columns": [
                         {"data": "id"},
@@ -48,6 +48,24 @@ $(document).ready(function() {
                     ]
                 });
 
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#evento').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+
+                    $("#modalEditar .modal-body").append()
+                    // Implementa la lógica para editar utilizando 'data'
+                    console.log('Editar:', data);
+
+                    tabla.ajax.reload();
+
+                });
+
+                $('#evento').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                    borrarRegistro(id);
+                    tabla.ajax.reload();
+                });
                
             },
             error: function(error) {
@@ -55,24 +73,7 @@ $(document).ready(function() {
             }
         });
 
-        $('#miTabla tbody').on('click', 'button.editar', function () {
-            // Obtén la fila actual
-            var fila = tabla.row($(this).parents('tr')).data();
-            
-            // Extrae el ID de la fila
-            var id = fila.id;
     
-            // Ahora puedes utilizar el ID como desees (por ejemplo, pasarlo a una función de edición)
-            console.log('ID a editar:', id);
-            // Llama a una función de edición pasando el ID
-            editarRegistro(id);
-        });
-    
-        function editarRegistro(id) {
-            // Lógica para editar el registro con el ID proporcionado
-            // Puedes implementar aquí la lógica que desees
-            console.log('Editar registro con ID:', id);
-        }
     
     
 });

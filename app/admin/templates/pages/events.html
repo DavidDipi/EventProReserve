@@ -28,8 +28,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
 
-            <!-- TIPO DE EVENTOS -->
-            <button id="btnGetData">Obtener Datos</button>
+         
             <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
                 <!--Modal to add a new event-->
@@ -38,120 +37,25 @@
                     Agregar evento
                 </button>
                 
-                <!-- Modal -->
-                <div class="modal fade" id="addTypeEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar tipo de evento</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form class="row g-3 form w-100" method="post" action="/admin/events/c_tEvent">
-    
-                                    <div class="col-md-12">
-                                      <label for="nameTypeEvent" class="form-label">Nombre del evento:</label>
-                                      <input type="text" class="form-control" id="nameTypeEvent" name="nameTypeEvent" >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="descTypeEvent" class="form-label">Descripcion del evento</label>
-                                        <input type="text" class="form-control" id="descTypeEvent" name="descTypeEvent" >
-                                    </div>
-                                    <div class="mb-3">
-                                        <select class="form-select" aria-label="Default select" name="state">
-                                            {% for act in active %}
-                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                            
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-warning ms-1">Enviar</button>
-                                    </div>
-                                </form>
-                            
-                            </div>
-                    </div>
-                    </div>
-                </div>
-                <!--End modal to add a new event-->
-        
-                <table class="table table-bordered border-black text-center" id="table">
+                  <!-- En tu archivo HTML -->
+                <table id="evento" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
+                            <th>Acciones</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
-                        {% for event in events %}
-                        <tr>
-                            <td scope="row">{{ event.idTypeEvent }}</td>
-                            <td>{{ event.nameTypeEvent }}</td>
-                            <td>{{ event.descriptionTypeEvent }}</td>
-                            {% for act in active %}
-                                {% if event.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editTypeEvent{{ event.idTypeEvent }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editTypeEvent{{ event.idTypeEvent }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">  
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_tEvent">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ event.idTypeEvent }}" name="editTypeEvent"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "nameTypeEvent" placeholder="Escriba el nuevo nombre del evento" value = "{{ event.nameTypeEvent }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "descriptionTypeEvent" placeholder="Escriba la nueva descripción del evento" value = "{{ event.descriptionTypeEvent }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal to add a new event-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_tEvent" >  
-                                    <input type="hidden" value="{{ event.idTypeEvent }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        <!-- Los datos se cargarán dinámicamente aquí -->
                     </tbody>
                 </table>
+
+
 
             </div>
 
@@ -777,23 +681,32 @@
             </div>
 
 
-            <!-- En tu archivo HTML -->
-            <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
+       
 
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se cargarán dinámicamente aquí -->
-                </tbody>
-            </table>
+            <!-- Modal de edición -->
+            <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <!-- Aquí puedes colocar los campos de edición -->
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="name" class="form-control">
+                        <label for="edad">Edad:</label>
+                        <input type="text" id="edad" class="form-control">
+                        </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+                    </div>
+                </div>
+                </div>
+            </div>
 
         </div>
     </div>

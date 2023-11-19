@@ -25,21 +25,35 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function() {
-    $('#btnGetData').on('click', function() {
-        alert('Holaaa')
-        // Realiza la solicitud AJAX al servidor Flask
-        
+   
         $.ajax({
-            url: 'get_data',
-            type: 'GET',
+            url: 'get_event',
+            type: 'POST',
             success: function(response) {
-                // Maneja la respuesta del servidor
-                $('#result').text(response.message);
+                
+                console.log(response.events)
+
+                 // Inicializa DataTable
+                var tabla = $('#miTabla').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "name"},
+                        {"data": "descrip"},
+                        {"data": "estado"},
+                        {
+                            "data": null,
+                            "defaultContent": '<button class="editar">Editar</button> <button class="borrar">Borrar</button>'
+                        }
+                    ]
+                });
+
+               
             },
             error: function(error) {
                 console.log(error);
             }
         });
     
-    });
+    
 });

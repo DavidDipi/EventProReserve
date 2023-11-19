@@ -82,22 +82,22 @@
 
     <div class="w-100 row main-class">
       <!-- Sidebar -->
-      <div class="sidebar col-3" id="sidebar">
-          <ul class="side-menu pt-4">
-              <li class="d-flex justify-content-center">
-                <a href="/admin/">
+      <div class="sidebar  col-3" id="sidebar">
+          <ul class="side-menu  pt-4">
+              <li class="d-flex justify-content-center item-sidebar  {% if pagina_actual == '/admin/' %}active{% endif %} ">
+                <a href="/admin/" class="a-sidebar">
                   <i class='bx bxs-home'></i>
                   <p class="text-hidden pt-2">Inicio</p>
                 </a>
               </li>
-              <li>
-                <a href="/admin/events">
+              <li class="item-sidebar  {% if pagina_actual == '/admin/events/' %}active{% endif %}">
+                <a href="/admin/events" class="a-sidebar">
                   <i class='bx bxs-calendar-event'></i>
                   <p class="text-hidden pt-2">Eventos</p>
                 </a>
               </li>
-              <li>
-                <a href="/admin/users">
+              <li class="item-sidebar  {% if pagina_actual == '/admin/users' %}active{% endif %}">
+                <a href="/admin/users" class="a-sidebar">
                   <i class='bx bxs-user'></i>
                   <p class="text-hidden pt-2">Usuarios</p>
                 </a>
@@ -108,6 +108,7 @@
           </ul>
       </div>
       <!-- End of Sidebar -->
+
 
       <!-- Main Content -->
       <div class="content col-9  mt-5 p-5" id="content">

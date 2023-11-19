@@ -112,7 +112,29 @@
       <!-- Main Content -->
       <div class="content col-9  mt-5 p-5" id="content">
           <div class="list-unstyled text-start">
-              <p>{{ pagina_actual }}</p>
+            {% for segment in pagina_actual.split('/') %}
+              {% if loop.index != 1 %}
+                  <span class="separator"> > </span>
+
+                  {% set endpoint = None %}
+
+                  {% if segment == 'admin' %}
+                    {% set endpoint = 'admin.admin_home' %}
+                  {% elif segment == 'events' %}
+                    {% set endpoint = 'events.listar_events' %}
+                  {% elif segment == 'users' %}
+                    {% set endpoint = 'admin.admin_users' %}
+                  {% else %}
+                    {% set endpoint = segment %}
+                  {% endif %}
+                  
+                  {% if endpoint %}
+                    <a href="{{ url_for(endpoint) }}" class="text-decoration-none text-dark">{{ segment }}</a>
+                  {% else %}
+                    {{ segment }}
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
           </div>
           <div class="block d-flex align-items-center flex-column ">
 

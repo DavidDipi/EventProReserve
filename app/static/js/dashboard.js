@@ -42,8 +42,8 @@ $(document).ready(function() {
                         {"data": "descrip"},
                         {"data": "estado"},
                         {
-                            "data": "id",
-                            "defaultContent": ' <button type="button" class="btn editar btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
                         }
                     ]
                 });

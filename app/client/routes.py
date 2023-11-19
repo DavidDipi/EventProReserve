@@ -80,23 +80,27 @@ def new_events():
 @client_required
 def c_event():
     try:
+        from app import db
+        from app.models import EventsTbl
         data = request.json  # Ajusta esto según el formato de tus datos
 
         # Obtén la fecha y hora actuales
         fecha_actual = datetime.now()
+        print(fecha_actual)
+        idAct = 1
 
         print(fecha_actual)
 
         # Crea una instancia de EventsTbl y asigna los valores
         event = EventsTbl(
-            idClient=data['idClient'],
-            idTypeEvent=data['idTypeEvent'],
-            idAmountPe=data['idAmountPe'],
-            idAdMob=data['idAdMob'],
-            idAdDec=data['idAdDec'],
-            idAdAli=data['idAdAli'],
-            idOtServ=data['idOtServ'],
-            idAct=data['idAct'],
+            idClient=data['idUser'],
+            idTypeEvent=data['typeEvent'],
+            idAmountPe=data['numberPerson'],
+            idAdMob=data['dataMob'],
+            idAdDec=data['dataDec'],
+            idAdAli=data['dataAli'],
+            idOtServ=data['others'],
+            idAct=idAct,
             dateCreateCot=fecha_actual,
             dateRealizationEvent=fecha_actual.replace(hour=0, minute=0, second=0, microsecond=0)
         )
@@ -106,8 +110,8 @@ def c_event():
         db.session.commit()# Asumiendo que los datos se envían como JSON
 
 
-        return jsonify({'message': 'Datos recibidos y guardados correctamente'})
+        return redirect(url_for("events.listar_events"))
     except Exception as e:
         # Maneja cualquier error que pueda ocurrir durante el proceso
         print('Error al procesar y guardar datos:', str(e))
-        return jsonify({'error': 'Error al procesar y guardar datos'}), 500
+        return redirect(url_for("events.listar_events"))

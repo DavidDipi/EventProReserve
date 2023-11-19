@@ -21,7 +21,7 @@
 
                 <button class="nav-link text-dark select-tab" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
 
-                <button class="nav-link text-dark select-tab-resume disabled" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
+                <button class="nav-link text-dark select-tab-resume disabled bg-body-secondary" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
 
             </div>
         </nav>
@@ -43,7 +43,7 @@
 
                         {% if event.idAct == 1 %}
                             <div class="col-3 mb-3">
-                                <div class="card card-events typeEvent" id="cardTypeEvent{{event.idTypeEvent}}">
+                                <div class="card card-events typeEvent" id="{{event.idTypeEvent}}">
                                     <div class="card-events-front">
                                         <div class="card-body text-center">{{ event.nameTypeEvent }}</div>
                                     </div>
@@ -67,7 +67,7 @@
                     {% if cantPer.idAct == 1 %}
 
                         <div class="col-3 mb-3">
-                            <div class="card numberPerson" id="cardAmountPeople{{cantPer.idAmountPe}}">
+                            <div class="card numberPerson" id="{{cantPer.idAmountPe}}">
                                 <div class="">
                                     <div class="card-body text-center">{{ cantPer.AmountPe }}</div>
                                 </div>
@@ -208,7 +208,8 @@
                 </form>
 
                 <div class="d-flex align-items-end flex-column mt-5">
-                    <button class="btn btn-info" onclick="sendForm()">Finalizar cotización</button>
+                    <input type="hidden" value="{{current_user.idUser}}" id="idUser">
+                    <button class="btn btn-info" id="sendForm">Finalizar cotización</button>
                 </div>
             </div>
 

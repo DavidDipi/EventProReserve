@@ -12,7 +12,7 @@ function agregarMobiliario() {
         const idMobiliario = $(this).val();
         const cantidadMobiliario = $('#quantity' + idMobiliario).val();
         
-        dataMob += `${idMobiliario}:${cantidadMobiliario}\n`;
+        dataMob += `${idMobiliario}:${cantidadMobiliario};`;
         // console.log(dataMob);
     });
 }
@@ -23,7 +23,7 @@ function agregarDecoracion() {
         const idDecoracion = $(this).val();
         const cantidadDecoracion = $('#quantity' + idDecoracion).val();
 
-        dataDec += `${idDecoracion}:${cantidadDecoracion}\n`;
+        dataDec += `${idDecoracion}:${cantidadDecoracion};`;
 
         // console.log(`Decoracion seleccionado con ID ${idDecoracion}, Cantidad: ${cantidadDecoracion}`);
         // Aquí podrías ejecutar lógica adicional, como enviar estos datos al servidor para procesar la orden.
@@ -38,7 +38,7 @@ function agregarAlimentos() {
         const idAlimento = $(this).val();
         const cantidad = $('#quantity' + idAlimento).val();
 
-        dataAli += `${idAlimento}:${cantidad}\n`;
+        dataAli += `${idAlimento}:${cantidad};`;
 
         // Realizar alguna lógica con los datos capturados
         // console.log(`Alimento seleccionado con ID ${idAlimento}, Cantidad: ${cantidad}`);
@@ -55,7 +55,7 @@ function agregarServicios() {
         others = $(this).val();
 
         // Realizar alguna lógica con los datos capturados
-        console.log(`Servicio seleccionado con ID ${idServicio}`);
+        // console.log(`Servicio seleccionado con ID ${others}`);
 
         // Aquí podrías ejecutar lógica adicional, por ejemplo, enviar estos datos al servidor para procesar la orden.
         // $.ajax({ ... });
@@ -102,9 +102,17 @@ $( document ).ready(function() {
 
 });
 
+
 function sendForm() {
+
+    const idUser = $('#idUser').val();
     // Aquí se recopilan todos los datos
+
+    console.log(idUser + " " + typeEvent + " " + numberPerson + " " + dataMob + " " + dataDec + " " + dataAli + " " + others );
+
+    
     const datosParaEnviar = {
+        idUser: idUser,
         typeEvent: typeEvent,
         numberPerson: numberPerson,
         dataMob: dataMob,
@@ -130,6 +138,9 @@ function sendForm() {
     });
 }
 
+$('#sendForm').on('click', function() {
+    sendForm();
+});
 
 
 /*

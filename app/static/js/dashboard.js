@@ -23,3 +23,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+$(document).ready(function() {
+    $('#btnGetData').on('click', function() {
+        alert('Holaaa')
+        // Realiza la solicitud AJAX al servidor Flask
+        /*
+        $.ajax({
+            url: '/get_data',
+            type: 'GET',
+            success: function(response) {
+                // Maneja la respuesta del servidor
+                $('#result').text(response.message);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });*/
+    
+    });
+});

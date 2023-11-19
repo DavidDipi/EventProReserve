@@ -800,23 +800,3 @@
 {% endif %}
 {% endwith  %}
 
-<script>
-      $(document).ready(function() {
-        $('#btnGetData').click(function() {
-            $('#btnGetData').click(function() {
-            // Realiza la solicitud AJAX al servidor Flask
-            $.ajax({
-                url: '/get_data',
-                type: 'GET',
-                success: function(response) {
-                    // Maneja la respuesta del servidor
-                    $('#result').text(response.message);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        });
-        });
-    });
-</script>

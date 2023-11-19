@@ -56,7 +56,6 @@ def listar_events():
     adAlis = app.models.AdditionalAli.query.all()
     # Listar servicios adicionales
     ots = app.models.OthersServ.query.all()
-    
     return render_template ("/pages/events.html", 
                             events = events, 
                             pagina_actual = 
@@ -70,9 +69,10 @@ def listar_events():
                             ots = ots)
 
 
+
 @events.route("/datatable", methods=["GET", "POST"])
 @admin_required
-def listar_events():
+def datatable():
     pagina_actual = request.path
     
     # Agregar evento
@@ -120,8 +120,7 @@ def listar_events():
     ]
 
     return jsonify(datos)
-    
-  
+
 
 
 # CREAR REGISTRO TIPO DE EVENTO

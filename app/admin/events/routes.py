@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify, url_for, redirect, flash
+from flask import  Flask, render_template, request, jsonify, url_for, redirect, flash
 from . import events
 from flask_login import current_user
 from functools import wraps

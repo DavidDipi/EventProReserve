@@ -73,3 +73,15 @@ def new_events():
     events = app.models.TypeEvents.query.all()
     cantPers = app.models.AmountPeople.query.all()
     return render_template('/pages/new-event.html', pagina_actual = pagina_actual, events = events, cantPers = cantPers)
+
+
+@client_blueprint.route('/c_event', methods=['POST'])
+@client_required
+def c_event():
+    data = request.json  # Asumiendo que los datos se envían como JSON
+    
+    # Hacer algo con los datos, por ejemplo, imprimirlos
+    print('Datos recibidos en el servidor:', data)
+
+    # Realizar alguna lógica con los datos y devolver una respuesta
+    return jsonify({'message': 'Datos recibidos correctamente'})

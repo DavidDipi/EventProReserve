@@ -52,7 +52,7 @@ function agregarAlimentos() {
 function agregarServicios() {
     // Obtener los elementos seleccionados
     $('input[name="servicios[]"]:checked').each(function() {
-        const idServicio = $(this).val();
+        others = $(this).val();
 
         // Realizar alguna lógica con los datos capturados
         console.log(`Servicio seleccionado con ID ${idServicio}`);
@@ -107,16 +107,16 @@ function sendForm() {
     const datosParaEnviar = {
         typeEvent: typeEvent,
         numberPerson: numberPerson,
-        adMob: adMob,
-        adDec: adDec,
-        adAli: adAli,
+        dataMob: dataMob,
+        dataDec: dataDec,
+        dataAli: dataAli,
         others: others
     };
 
     // Enviar los datos al servidor usando AJAX
     $.ajax({
         type: 'POST', // Método HTTP para enviar los datos (puede ser GET, POST, etc.)
-        url: '/ruta/para/enviar/datos', // URL a la que se enviarán los datos
+        url: '/c_event', // URL a la que se enviarán los datos
         data: datosParaEnviar, // Los datos que se enviarán al servidor
         success: function(response) {
             // Manejar la respuesta del servidor si la solicitud se realiza correctamente

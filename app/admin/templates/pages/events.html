@@ -35,18 +35,37 @@
                 <!-- Modal -->
                 <div class="modal fade" id="addTypeEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar tipo de evento</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <form method="post" novalidate enctype="multipart/form-data" class="form_registro">
-                                {{ wtf.quick_form(form) }}
-                            </form>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar cantidad de personas</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="row g-3 form w-100" method="post" action="/admin/events/c_cant_pers">
+    
+                                    <div class="col-md-12">
+                                      <label for="nameTypeEvent" class="form-label">Nombre del evento:</label>
+                                      <input type="number" class="form-control" id="nameTypeEvent" name="cantPersons" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descTypeEvent" class="form-label">Descripcion del evento</label>
+                                        <input type="number" class="form-control" id="descTypeEvent" name="costPersons" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select" name="state">
+                                            {% for act in active %}
+                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                            
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-warning ms-1">Enviar</button>
+                                    </div>
+                                </form>
                             
-                        </div>
+                            </div>
                     </div>
                     </div>
                 </div>

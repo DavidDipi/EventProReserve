@@ -90,9 +90,9 @@ def get_event_datatable():
 
         list_event.append({
             'id':event.idTypeEvent,
-            'name':event.nameTypeEvent,
-            'descrip':event.descriptionTypeEvent,
-            'estado':estado
+            'Nombre':event.nameTypeEvent,
+            'Descripción':event.descriptionTypeEvent,
+            'Estado':estado
         })
     return jsonify({'events':list_event})
 

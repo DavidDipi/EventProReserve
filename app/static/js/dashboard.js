@@ -43,10 +43,7 @@ $(document).ready(function() {
                         {"data": "estado"},
                         {
                             "data": null,
-                            "defaultContent": ' <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob{{ adMob.idAdMob }}">
-                            EDITAR
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button> <button class="borrar">Borrar</button>'
+                            "defaultContent": ' <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob{{ adMob.idAdMob }}">EDITAR<i class="fa-solid fa-pen-to-square"></i></button> <button class="borrar">Borrar</button>'
                         }
                     ]
                 });

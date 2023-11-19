@@ -69,7 +69,7 @@ def listar_events():
                             ots = ots)
 
 
-@app.route('/get_data', methods=['GET'])
+@events.route('/get_data', methods=['GET'])
 def get_data():
     # Simulación de datos
     data = {'message': 'Hola desde el servidor'}

@@ -35,11 +35,11 @@ def admin_users():
     pagina_actual = request.path
     
     # Obtener el número de página actual de la solicitud del usuario
-    pagina_actual = request.args.get('pag', type=int, default=1)
+    pagina_actualO = request.args.get('pag', type=int, default=1)
     
     # Listar usuarios
     registros_por_pagina = 10
-    offset = (pagina_actual - 1) * registros_por_pagina
+    offset = (pagina_actualO - 1) * registros_por_pagina
     
     users = app.models.User.query.offset(offset).limit(registros_por_pagina)
     total_users = app.models.User.query.count()
@@ -51,6 +51,7 @@ def admin_users():
     return render_template ("/pages/users.html", 
                             users = users, 
                             pagina_actual = pagina_actual,
+                            pagina_actualO = pagina_actualO,
                             cantidad_paginas = cantidad_paginas)
 
 

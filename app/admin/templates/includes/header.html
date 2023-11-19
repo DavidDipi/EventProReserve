@@ -15,8 +15,8 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-black fixed-top bg-black" style="z-index: 2000;">
-        <div class="container-fluid " style="z-index: 1090;">
+    <nav class="navbar navbar-expand-lg bg-body-black fixed-top bg-black">
+        <div class="container-fluid ">
             <a class="navbar-brand ms-5 text-mirvaj brand" href="#">
 
               <img src="/static/img/logo.png" alt="" width="60" height="60">
@@ -82,7 +82,7 @@
 
     <div class="w-100 row main-class">
       <!-- Sidebar -->
-      <div class="sidebar col-3" style="z-index: 1040;" id="sidebar">
+      <div class="sidebar col-3" id="sidebar">
           <ul class="side-menu pt-4">
               <li class="d-flex justify-content-center">
                 <a href="/admin/">
@@ -113,7 +113,7 @@
       <div class="content col-9 d-flex align-items-center flex-column mt-5 p-5" id="content">
           {% block content %}{% endblock %}
 
-          <div class="footer m-0 bg-body-secondary bottom-0 fixed-bottom w-100 text-center">
+          <div class="footer m-0 bg-body-secondary bottom-0 fixed-bottom w-100 text-center" style="z-index: 1;"> 
             <p>Copyright &copy;Mirvaj</p>
           </div>
       </div>

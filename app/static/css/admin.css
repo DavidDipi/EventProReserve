@@ -9,3 +9,7 @@
 .main-class{
     height: 100vh;
 }
+
+.m-pan:hover{
+    color: #ffc107 !important;
+}

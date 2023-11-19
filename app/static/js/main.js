@@ -1,24 +1,27 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // Mostrar elementos al hacer scroll
-    var elementos = document.querySelectorAll(".animacion-fadeup");
+    "use strict";
 
-    function mostrarElementos() {
-        elementos.forEach(function(elemento) {
-            var posicion = elemento.getBoundingClientRect().top;
-            var alturaVentana = window.innerHeight;
-
-            if (posicion < alturaVentana) {
-                elemento.style.opacity = "1";
-                elemento.style.transform = "translateY(0)";
+    // Dropdown on mouse hover
+    $(document).ready(function () {
+        function toggleNavbarMethod() {
+            if ($(window).width() > 992) {
+                $('.navbar .dropdown').on('mouseover', function () {
+                    $('.dropdown-toggle', this).trigger('click');
+                }).on('mouseout', function () {
+                    $('.dropdown-toggle', this).trigger('click').blur();
+                });
+            } else {
+                $('.navbar .dropdown').off('mouseover').off('mouseout');
             }
-        });
-    }
+        }
+        toggleNavbarMethod();
+        $(window).resize(toggleNavbarMethod);
+    });
 
-    mostrarElementos(); // Mostrar elementos iniciales en la carga
-    
-    
-    window.addEventListener("scroll", mostrarElementos);
+
+
+
 
     const emailInput = document.getElementById('emailInput');
     const passwordInput = document.getElementById('passwordInput');

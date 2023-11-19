@@ -1,4 +1,5 @@
-{% include 'ini/includes/header.html' %}
+{% extends "ini/includes/header.html" %}
+{% block content %}
 
     <section class="form-login h-100">
         <div class="container d-flex justify-content-center">
@@ -37,7 +38,7 @@
 
     </section>
 
-{% include 'ini/includes/footer.html' %}
+{% endblock %}  
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

@@ -1,105 +1,108 @@
-{% include 'ini/includes/header.html' %}
-{{pagina_actual}}
+{% extends "ini/includes/header.html" %}
+{% block content %}
 <main>
-    <section id="ini" class="mb-5">
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid mb-5 p-0">
         <div class="cover">
-            <div class="container text-center ">
-                <div class="txt-cover">
-                    <h3> Celebra momentos inolvidables con exquisita gastronomía y servicio impecable. Tu evento perfecto comienza aquí.</h3>
-                </div>
-                <div class="btn-cover">
-                    <a href="" class="btn btn-outline-light btn-lg">Cotiza</a>
-                </div>
-            </div>
-            <div class="btn-down">
-                <a href="#somos-mirvaj">
-                    <i class="fa-solid fa-arrow-down fa-beat"></i>
-                </a>
+            <div class="text-center">
+                <h2 class="text-warning font-weight-medium m-0">Estamos para servirte</h2>
+                <h1 class="display-1 text-white m-0">MIRVAJ</h1>
+                <h2 class="text-white m-0">DESDE 2018</h2>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="somos-mirvaj" class="p-5">
-        <div class="sms-mir m-5">
-            <div class="container">
+    <!-- About Start -->
+    <div class="container-fluid py-5" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Acerca de nosotros</h4>
+                <h1 class="display-4">Diseñando Experiencias Inolvidables desde 2018</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 py-0 py-lg-5">
+                    <h1 class="mb-3">Nuestra Historia</h1>
+                    <h5 class="mb-3">Fundada en 2018, nos enorgullece ser líderes en la industria de gestión de eventos.</h5>
+                    <p>Desde nuestra creación, hemos trabajado incansablemente para ofrecer eventos excepcionales que superen las expectativas de nuestros clientes. Nuestra dedicación y pasión nos han convertido en la opción preferida para eventos memorables y exitosos.</p>
 
-                <div class="row p-5 animacion-fadeup">
-                    <div class="col-7 d-flex justify-content-center flex-column">
-                        <h5 class="text-warning ">Somos Mirvaj</h5>
-                        <div class="txt-sms d-flex animacion-fadeup">
-                            <div class="col-5">
-                                <b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, quos aliquam perspiciatis reprehenderit modi tempore iusto saepe impedit distinctio ut? </p></b>
-                            </div>
-                            <div class="col-5">
-                                <b><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat alias esse ab, adipisci impedit nihil a suscipit quidem rerum harum. </p></b>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="col-5">
-                        <div class="img-sms d-flex justify-content-center">
-                            <img src="/static/img/cover.png" alt="">
-                        </div>
+                </div>
+                <div class="col-lg-4 py-5 py-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100" src="/static/img/img-cover.png" style="object-fit: cover;">
                     </div>
                 </div>
-            </div>                
-        </div>
-    </section>
-
-    <section id="eventos" class="bg-warning ">
-        <div class="event m-5">
-            <div class="container">
-                <div class="row animacion-fadeup">
-                    <div class="col-4">
-                        <!--Hacer redireccionamiento con JavaScript-->
-                        <div class="icon">
-                            <img src="/static/img/icon-boda.png" alt="" class="icon-event">
-                            <h5><b>Bodas</b></h5>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="icon">
-                            <img src="/static/img/icon-grade.png" alt="" class="icon-event">
-                            <h5><b>Grados</b></h5>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="icon">
-                            <img src="/static/img/icon-cum.png" alt="" class="icon-event">
-                            <h5><b>Cumpleaños</b></h5>
-                        </div>
-                    </div>
+                <div class="col-lg-4 py-0 py-lg-5">
+                    <h1 class="mb-3">Nuestra visión</h1>
+                    <p>En MIRVAJ, nuestra visión es transformar cada evento en una experiencia inolvidable. Nos esforzamos por ser innovadores, creativos y superar constantemente los límites para ofrecer momentos que perdurarán en la memoria de nuestros clientes y sus invitados</p>
+                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i> Compromiso con la Excelencia</h5>
+                    <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i> Innovación y Creatividad</h5>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <!-- About End -->
 
-    <section id="planes">
-        <div class="planes-mir m-5">
-            <div class="container">
+<!-- Service Start -->
+<div class="container-fluid pt-5" id="we-services">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Nuestros Servicios</h4>
+            <h1 class="display-4">Experiencias Memorables para Todo Tipo de Eventos</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-5">
                 <div class="row align-items-center">
-                    <div class="col-3 ">
-                        <h3 class="text-warning planes-title">Nuestros planes</h3>
+                    <div class="col-sm-5">
+                        <img class="img-fluid mb-3 mb-sm-0" src="/static/img/matrimonio.jpg" alt="Matrimonio">
                     </div>
-                    <div class="col-3 text-center">
-                        <img src="/static/img/cover.png" alt="">
-                        <p><b>PARA 80 PERSONAS</b></p>
-                        <a href="" class="btn btn-outline-warning">Ver más</a>
+                    <div class="col-sm-7">
+                        <h4><i class="fa fa-heart service-icon"></i>Matrimonios</h4>
+                        <p class="m-0">Creamos momentos inolvidables para celebrar el amor. Desde la planificación hasta la ejecución, nos encargamos de cada detalle para que tu día especial sea único.</p>
                     </div>
-                    <div class="col-3 text-center">
-                        <img src="/static/img/cover.png" alt="">
-                        <p><b>PARA 100 PERSONAS</b></p>
-                        <a href="" class="btn btn-outline-warning">Ver más</a>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="row align-items-center">
+                    <div class="col-sm-5">
+                        <img class="img-fluid mb-3 mb-sm-0" src="/static/img/15.jpg" alt="15 Años">
                     </div>
-                    <div class="col-3 text-center">
-                        <img src="/static/img/cover.png" alt="">
-                        <p><b>PARA 120 PERSONAS</b></p>
-                        <a href="" class="btn btn-outline-warning">Ver más</a>
+                    <div class="col-sm-7">
+                        <h4><i class="fa fa-birthday-cake service-icon"></i>15 Años</h4>
+                        <p class="m-0">Celebra los 15 años de tu ser querido con estilo y elegancia. Desde la temática hasta la decoración, nos aseguramos de que sea un evento inolvidable.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="row align-items-center">
+                    <div class="col-sm-5">
+                        <img class="img-fluid mb-3 mb-sm-0" src="/static/img/Empresariales.jpg" alt="Eventos Empresariales">
+                    </div>
+                    <div class="col-sm-7">
+                        <h4><i class="fa fa-briefcase service-icon"></i>Eventos Empresariales</h4>
+                        <p class="m-0">Impulsa tu negocio con eventos corporativos exitosos. Desde conferencias hasta cenas de gala, organizamos eventos que reflejan la imagen de tu empresa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="row align-items-center">
+                    <div class="col-sm-5">
+                        <img class="img-fluid mb-3 mb-sm-0" src="/static/img/babyshower.jpg" alt="BabyShower">
+                    </div>
+                    <div class="col-sm-7">
+                        <h4><i class="fa fa-baby service-icon"></i>Baby Shower</h4>
+                        <p class="m-0">Celebra la llegada del nuevo miembro de la familia con un Baby Shower lleno de ternura y alegría. Nos encargamos de cada detalle para que sea un día especial.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
 </main>
-{% include 'ini/includes/footer.html' %}
+
+<a href="#nav" class="btn btn-lg btn-warning btn-lg-square back-to-top" style="display: inline;"><i class="fa fa-angle-double-up"></i></a>
+
+
+{% endblock %}

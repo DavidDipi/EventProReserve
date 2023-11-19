@@ -5,46 +5,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIRVAJ</title>
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    
+    <script src="https://kit.fontawesome.com/9c3ec62a49.js" crossorigin="anonymous"></script>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/styles-index.css">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/9c3ec62a49.js" crossorigin="anonymous"></script>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/static/css/styles-index.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/form_registro.css">
     <link rel="stylesheet" href="/static/css/register.css">
-    <script src="https://kit.fontawesome.com/9c3ec62a49.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!--NAVBAR MIRVAJ-->
+
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark text-white sticky-top navbar-dark">
-            <div class="container">
-                <a class="navbar-brand me-auto" href="/">
-                    <img src="/static/img/logo.png" alt="Mirvaj" width="80" height="80">
-                </a>
+        <!-- Navbar Start -->
+        <div class="container-fluid p-0 nav-bar top-0 " id="nav">
+            <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
+                <div class="container">
 
-                <button class=" navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                
+                    <a href="/" class="navbar-brand px-lg-4 m-0 d-flex">
+                        <img src="/static/img/logo.png" alt="" width="80" height="80">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto p-4">
+                            <a href="/" class="nav-item nav-link text-warning">INICIO</a>
+                            <a href="#about" class="nav-item nav-link text-warning">ACERCA DE NOSOTROS</a>
+                            <a href="#we-services" class="nav-item nav-link text-warning">NUESTROS SERVICIOS</a>
+                            <a href="/login" class="nav-item nav-link text-warning">INICIAR SESIÓN</a>
+                            <a href="/register" class="nav-item nav-link text-warning">REGISTRARME</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>  
 
-                <div class="collapse navbar-collapse " id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">INICIO</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">ALQUILER</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">TEMATICA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/login" class="btn btn-warning ms-2 text-white btn-ingresar">INGRESAR</a>
-                        </li>
-                    </ul>
+        <script>
+            // Obtén la URL actual
+            var currentUrl = window.location.pathname;
+
+            console.log(currentUrl);
+        
+            // Obtén todos los elementos de navegación (enlaces) dentro del navbar
+            var navLinks = document.querySelectorAll('.navbar-nav a');
+
+            console.log(navLinks)
+        
+            // Itera sobre los enlaces y agrega la clase 'active' al enlace correspondiente
+            navLinks.forEach(function (link) {
+                // Compara la URL actual con la URL del enlace
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
+            });
+        </script>
+        <!-- Navbar End -->
+    </header>
+
+
+    <!-- Main Content -->
+    <div class="" id="content">
+        <!-- Navbar -->
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+
+    <!-- End of Navbar -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer text-white bg-dark pt-1 px-0 position-relative overlay-top bottom-0">
+        <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
+            <div class="col-lg-6 col-md-6 mb-5  text-center" >
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Siguenos</h4>
+                <p>Siguenos en todas nuestras redes sociales</p>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-lg btn-outline-light btn-lg-square me-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-        </nav>
-    </header>
+
+            <div class="col-lg-6 col-md-6 mb-5  text-center">
+                Copyright &copy;<b>MIRVAJ.</b> All Rights Reserved.</a>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- jQuery 3.4.0 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+      
+    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/sweetalert.js"></script>
+    <script src="/static/js/events.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+  
+</html>
+

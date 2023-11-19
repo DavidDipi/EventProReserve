@@ -14,13 +14,20 @@
 }
 
 .form-login{
+  background-image: url(/static/img/cover.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: darken;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 15%;
   height: 100%;
   width: 100%;
-  position: absolute;
+  /*position: absolute;*/
   display: flex;
   align-items: center;
-  background-color: var(--primary);
   bottom: 0;
+  padding-bottom: 5%;
 }
 
 .form-login .logo-login{

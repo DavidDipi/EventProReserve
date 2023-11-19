@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 // Definir variables
 let typeEvent, numberPerson, adMob, adDec, adAli, others, dataMob, dataDec, dataAli, dataOtServ;
 

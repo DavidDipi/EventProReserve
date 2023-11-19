@@ -42,8 +42,8 @@ $(document).ready(function() {
                         {"data": "descrip"},
                         {"data": "estado"},
                         {
-                            "data": null,
-                            "defaultContent": ' <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob{{ adMob.idAdMob }}">EDITAR<i class="fa-solid fa-pen-to-square"></i></button> <button class="borrar">Borrar</button>'
+                            "data": "id",
+                            "defaultContent": ' <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob">EDITAR<i class="fa-solid fa-pen-to-square"></i></button> <button class="borrar">Borrar</button>'
                         }
                     ]
                 });
@@ -54,6 +54,25 @@ $(document).ready(function() {
                 console.log(error);
             }
         });
+
+        $('#miTabla tbody').on('click', 'button.editar', function () {
+            // Obtén la fila actual
+            var fila = tabla.row($(this).parents('tr')).data();
+            
+            // Extrae el ID de la fila
+            var id = fila.id;
+    
+            // Ahora puedes utilizar el ID como desees (por ejemplo, pasarlo a una función de edición)
+            console.log('ID a editar:', id);
+            // Llama a una función de edición pasando el ID
+            editarRegistro(id);
+        });
+    
+        function editarRegistro(id) {
+            // Lógica para editar el registro con el ID proporcionado
+            // Puedes implementar aquí la lógica que desees
+            console.log('Editar registro con ID:', id);
+        }
     
     
 });

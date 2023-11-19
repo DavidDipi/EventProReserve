@@ -86,7 +86,7 @@ def agg_tEvent():
         if existing:
             flash('Esta registro ya esta registrado', 'error')
         else:   
-            _description = request.form['costPersons']
+            _description = request.form['descTypeEvent']
             _estAct = request.form['state']
             
             try:

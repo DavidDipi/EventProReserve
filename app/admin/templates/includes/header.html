@@ -111,6 +111,10 @@
 
       <!-- Main Content -->
       <div class="content col-9 d-flex align-items-center flex-column mt-5 p-5" id="content">
+          <ul class="list-unstyled text-start">
+              <li>{{ pagina_actual }}</li>
+          </ul>
+
           {% block content %}{% endblock %}
 
           <div class="footer m-0 bg-body-secondary bottom-0 fixed-bottom w-100 text-center" style="z-index: 1;"> 

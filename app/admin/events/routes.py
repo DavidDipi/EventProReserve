@@ -69,6 +69,40 @@ def listar_events():
                             ots = ots)
 
 
+# CREAR REGISTRO TIPO DE EVENTO
+@events.route("/c_tEvent", methods=["POST"])
+@admin_required
+def agg_tEvent():
+    from app.models import TypeEvents
+    from app import db
+    
+    if request.method == 'POST':
+    
+        _name = request.form['nameTypeEvent']
+        
+        existing = TypeEvents.query.filter_by( nameTypeEvent = _name ).first()
+    
+        
+        if existing:
+            flash('Esta registro ya esta registrado', 'error')
+        else:   
+            _description = request.form['costPersons']
+            _estAct = request.form['state']
+            
+            try:
+                typeEvents = TypeEvents( nameTypeEvent = _name, descTypeEvent = _description, idAct = _estAct )
+                
+                db.session.add(typeEvents)
+                db.session.commit()
+
+                flash('Registro exitoso', 'success')
+                
+                return redirect(url_for("events.listar_events"))
+            except Exception as e:
+                # Manejar cualquier excepción que pueda ocurrir durante la inserción
+                flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for("events.listar_events"))
+
 # Editar tipos de eventos
 @events.route("/edit_event/<id>", methods=["GET", "POST"])
 @admin_required

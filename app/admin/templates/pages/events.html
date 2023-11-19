@@ -806,8 +806,9 @@
             // Realiza la solicitud AJAX al servidor Flask
             $.ajax({
                 url: '/datatable',
-                type: 'GET',
+                type: 'POST',
                 success: function(response) {
+                    alert("entro");
                     // Maneja la respuesta del servidor
                     $('#result').text(response.message);
                 },

@@ -128,9 +128,7 @@ body{
     text-decoration: none;
 }
 
-.sidebar .side-menu li.active a{
-    color: var(--primary);
-}
+
 
 .sidebar.close .side-menu li a{
     width: calc(48px - (4px * 2));

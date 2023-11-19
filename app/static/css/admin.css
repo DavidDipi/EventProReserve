@@ -9,3 +9,21 @@
 .main-class{
     height: 100vh;
 }
+
+.m-pan:hover{
+    color: #ffc107 !important;
+}
+
+.sidebar{
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.item-sidebar.active{
+    background-color: #f6f6f9 !important;
+}
+
+.sidebar .side-menu li.active a{
+    color: #ffc107;
+}
+

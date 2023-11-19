@@ -90,9 +90,9 @@ def agg_tEvent():
             _estAct = request.form['state']
             
             try:
-                typeEvents = TypeEvents( nameTypeEvent = _name, descTypeEvent = _description, idAct = _estAct )
+                p = TypeEvents( nameTypeEvent = _name, descriptionTypeEvent = _description, idAct = _estAct )
                 
-                db.session.add(typeEvents)
+                db.session.add(p)
                 db.session.commit()
 
                 flash('Registro exitoso', 'success')

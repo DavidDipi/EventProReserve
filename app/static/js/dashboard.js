@@ -43,7 +43,7 @@ $(document).ready(function() {
                         {"data": "estado"},
                         {
                             "data": "id",
-                            "defaultContent": ' <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob">EDITAR<i class="fa-solid fa-pen-to-square"></i></button> <button class="borrar">Borrar</button>'
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
                         }
                     ]
                 });

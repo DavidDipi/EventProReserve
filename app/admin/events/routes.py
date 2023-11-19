@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify, url_for, redirect, flash
+from flask import  Flask, render_template, request, jsonify, url_for, redirect, flash
 from . import events
 from flask_login import current_user
 from functools import wraps
@@ -67,6 +67,66 @@ def listar_events():
                             adDecs = adDecs,
                             adAlis = adAlis,
                             ots = ots)
+
+
+@events.route('/get_data', methods=['GET'])
+def get_data():
+    # Simulación de datos
+    data = {'message': 'Hola desde el servidor'}
+    return jsonify(data)
+
+
+@events.route("/datatable", methods=["GET", "POST"])
+@admin_required
+def datatable():
+    pagina_actual = request.path
+    
+    # Agregar evento
+    form = RegistrarTipoEvento()
+    # Objeto vacío
+    p = app.models.TypeEvents()
+    if form.validate_on_submit():
+        form.populate_obj(p)
+        app.db.session.add(p)
+        app.db.session.commit()
+        
+        response = {
+            "status": "success",
+            "message": "Evento registrado"
+        }
+
+        return redirect(url_for("events.listar_events")) 
+    
+    # Listar eventos
+    events = app.models.TypeEvents.query.all()
+    # Listar cantidad de personas
+    amountPers = app.models.AmountPeople.query.all()
+    # Listar mobiliario adicional
+    adMobs = app.models.AdditionalMob.query.all()
+    # Listar active
+    active = app.models.Est_Active.query.all()
+    # Listar decoracion adicional
+    adDecs = app.models.AdditionalDec.query.all()
+    # Listar alimentos adicionales
+    adAlis = app.models.AdditionalAli.query.all()
+    # Listar servicios adicionales
+    ots = app.models.OthersServ.query.all()
+    
+
+    datos = [
+        {"events": events},
+        {"pagina_actual": pagina_actual},
+        {"form": form},
+        {"amountPers": amountPers},
+        {"adMobs": adMobs},
+        {"active": active},
+        {"adDecs": adDecs},
+        {"adAlis": adAlis},
+        {"ots": ots}
+    ]
+
+    return jsonify(datos)
+
 
 
 # CREAR REGISTRO TIPO DE EVENTO

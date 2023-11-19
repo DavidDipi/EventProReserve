@@ -23,7 +23,7 @@
         <div class="tab-content" id="nav-tabContent">
 
             <!-- TIPO DE EVENTOS -->
-
+            <button id="btnGetData">Obtener Datos</button>
             <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
                 <!--Modal to add a new event-->
@@ -771,6 +771,13 @@
             </div>
 
 
+            <div id="cursos" class="content">
+                <div class="table">
+                    <table id="tablaCursos" class="display" style="width:90%">
+                    </table>
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -792,3 +799,24 @@
     {% endfor %}
 {% endif %}
 {% endwith  %}
+
+<script>
+      $(document).ready(function() {
+        $('#btnGetData').click(function() {
+            $('#btnGetData').click(function() {
+            // Realiza la solicitud AJAX al servidor Flask
+            $.ajax({
+                url: '/get_data',
+                type: 'GET',
+                success: function(response) {
+                    // Maneja la respuesta del servidor
+                    $('#result').text(response.message);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+        });
+    });
+</script>

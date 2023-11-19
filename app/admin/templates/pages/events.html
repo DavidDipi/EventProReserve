@@ -803,12 +803,12 @@
 <script>
       $(document).ready(function() {
         $('#btnGetData').click(function() {
+            $('#btnGetData').click(function() {
             // Realiza la solicitud AJAX al servidor Flask
             $.ajax({
-                url: '/datatable',
-                type: 'POST',
+                url: '/get_data',
+                type: 'GET',
                 success: function(response) {
-                    alert("entro");
                     // Maneja la respuesta del servidor
                     $('#result').text(response.message);
                 },
@@ -816,6 +816,7 @@
                     console.log(error);
                 }
             });
+        });
         });
     });
 </script>

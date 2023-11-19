@@ -69,6 +69,12 @@ def listar_events():
                             ots = ots)
 
 
+@app.route('/get_data', methods=['GET'])
+def get_data():
+    # Simulación de datos
+    data = {'message': 'Hola desde el servidor'}
+    return jsonify(data)
+
 
 @events.route("/datatable", methods=["GET", "POST"])
 @admin_required

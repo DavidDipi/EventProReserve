@@ -7,21 +7,21 @@
     <div class="container my-5 card ">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active text-dark" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Inicio</button>
+                <button class="nav-link active text-dark select-tab" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Inicio</button>
 
-                <button class="nav-link text-dark" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Tipo de evento</button>
+                <button class="nav-link text-dark select-tab" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Tipo de evento</button>
 
-                <button class="nav-link text-dark" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Cantidad de personas</button>
+                <button class="nav-link text-dark select-tab" id="nav-cant-tab" data-bs-toggle="tab" data-bs-target="#nav-cant" type="button" role="tab" aria-controls="nav-cant" aria-selected="false">Cantidad de personas</button>
 
-                <button class="nav-link text-dark" id="nav-admob-tab" data-bs-toggle="tab" data-bs-target="#nav-adMob" type="button" role="tab" aria-controls="nav-adMob" aria-selected="false">Mobiliario adicional</button>
+                <button class="nav-link text-dark select-tab" id="nav-admob-tab" data-bs-toggle="tab" data-bs-target="#nav-adMob" type="button" role="tab" aria-controls="nav-adMob" aria-selected="false">Mobiliario adicional</button>
 
-                <button class="nav-link text-dark" id="nav-dec-tab" data-bs-toggle="tab" data-bs-target="#nav-adDec" type="button" role="tab" aria-controls="nav-addec" aria-selected="false">Decoración adicional</button>
+                <button class="nav-link text-dark select-tab" id="nav-dec-tab" data-bs-toggle="tab" data-bs-target="#nav-adDec" type="button" role="tab" aria-controls="nav-addec" aria-selected="false">Decoración adicional</button>
 
-                <button class="nav-link text-dark" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
+                <button class="nav-link text-dark select-tab" id="nav-ali-tab" data-bs-toggle="tab" data-bs-target="#nav-adAli" type="button" role="tab" aria-controls="nav-adali" aria-selected="false">Alimentos adicionales</button>
 
-                <button class="nav-link text-dark" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
+                <button class="nav-link text-dark select-tab" id="nav-ots-tab" data-bs-toggle="tab" data-bs-target="#nav-ots" type="button" role="tab" aria-controls="nav-ots" aria-selected="false">Otros servicios</button>
 
-                <button class="nav-link text-dark" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
+                <button class="nav-link text-dark select-tab-resume disabled" id="nav-resume-tab" data-bs-toggle="tab" data-bs-target="#nav-resume" type="button" role="tab" aria-controls="nav-resume" aria-selected="false">Resumen</button>
 
             </div>
         </nav>
@@ -206,12 +206,56 @@
                     {% endfor %}
                     <button type="button" onclick="agregarServicios()" class="btn btn-outline-success">Agregar Servicios</button>
                 </form>
+
+                <div class="d-flex align-items-end flex-column mt-5">
+                    <button class="btn btn-info" onclick="sendForm()">Finalizar cotización</button>
+                </div>
             </div>
 
             <div class="tab-pane fade p-3 text-center" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
                 <form action="">
-                    <div class="" id="resume">
-                        
+                    <div class="resume" id="resume">
+                        <div class="mb-3 row">
+                            <label for="rTypeEvent" class="col-sm-2 col-form-label">Tipo de evento:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="rTypeEvent" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                            <label for="" class="col-sm-2 col-form-label">Cantidad de personas:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                            <label for="" class="col-sm-2 col-form-label">Mobiliario adicional:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                            <label for="" class="col-sm-2 col-form-label">Decoracion adicional:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                            <label for="" class="col-sm-2 col-form-label">Alimentos adicionales:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+
+                            <label for="" class="col-sm-2 col-form-label">Otros servicios:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="" type="text" aria-label="readonly" readonly>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

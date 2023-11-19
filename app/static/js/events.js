@@ -1,14 +1,19 @@
 // Definir variables
-let typeEvent, numberPerson, adMob, adDec, adAli, others;
+let typeEvent, numberPerson, adMob, adDec, adAli, others, dataMob, dataDec, dataAli, dataOtServ;
+
+dataMob = '';
+dataDec = '';
+dataAli = '';
+dataOtServ = '';
 
 // Función para agregar mobiliario
 function agregarMobiliario() {
     $('input[name="mobiliario[]"]:checked').each(function() {
         const idMobiliario = $(this).val();
         const cantidadMobiliario = $('#quantity' + idMobiliario).val();
-        console.log(`Mobiliario seleccionado con ID ${idMobiliario}, Cantidad: ${cantidadMobiliario}`);
-        // Aquí podrías ejecutar lógica adicional, como enviar estos datos al servidor para procesar la orden.
-        // $.ajax({ ... });
+        
+        dataMob += `${idMobiliario}:${cantidadMobiliario}\n`;
+        // console.log(dataMob);
     });
 }
 
@@ -17,7 +22,10 @@ function agregarDecoracion() {
     $('input[name="decoracion[]"]:checked').each(function() {
         const idDecoracion = $(this).val();
         const cantidadDecoracion = $('#quantity' + idDecoracion).val();
-        console.log(`Decoracion seleccionado con ID ${idDecoracion}, Cantidad: ${cantidadDecoracion}`);
+
+        dataDec += `${idDecoracion}:${cantidadDecoracion}\n`;
+
+        // console.log(`Decoracion seleccionado con ID ${idDecoracion}, Cantidad: ${cantidadDecoracion}`);
         // Aquí podrías ejecutar lógica adicional, como enviar estos datos al servidor para procesar la orden.
         // $.ajax({ ... });
     });
@@ -30,8 +38,10 @@ function agregarAlimentos() {
         const idAlimento = $(this).val();
         const cantidad = $('#quantity' + idAlimento).val();
 
+        dataAli += `${idAlimento}:${cantidad}\n`;
+
         // Realizar alguna lógica con los datos capturados
-        console.log(`Alimento seleccionado con ID ${idAlimento}, Cantidad: ${cantidad}`);
+        // console.log(`Alimento seleccionado con ID ${idAlimento}, Cantidad: ${cantidad}`);
 
         // Aquí podrías ejecutar lógica adicional, por ejemplo, enviar estos datos al servidor para procesar la orden.
         // $.ajax({ ... });
@@ -92,38 +102,62 @@ $( document ).ready(function() {
 
 });
 
+function sendForm() {
+    // Aquí se recopilan todos los datos
+    const datosParaEnviar = {
+        typeEvent: typeEvent,
+        numberPerson: numberPerson,
+        adMob: adMob,
+        adDec: adDec,
+        adAli: adAli,
+        others: others
+    };
+
+    // Enviar los datos al servidor usando AJAX
+    $.ajax({
+        type: 'POST', // Método HTTP para enviar los datos (puede ser GET, POST, etc.)
+        url: '/ruta/para/enviar/datos', // URL a la que se enviarán los datos
+        data: datosParaEnviar, // Los datos que se enviarán al servidor
+        success: function(response) {
+            // Manejar la respuesta del servidor si la solicitud se realiza correctamente
+            console.log('Datos enviados correctamente:', response);
+            // ... Puedes hacer algo más con la respuesta si es necesario
+        },
+        error: function(error) {
+            // Manejar errores si la solicitud falla
+            console.error('Error al enviar datos:', error);
+        }
+    });
+}
+
+
+
+/*
 function mostrarResumen() {
     // Desactivar el evento click temporalmente para evitar disparos repetitivos
     // $(document).off("click", "#nav-resume-tab");
 
     // Obtener el elemento donde se mostrará el resumen
     const resumenElement = $('#resume');
+    var rTypeEvent = $('#rTypeEvent').val(typeEvent);
+    console.log(rTypeEvent);
 
     // Limpiar el contenido previo del resumen
-    resumenElement.empty();
+    // resumenElement.empty();
 
     // Crear una lista para agregar cada elemento seleccionado
-    const listaResumen = $('<div class="mb-3">');
-
-    // Agregar cada elemento seleccionado a la lista
-    if (typeEvent) {
-        listaResumen.append(`<input class="form-control" type="text" value="${typeEvent}" aria-label="readonly" readonly> `);
-    }
-    if (numberPerson) {
-        listaResumen.append(`<input class="form-control" type="text" value="${numberPerson}" aria-label="readonly" readonly>  `);
-    }
-    // Agregar aquí las selecciones de mobiliario, decoración, alimentos, y otros servicios
+    // const listaResumen = $('<div class="mb-3">');
     
     // Mostrar la lista en el elemento de resumen
-    resumenElement.append(listaResumen);
+    // resumenElement.append(listaResumen);
 
     // Reactivar el evento click después de realizar las operaciones
     /*$(document).on("click", "#nav-resume-tab", function(){
         mostrarResumen();
-    });*/
+    });
 }
 
 $(document).on("click", "#nav-resume-tab", function(){
     mostrarResumen();
-});
+});*/
 

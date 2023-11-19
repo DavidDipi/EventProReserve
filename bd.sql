@@ -88,7 +88,7 @@ CREATE TABLE othersServ(
     FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct)
 );
 CREATE TABLE eventsTbl(
-	idEvent INT AUTO_INCREMENT PRIMARY KEY,
+	  idEvent INT AUTO_INCREMENT PRIMARY KEY,
     idClient INT NOT NULL,
     idTypeEvent INT NOT NULL,
     idAmountPe INT NOT NULL,
@@ -96,7 +96,9 @@ CREATE TABLE eventsTbl(
     idAdDec INT NOT NULL,
     idAdAli INT NOT NULL,
     idOtServ INT NOT NULL,
-	idAct INT NOT NULL,
+	  idAct INT NOT NULL,
+    dateCreateCot DATE NOT NULL,
+    dateRealizationEvent DATE NOT NULL,
     FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct),
     FOREIGN KEY (idClient) REFERENCES clientsTbl(idCliente),
     FOREIGN KEY (idTypeEvent) REFERENCES typeeventstbl(idTypeEvent),

@@ -191,6 +191,37 @@ function sendForm() {
     }
 }
 
+function editEvent() {
+    const idUser = $('#idUser').val();
+    const eventId = $('#eventId').val();
+
+    const datosParaEnviar = {
+        idUser: idUser,
+        typeEvent: typeEvent,
+        numberPerson: numberPerson,
+        dataMob: dataMob,
+        dataDec: dataDec,
+        dataAli: dataAli,
+        others: others,
+        eventId: eventId
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/e_event/' + eventId,  // Actualiza la URL según tu configuración
+        data: datosParaEnviar,
+        success: function(response) {
+            setTimeout(function() {
+                // El código que deseas ejecutar después de un retraso de 8 segundos
+                console.log('Datos actualizados correctamente:', response);
+            }, 900);
+            // Puedes hacer algo más con la respuesta si es necesario
+        },
+        error: function(error) {
+            console.error('Error al actualizar datos:', error);
+        }
+    });
+}
 
 $('#sendForm').on('click', function() {
     sendForm();
@@ -200,38 +231,10 @@ $('#sendForm').on('click', function() {
     }, 500);   
 });
 
-
-$( document ).ready(function() {
-    enableEdit()
+$('#editEvent').on('click', function() {
+    editEvent();
+    setTimeout(function() {
+        // El código que deseas ejecutar después de un retraso de 8 segundos
+        // $("#nav-resume-tab").click();
+    }, 500);   
 });
-
-
-/*
-function mostrarResumen() {
-    // Desactivar el evento click temporalmente para evitar disparos repetitivos
-    // $(document).off("click", "#nav-resume-tab");
-
-    // Obtener el elemento donde se mostrará el resumen
-    const resumenElement = $('#resume');
-    var rTypeEvent = $('#rTypeEvent').val(typeEvent);
-    console.log(rTypeEvent);
-
-    // Limpiar el contenido previo del resumen
-    // resumenElement.empty();
-
-    // Crear una lista para agregar cada elemento seleccionado
-    // const listaResumen = $('<div class="mb-3">');
-    
-    // Mostrar la lista en el elemento de resumen
-    // resumenElement.append(listaResumen);
-
-    // Reactivar el evento click después de realizar las operaciones
-    /*$(document).on("click", "#nav-resume-tab", function(){
-        mostrarResumen();
-    });
-}
-
-$(document).on("click", "#nav-resume-tab", function(){
-    mostrarResumen();
-});*/
-

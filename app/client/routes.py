@@ -1,10 +1,11 @@
-from flask import render_template, request, send_from_directory, flash, redirect, url_for, jsonify
+from flask import render_template, request, make_response, flash, redirect, url_for, jsonify
 from flask_login import current_user
 from datetime import datetime
 from . import client_blueprint
 from functools import wraps
 import app
 import os
+import pdfkit
 # from app.context_processors import inject_client_name
 
 # Decorador personalizado para verificar la autorización
@@ -125,3 +126,55 @@ def c_event():
         print('Error al procesar y guardar datos:', str(e))
         traceback.print_exc()
         return jsonify({'message': 'Ocurrio un error'})
+
+
+@client_blueprint.route("/e_event/<id>", methods=["POST"])
+@client_required
+def e_event(id):
+    try:
+        from app.models import EventsTbl
+        from app import db
+        data = request.form
+
+        # Asegúrate de validar y manejar adecuadamente el caso en el que event_id sea None o esté vacío
+
+        # Obtiene el evento a través del ID
+        evento_a_actualizar = EventsTbl.query.get(id)
+
+        # Actualiza los campos necesarios
+        evento_a_actualizar.idTypeEvent = data['typeEvent']
+        evento_a_actualizar.idAmountPe = data['numberPerson']
+        evento_a_actualizar.otServ = data['others']
+
+        # Guarda los cambios en la base de datos
+        db.session.commit()
+
+        return jsonify({'message': 'Datos actualizados correctamente'})
+    except Exception as e:
+        # Maneja cualquier error que pueda ocurrir durante el proceso
+        return jsonify({'message': 'Error al actualizar datos: ' + str(e)})
+    
+
+
+@client_blueprint.route('/send_data_template',)
+
+
+@client_blueprint.route('/generate_pdf/<id>', methods=['GET'])
+@client_required
+def generate_pdf(id):
+    # Obtener los datos del evento desde la base de datos o donde los tengas almacenados
+    # ...
+    id_user = current_user.idUser
+    id_event = id
+    # Renderizar la plantilla HTML con los datos del evento
+    rendered_template = render_template('pages/event_template.html', id=id)
+
+    # Convertir el HTML a PDF utilizando pdfkit
+    pdf_content = pdfkit.from_string(rendered_template, False)
+
+    # Crear una respuesta de Flask con el contenido del PDF
+    response = make_response(pdf_content)
+    response.mimetype = 'application/pdf'
+    response.headers['Content-Disposition'] = f'attachment; filename=event_report_client_{id_user}_event_{id_event}.pdf'
+
+    return response

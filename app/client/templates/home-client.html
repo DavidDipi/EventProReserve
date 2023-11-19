@@ -219,6 +219,9 @@
             <div class="tab-pane fade p-3 text-center mt-3" id="nav-resume" role="tabpanel" aria-labelledby="nav-resume-tab">
                 <form action="">
 
+                    <input type="hidden" name="eventId" value="{{ ult_evts.idEvent }}" id="eventId">
+                    <input type="hidden" value="{{current_user.idUser}}" id="idUser">
+
                         <div class="resume" id="resume">
                             <div class="mb-3 row">
                                 <label for="rTypeEvent" class="col-sm-2 col-form-label">Tipo de evento:</label>
@@ -251,18 +254,18 @@
 
                                         <div class="col-sm-10">
     
-                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
-                                                {% for event in events %}
-                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
-                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
-                                                    {% elif event.idAct == 1 %}
-                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                            <select id="selectNumberPerson" class="form-select " aria-label="Default select" name="selectNumberPerson" disabled>
+                                                {% for cantPer in cantPers %}
+                                                    {% if cantPer.idAmountPe == ult_evts.idAmountPe %}
+                                                        <option value="{{ cantPer.idAmountPe }}" selected>{{ cantPer.AmountPe }}</option>
+                                                    {% elif cantPer.idAct == 1 %}
+                                                        <option value="{{ cantPer.idAmountPe }}">{{ cantPer.AmountPe }}</option>
                                                     {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectNumberPerson')">Editar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -353,23 +356,28 @@
 
                                         <div class="col-sm-10">
     
-                                            <select id="selectTypeEvent" class="form-select " aria-label="Default select" name="selectTypeEvent" disabled>
-                                                {% for event in events %}
-                                                    {% if event.idTypeEvent == ult_evts.idTypeEvent %}
-                                                        <option value="{{ event.idTypeEvent }}" selected>{{ event.nameTypeEvent }}</option>
-                                                    {% elif event.idAct == 1 %}
-                                                        <option value="{{ event.idTypeEvent }}">{{ event.nameTypeEvent }}</option>
+                                            <select id="selectOt" class="form-select " aria-label="Default select" name="selectOt" disabled>
+                                                {% for ot in ots %}
+                                                    {% if ot.idOtServ == ult_evts.idOtServ %}
+                                                        <option value="{{ ot.idOtServ }}" selected>{{ ot.nameOtServ }}</option>
+                                                    {% elif ot.idAct == 1 %}
+                                                        <option value="{{ ot.idOtServ }}">{{ ot.nameOtServ }}</option>
                                                     {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectTypeEvent')">Editar</button>
+                                            <button type="button" class="btn btn-warning" onclick="enableEdit('selectOt')">Editar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="d-flex justify-content-end mt-5">
+                            <button type="submit" class="btn btn-success" id="editEvent">Realizar cotización</button>
+                        </div>
+
                 </form>
             </div>
 

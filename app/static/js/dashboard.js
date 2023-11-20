@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 $(document).ready(function() {
    
+
+    //-- funcion para los eventos
         $.ajax({
             url: 'get_event',
             type: 'POST',
@@ -85,8 +87,10 @@ $(document).ready(function() {
                     var fila = tabla.row($(this).parents('tr')).data();
                     var id = fila.id;
                    console.log(id);
-                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
-                    $("#modalEditar").modal('show');   
+                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                  
+                    $("#borrar_evento_btn").click();
+
                 });
                
             },
@@ -95,7 +99,367 @@ $(document).ready(function() {
             }
         });
 
-    
-    
+        //--- funcion  para cantidad de personas
+        $.ajax({
+            url: 'get_personas',
+            type: 'POST',
+            success: function(response) {
+                
+                console.log(response.events)
+
+                // Inicializa DataTable
+                var tabla = $('#personas').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "Cantidad"},
+                        {"data": "Costo"},
+                        {"data": "Estado"},
+                        {
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                        }
+                    ]
+                });
+
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#personas').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+                    $("#modalEditar .modal-body #form_personas").empty();
+                    $.each(data,function(index, elemento) {
+                        
+                    
+                        if(index=='Estado'){
+                            
+
+                            $("#modalEditar .modal-body #form_personas").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                        }else if(index =="id"){
+
+                            $("#modalEditar .modal-body #form_personas").append('<input type="hidden" value="'+elemento+'" name="editCantPers">');
+                        }
+                        else if(index =="Cantidad"){
+
+                            $("#modalEditar .modal-body #form_personas").append('<label for="'+index+'">'+index+':</label>   <input name= "AmountPe" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+                        else if(index =="Costo"){
+
+                            $("#modalEditar .modal-body #form_personas").append('<label for="'+index+'">'+index+':</label>   <input  name= "costAmountPe" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+
+                    
+
+                    
+                    });
+                    $("#modalEditar").modal('show');            
+                    $("#modalEditar .modal-body #form_personas").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                    
+                });
+
+                $('#personas').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                console.log(id);
+                    $("#modalEditar .modal-body #form_personas_eliminar").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_personas_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                
+                    $("#borrar_personas_btn").click();
+
+                });
+            
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+        //-- mobiliario adicional
+        $.ajax({
+            url: 'get_event',
+            type: 'POST',
+            success: function(response) {
+                
+                console.log(response.events)
+
+                 // Inicializa DataTable
+                var tabla = $('#evento').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "Nombre"},
+                        {"data": "Descripción"},
+                        {"data": "Estado"},
+                        {
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                        }
+                    ]
+                });
+
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#evento').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+                    $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
+                    $.each(data,function(index, elemento) {
+                        
+                      
+                        if(index=='Estado'){
+                            
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                        }else if(index =="id"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
+                        }
+                        else if(index =="Descripción"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <textarea name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+                        else if(index =="Nombre"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+
+                     
+
+                      
+                      });
+                      $("#modalEditar").modal('show');            
+                      $("#modalEditar .modal-body #formulario_edicion_eventos").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                     
+                });
+
+                $('#evento').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                   console.log(id);
+                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                  
+                    $("#borrar_evento_btn").click();
+
+                });
+               
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+        //-- decoracion adicional
+        $.ajax({
+            url: 'get_event',
+            type: 'POST',
+            success: function(response) {
+                
+                console.log(response.events)
+
+                 // Inicializa DataTable
+                var tabla = $('#evento').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "Nombre"},
+                        {"data": "Descripción"},
+                        {"data": "Estado"},
+                        {
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                        }
+                    ]
+                });
+
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#evento').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+                    $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
+                    $.each(data,function(index, elemento) {
+                        
+                      
+                        if(index=='Estado'){
+                            
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                        }else if(index =="id"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
+                        }
+                        else if(index =="Descripción"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <textarea name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+                        else if(index =="Nombre"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+
+                     
+
+                      
+                      });
+                      $("#modalEditar").modal('show');            
+                      $("#modalEditar .modal-body #formulario_edicion_eventos").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                     
+                });
+
+                $('#evento').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                   console.log(id);
+                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                  
+                    $("#borrar_evento_btn").click();
+
+                });
+               
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+
+        //--- alimentos adicionales
+        $.ajax({
+            url: 'get_event',
+            type: 'POST',
+            success: function(response) {
+                
+                console.log(response.events)
+
+                 // Inicializa DataTable
+                var tabla = $('#evento').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "Nombre"},
+                        {"data": "Descripción"},
+                        {"data": "Estado"},
+                        {
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                        }
+                    ]
+                });
+
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#evento').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+                    $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
+                    $.each(data,function(index, elemento) {
+                        
+                      
+                        if(index=='Estado'){
+                            
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                        }else if(index =="id"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
+                        }
+                        else if(index =="Descripción"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <textarea name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+                        else if(index =="Nombre"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+
+                     
+
+                      
+                      });
+                      $("#modalEditar").modal('show');            
+                      $("#modalEditar .modal-body #formulario_edicion_eventos").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                     
+                });
+
+                $('#evento').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                   console.log(id);
+                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                  
+                    $("#borrar_evento_btn").click();
+
+                });
+               
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+
+        //--- otros servicios
+        $.ajax({
+            url: 'get_event',
+            type: 'POST',
+            success: function(response) {
+                
+                console.log(response.events)
+
+                 // Inicializa DataTable
+                var tabla = $('#evento').DataTable({
+                    "data":response.events,
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "Nombre"},
+                        {"data": "Descripción"},
+                        {"data": "Estado"},
+                        {
+                            "data": null,
+                            "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
+                        }
+                    ]
+                });
+
+                        // Asigna funcionalidad a los botones (Editar y Borrar)
+                $('#evento').on('click', 'button.editar', function () {
+                    var data = tabla.row($(this).parents('tr')).data();
+                    $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
+                    $.each(data,function(index, elemento) {
+                        
+                      
+                        if(index=='Estado'){
+                            
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                        }else if(index =="id"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
+                        }
+                        else if(index =="Descripción"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <textarea name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+                        else if(index =="Nombre"){
+
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                        }
+
+                     
+
+                      
+                      });
+                      $("#modalEditar").modal('show');            
+                      $("#modalEditar .modal-body #formulario_edicion_eventos").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                     
+                });
+
+                $('#evento').on('click', 'button.borrar', function () {
+                    var fila = tabla.row($(this).parents('tr')).data();
+                    var id = fila.id;
+                   console.log(id);
+                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                  
+                    $("#borrar_evento_btn").click();
+
+                });
+               
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     
 });
+

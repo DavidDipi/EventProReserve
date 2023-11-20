@@ -69,11 +69,26 @@ def listar_events():
                             ots = ots)
 
 
-@events.route('/get_data', methods=['GET'])
-def get_data():
-    # Simulación de datos
-    data = {'message': 'Hola desde el servidor'}
-    return jsonify(data)
+@events.route("/get_personas", methods=["POST"])
+@admin_required
+def get_event_datatable():
+      # Listar eventos
+       # Listar cantidad de personas
+    amountPers = app.models.AmountPeople.query.all()
+    list_pers = []
+    for amountPer in amountPers:
+        if(event.idAct==1):
+            amountPer="ACTIVO"
+        else:
+            amountPer="INACTIVO"
+
+        list_pers.append({
+            'id':amountPer.idAmountPe,
+            'Cantidad':amountPer.AmountPe,
+            'Costo':amountPer.costAmountPe,
+            'Estado':amountPer.idAct
+        })
+    return jsonify({'pers':list_pers})
 
 
 @events.route("/get_event", methods=["POST"])

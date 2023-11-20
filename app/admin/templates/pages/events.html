@@ -165,81 +165,6 @@
                         </tbody>
                     </table>
         
-                <table class="table table-bordered border-black text-center" id="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cantidad</th>
-                            <th>Costo</th>
-                            <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for amountPer in amountPers %}
-                        <tr>
-                            <td scope="row">{{ amountPer.idAmountPe }}</td>
-                            <td>{{ amountPer.AmountPe }}</td>
-                            <td>{{ amountPer.costAmountPe }}</td>
-                            {% for act in active %}
-                                {% if amountPer.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCantPers{{ amountPer.idAmountPe }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editCantPers{{ amountPer.idAmountPe }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_cPer">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ amountPer.idAmountPe }}" name="editCantPers"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "AmountPe" placeholder="Escriba la nueva cantidad de personas" value = "{{ amountPer.AmountPe }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costAmountPe" placeholder="Escriba el nuevo costo" value = "{{ amountPer.costAmountPe }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal to add a new event-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_cPer" >  
-                                    <input type="hidden" value="{{ amountPer.idAmountPe }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
 
             </div>
 
@@ -292,16 +217,29 @@
                 </div>
                 <!--End modal to add a new event-->
         
-                <table class="table table-bordered border-black text-center" id="table">
+     
+                  <!-- evento -->
+                  <table id="mobiliario" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
+                            <th>Acciones</th>
+                        
                         </tr>
                     </thead>
+                    <tbody>
+                        <!-- Los datos se cargarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+
+
+                
+                <table class="table table-bordered border-black text-center" id="table">
+                  
                     <tbody>
                         {% for adMob in adMobs %}
                         <tr>

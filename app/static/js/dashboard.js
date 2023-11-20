@@ -37,7 +37,20 @@ $(document).ready(function() {
 
                  // Inicializa DataTable
                 var tabla = $('#evento').DataTable({
+                    "dom": 'Bfrtip',
                     "data":response.events,
+                    "buttons": [
+                        'pdf',
+                        {
+                            extend: 'excel',
+                            title: 'Nombre_del_archivo',
+                            exportOptions: {
+                                columns: [1, 2,3]
+                            },
+                        },
+                        
+                      
+                    ],
                     "columns": [
                         {"data": "id"},
                         {"data": "Nombre"},
@@ -47,7 +60,10 @@ $(document).ready(function() {
                             "data": null,
                             "defaultContent": ' <button type="button" class="btn editar btn-warning" style="margin-left: 4%;margin-right: 9%;">EDITAR<i class="fa-solid fa-pen-to-square"></i></button><button type="submit" class="btn borrar btn-danger">BORRAR<i class="fa-regular fa-trash-can"></i></button>'
                         }
-                    ]
+                    ],
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                    },
                 });
 
                         // Asigna funcionalidad a los botones (Editar y Borrar)
@@ -173,19 +189,19 @@ $(document).ready(function() {
 
         //-- mobiliario adicional
         $.ajax({
-            url: 'get_event',
+            url: 'get_mobiliario',
             type: 'POST',
             success: function(response) {
                 
                 console.log(response.events)
 
                  // Inicializa DataTable
-                var tabla = $('#evento').DataTable({
+                var tabla = $('#mobiliario').DataTable({
                     "data":response.events,
                     "columns": [
                         {"data": "id"},
                         {"data": "Nombre"},
-                        {"data": "Descripción"},
+                        {"data": "Costo"},
                         {"data": "Estado"},
                         {
                             "data": null,
@@ -195,7 +211,7 @@ $(document).ready(function() {
                 });
 
                         // Asigna funcionalidad a los botones (Editar y Borrar)
-                $('#evento').on('click', 'button.editar', function () {
+                $('#mobiliario').on('click', 'button.editar', function () {
                     var data = tabla.row($(this).parents('tr')).data();
                     $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
                     $.each(data,function(index, elemento) {
@@ -227,7 +243,7 @@ $(document).ready(function() {
                      
                 });
 
-                $('#evento').on('click', 'button.borrar', function () {
+                $('#mobiliario').on('click', 'button.borrar', function () {
                     var fila = tabla.row($(this).parents('tr')).data();
                     var id = fila.id;
                    console.log(id);

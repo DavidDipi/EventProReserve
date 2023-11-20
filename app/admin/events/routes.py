@@ -77,18 +77,47 @@ def get_person_datatable():
     amountPers = app.models.AmountPeople.query.all()
     list_pers = []
     for amountPer in amountPers:
-        if(event.idAct==1):
-            amountPer="ACTIVO"
+        if(amountPer.idAct==1):
+            estado="ACTIVO"
         else:
-            amountPer="INACTIVO"
+            estado="INACTIVO"
 
         list_pers.append({
             'id':amountPer.idAmountPe,
             'Cantidad':amountPer.AmountPe,
             'Costo':amountPer.costAmountPe,
-            'Estado':amountPer.idAct
+            'Estado':estado
         })
     return jsonify({'pers':list_pers})
+
+
+@events.route("/get_mobiliario", methods=["POST"])
+@admin_required
+def get_mobiliario_datatable():
+      # Listar eventos
+       # Listar cantidad de personas
+    adMobs = app.models.AdditionalMob.query.all()
+    list_adMobs = []
+    for adMob in adMobs:
+        if(adMob.idAct==1):
+            estado="ACTIVO"
+        else:
+            estado="INACTIVO"
+
+
+        list_adMobs.append({
+            'id':adMob.idAdMob,
+            'Nombre':adMob.nameAdMob,
+            'Costo':adMob.costAdMob,
+            'Estado':estado
+        })
+    return jsonify({'adMobs':list_adMobs})
+
+
+
+
+
+
 
 
 @events.route("/get_event", methods=["POST"])

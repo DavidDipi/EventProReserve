@@ -12,7 +12,7 @@
                     <a href="/login" class="me-auto ms-auto">Iniciar Sesión</a>
                     <a href="/register" class="active ms-auto me-auto">Registrarme</a>
                 </div>
-                <form class="form" method="post" action="/register">
+                <form class="form" method="post" action="/register" onsubmit="return validateForm()">
                     <div class="row">
                         <div class="mb-3">
                             <div class="input-container">
@@ -20,22 +20,43 @@
                                 <label for="fullnameInput">Nombre Completo</label>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="input-container">
-                                <input type="email" class="form-control" id="emailInput" name="email" required>
-                                <label for="emailInput">Email</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-container">
+                                    <input type="email" class="form-control" id="emailInput" name="email" required>
+                                    <label for="emailInput">Email</label>
+                                </div>
                             </div>
+                            <div class="col">
+                                <div class="input-container">
+                                    <input type="email" class="form-control input-text" id="confirmarEmail" name="confirmarEmail" required>
+                                    <label for="confirmarEmail">Confirmar email</label>
+                                </div>
+                            </div>
+                            <p id="emailError" class="error-message"></p>
                         </div>
                         <div class="mb-3">
                             <div class="input-container">
-                                <input type="text" class="form-control input-text" id="telInput" name="telefono" required>
+                                <input type="text" class="form-control input-text" id="telInput" name="telefono" required maxlength="10" oninput="this.value = this.value.replace(/\D/g, '');">
                                 <label for="telInput">Telefono</label>
                             </div>
+                            <p id="telError" class="error-message"></p>
                         </div>
-                        <div class="mb-3">
-                            <div class="input-container">
-                                <input type="password" class="form-control" id="passwordInput" name="password" required>
-                                <label for="passwordInput">Ingrese una contraseña</label>
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="input-container">
+                                    <input type="password" class="form-control" id="passwordInput" name="password" required>
+                                    <label for="passwordInput">Ingrese una contraseña</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-container">
+                                    <input type="password" class="form-control input-text" id="confirmPassword" name="confirmPassword" required>
+                                    <label for="confirmPassword">Confirme la contraseña</label>
+                                </div>
+                            </div>
+                            <p id="passwordError" class="error-message"></p>
                             </div>
                         </div>
                             
@@ -48,6 +69,58 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function validateForm() {
+            var emailInput = document.getElementById('emailInput');
+            var confirmarEmailInput = document.getElementById('confirmarEmail');
+            var emailError = document.getElementById('emailError');
+
+            var passwordInput = document.getElementById('passwordInput');
+            var confirmarPasswordInput = document.getElementById('confirmPassword')
+            var passwordError = document.getElementById('passwordError');
+
+            var telInput = document.getElementById('telInput');
+            var telError = document.getElementById('telError');
+
+            // Verificación del número de teléfono
+            if (telInput.value.length !== 10) {
+                telError.textContent = 'El número de teléfono debe tener 10 dígitos';
+                return false; // Evita que el formulario se envíe
+            } else {
+                telError.textContent = '';
+            }
+    
+            if (emailInput.value !== confirmarEmailInput.value) {
+                emailError.textContent = 'Los correos electrónicos no coinciden';
+                return false; // Evita que el formulario se envíe
+            } else {
+                emailError.textContent = '';
+            }
+
+
+            // Verificación de las contraseñas
+            if (passwordInput.value !== confirmarPasswordInput.value) {
+                passwordError.textContent = 'Las contraseñas no coinciden';
+                return false; // Evita que el formulario se envíe
+            } else {
+                passwordError.textContent = '';
+            }
+
+            // Verificación de la contraseña
+            var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            if (!passwordRegex.test(passwordInput.value)) {
+                passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres, incluyendo al menos un número, una letra mayúscula y una letra minúscula.';
+                return false; // Evita que el formulario se envíe
+            } else {
+                passwordError.textContent = '';
+            }
+
+            // Resto de la validación, si es necesario
+
+            return true; // Permite que el formulario se envíe
+        }
+    </script>
 
 {% endblock %}  
 

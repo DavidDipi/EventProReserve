@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("scroll", mostrarElementos);
 
     const emailInput = document.getElementById('emailInput');
-    const emailInputLogin = document.getElementById('emailInputLogin');
     const passwordInput = document.getElementById('passwordInput');
-    const passwordInputLogin = document.getElementById('passwordInputLogin');
     const textInputs = document.getElementsByClassName('input-text');
 
     emailInput.addEventListener('input', handleInput);
@@ -33,20 +31,17 @@ document.addEventListener("DOMContentLoaded", function() {
         textInputs[i].addEventListener('input', handleInput);
     }
 
-    console.log(emailInput);
-    console.log(passwordInput);
-
     function handleInput() {
         const value = this.value.trim();
         if (value !== '') {
-          this.classList.add('has-value');
+            this.classList.add('has-value');
         } else {
-          this.classList.remove('has-value');
+            this.classList.remove('has-value');
         }
     }
 
 
-  
+
 
 /*
     // Cambiar color de la barra de navegación

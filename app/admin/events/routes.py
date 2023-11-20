@@ -71,7 +71,7 @@ def listar_events():
 
 @events.route("/get_personas", methods=["POST"])
 @admin_required
-def get_event_datatable():
+def get_person_datatable():
       # Listar eventos
        # Listar cantidad de personas
     amountPers = app.models.AmountPeople.query.all()

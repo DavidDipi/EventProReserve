@@ -695,17 +695,22 @@
                     </div>
                     <div class="modal-body">
                    
-                        <form id="formulario_edicion_eventos" method="post" class="form_edit_ots">
+                        <form id="formulario_edicion_eventos" method="post" class="form_edit_tEvent">
                             <div class="row g-3 justify-content-center">
                           
                               
                             </div>
                         </form>
 
+                        <!-- eliminar evento -->
+                        <form method="POST" id="borrar_evento" class="confirmar_tEvent" >  
+                          
+                        </form>
+
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+                   
                     </div>
                 </div>
                 </div>
@@ -713,6 +718,7 @@
 
         </div>
     </div>
+    
     
 {% endblock %}
     

@@ -36,8 +36,47 @@
                 <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#addTypeEvent">
                     Agregar evento
                 </button>
+
+                       
+                <!-- Modal -->
+                <div class="modal fade" id="addTypeEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar tipo de evento</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="row g-3 form w-100" method="post" action="/admin/events/c_tEvent">
+    
+                                    <div class="col-md-12">
+                                      <label for="nameTypeEvent" class="form-label">Nombre del evento:</label>
+                                      <input type="text" class="form-control" id="nameTypeEvent" name="nameTypeEvent" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descTypeEvent" class="form-label">Descripcion del evento</label>
+                                        <input type="text" class="form-control" id="descTypeEvent" name="descTypeEvent" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select" name="state">
+                                            {% for act in active %}
+                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                            
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-warning ms-1">Enviar</button>
+                                    </div>
+                                </form>
+                            
+                            </div>
+                    </div>
+                    </div>
+                </div>
                 
-                  <!-- En tu archivo HTML -->
+                  <!-- evento -->
                 <table id="evento" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
@@ -107,6 +146,24 @@
                     </div>
                 </div>
                 <!--End modal to add a new event-->
+
+                    <!-- evento -->
+                    <table id="personas" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+    
+                                <th>ID</th>
+                                <th>Cantidad</th>
+                                <th>Costo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos se cargarán dinámicamente aquí -->
+                        </tbody>
+                    </table>
         
                 <table class="table table-bordered border-black text-center" id="table">
                     <thead>
@@ -703,9 +760,19 @@
                         </form>
 
                         <!-- eliminar evento -->
-                        <form method="POST" id="borrar_evento" class="confirmar_tEvent" >  
+                        <form method="POST" id="borrar_evento" class="confirmar_tEvent hidden" >  
                           
                         </form>
+
+                        <!-- editar personas -->
+                        <form id="form_personas" method="post" class="form_edit_cPer">
+                        </form>
+
+                        <!-- eliminar personas -->
+                         <form id="form_personas_eliminar" method="POST" class="confirmar_cPer hidden" >  
+                        </form>
+
+
 
                     </div>
                     <div class="modal-footer">

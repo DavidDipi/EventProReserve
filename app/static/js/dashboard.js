@@ -388,15 +388,15 @@ $(document).ready(function() {
             type: 'POST',
             success: function(response) {
                 
-                console.log(response.events)
+                console.log(response.others_serv)
 
                  // Inicializa DataTable
-                var tabla = $('#evento').DataTable({
-                    "data":response.events,
+                var tabla = $('#ots').DataTable({
+                    "data":response.others_serv,
                     "columns": [
                         {"data": "id"},
                         {"data": "Nombre"},
-                        {"data": "Descripción"},
+                        {"data": "Costo"},
                         {"data": "Estado"},
                         {
                             "data": null,
@@ -406,27 +406,27 @@ $(document).ready(function() {
                 });
 
                         // Asigna funcionalidad a los botones (Editar y Borrar)
-                $('#evento').on('click', 'button.editar', function () {
+                $('#ots').on('click', 'button.editar', function () {
                     var data = tabla.row($(this).parents('tr')).data();
-                    $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
+                    $("#modalEditar .modal-body #e_ots_form").empty();
                     $.each(data,function(index, elemento) {
                         
                       
                         if(index=='Estado'){
                             
 
-                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
+                            $("#modalEditar .modal-body #e_ots_form").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
                         }else if(index =="id"){
 
-                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
+                            $("#modalEditar .modal-body #e_ots_form").append('<input type="hidden" value="'+elemento+'" name="editOts">');
                         }
-                        else if(index =="Descripción"){
+                        else if(index =="Costo"){
 
-                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <textarea name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                            $("#modalEditar .modal-body #e_ots_form").append('<label for="'+index+'">'+index+':</label>   <input  name= "costOts" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
                         }
                         else if(index =="Nombre"){
 
-                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
+                            $("#modalEditar .modal-body #e_ots_form").append('<label for="'+index+'">'+index+':</label>   <input  name= "nameOts" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
                         }
 
                      
@@ -434,15 +434,15 @@ $(document).ready(function() {
                       
                       });
                       $("#modalEditar").modal('show');            
-                      $("#modalEditar .modal-body #formulario_edicion_eventos").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
+                      $("#modalEditar .modal-body #e_ots_form").append('<br> <button class="w-50 btn btn-outline-success">Guardar</button>')
                      
                 });
 
-                $('#evento').on('click', 'button.borrar', function () {
+                $('#ots').on('click', 'button.borrar', function () {
                     var fila = tabla.row($(this).parents('tr')).data();
                     var id = fila.id;
                    console.log(id);
-                    $("#modalEditar .modal-body #borrar_evento").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
+                    $("#modalEditar .modal-body #borrar_ots").append('<input type="hidden" value="'+id+'" name="deleteRecord">           <button id="borrar_evento_btn" type="submit" class="btn btn-danger">    BORRAR<i class="fa-regular fa-trash-can"></i></button>')
                   
                     $("#borrar_evento_btn").click();
 

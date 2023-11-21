@@ -407,82 +407,24 @@
                     </div>
                 </div>
 
-                <table class="table table-bordered border-black text-center" id="table">
+                <!-- Decoracion -->
+                <table id="ots" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
+                            <th>Acciones</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
-                        {% for ot in ots %}
-                        <tr>
-                            <td scope="row">{{ ot.idOtServ }}</td>
-                            <td>{{ ot.nameOtServ }}</td>
-                            <td>{{ ot.costOtServ }}</td>
-                            {% for act in active %}
-                                {% if ot.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editOts{{ ot.idOtServ }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editOts{{ ot.idOtServ }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_ots">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ ot.idOtServ }}" name="editOts"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "nameOts" placeholder="Escriba la nueva cantidad de personas" value = "{{ ot.nameOtServ }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costOts" placeholder="Escriba el nuevo costo" value = "{{ ot.costOtServ }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_ots" >  
-                                    <input type="hidden" value="{{ ot.idOtServ }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        <!-- Los datos se cargarán dinámicamente aquí -->
                     </tbody>
                 </table>
+             
             </div>
 
 
@@ -541,6 +483,13 @@
                         <form id="borrar_adAli" method="POST" class="confirmar_adAli hidden" >  
                         </form>
 
+                        <!-- Editar Otros servicios -->
+                        <form id="e_ots_form" method="post" class="form_edit_ots">
+                        </form>
+
+                        <!-- Eliminar Otros servicios -->
+                        <form id="borrar_ots" method="POST" class="confirmar_ots hidden" >  
+                        </form>
 
                     </div>
                     <div class="modal-footer">

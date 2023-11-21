@@ -612,7 +612,7 @@ def e_ots(id):
     
     
 
-# BORRAR REGISTRO ALIMENTO ADICIONAL
+# BORRAR REGISTRO OSTROS SERVICIOS
 @events.route("/d_ots/<id>", methods=["POST"])
 @admin_required
 def d_ots(id):

@@ -76,17 +76,15 @@
                     </div>
                 </div>
                 
-                  <!-- evento -->
+                <!-- TIPO DE EVENTO -->
                 <table id="evento" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Estado</th>
                             <th>Acciones</th>
-                        
                         </tr>
                     </thead>
                     <tbody>
@@ -147,23 +145,23 @@
                 </div>
                 <!--End modal to add a new event-->
 
-                    <!-- evento -->
-                    <table id="personas" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
+                <!-- CANTIDAD DE PERSONAS -->
+                <table id="personas" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
     
-                                <th>ID</th>
-                                <th>Cantidad</th>
-                                <th>Costo</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Los datos se cargarán dinámicamente aquí -->
-                        </tbody>
-                    </table>
+                            <th>ID</th>
+                            <th>Cantidad</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se cargarán dinámicamente aquí -->
+                    </tbody>
+                </table>
         
 
             </div>
@@ -218,8 +216,8 @@
                 <!--End modal to add a new event-->
         
      
-                  <!-- evento -->
-                  <table id="mobiliario" class="table table-striped table-bordered" style="width:100%">
+                <!-- evento -->
+                <table id="mobiliario" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
 
@@ -233,77 +231,6 @@
                     </thead>
                     <tbody>
                         <!-- Los datos se cargarán dinámicamente aquí -->
-                    </tbody>
-                </table>
-
-
-                
-                <table class="table table-bordered border-black text-center" id="table">
-                  
-                    <tbody>
-                        {% for adMob in adMobs %}
-                        <tr>
-                            <td scope="row">{{ adMob.idAdMob }}</td>
-                            <td>{{ adMob.nameAdMob }}</td>
-                            <td>{{ adMob.costAdMob }}</td>
-                            {% for act in active %}
-                                {% if adMob.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdMob{{ adMob.idAdMob }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editAdMob{{ adMob.idAdMob }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_adMob">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="editAdMob"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "nameAdMob" placeholder="Escriba la nueva cantidad de personas" value = "{{ adMob.nameAdMob }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costAdMob" placeholder="Escriba el nuevo costo" value = "{{ adMob.costAdMob }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_adMob" >  
-                                    <input type="hidden" value="{{ adMob.idAdMob }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
                     </tbody>
                 </table>
 
@@ -353,82 +280,24 @@
                     </div>
                 </div>
 
-                <table class="table table-bordered border-black text-center" id="table">
+                <!-- Decoracion -->
+                <table id="decoracion" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
+                            <th>Acciones</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
-                        {% for adDec in adDecs %}
-                        <tr>
-                            <td scope="row">{{ adDec.idAdDec }}</td>
-                            <td>{{ adDec.nameAdDec }}</td>
-                            <td>{{ adDec.costAdDec }}</td>
-                            {% for act in active %}
-                                {% if adDec.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdDec{{ adDec.idAdDec }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editAdDec{{ adDec.idAdDec }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_adDec">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ adDec.idAdDec }}" name="editAdDec"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "nameAdDec" placeholder="Escriba la nueva cantidad de personas" value = "{{ adDec.nameAdDec }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costAdDec" placeholder="Escriba el nuevo costo" value = "{{ adDec.costAdDec }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_adDec" >  
-                                    <input type="hidden" value="{{ adDec.idAdDec }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        <!-- Los datos se cargarán dinámicamente aquí -->
                     </tbody>
                 </table>
+
             </div>
 
             <!-- ALIMENTOS ADICIONAL -->
@@ -475,80 +344,21 @@
                     </div>
                 </div>
 
-                <table class="table table-bordered border-black text-center" id="table">
+                <!-- Decoracion -->
+                <table id="alimentos" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Costo</th>
                             <th>Estado</th>
-                            <th colspan="2" scope="colgroup">Acción</th>
+                            <th>Acciones</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
-                        {% for adAli in adAlis %}
-                        <tr>
-                            <td scope="row">{{ adAli.idAdAli }}</td>
-                            <td>{{ adAli.nameAdAli }}</td>
-                            <td>{{ adAli.costAdAli }}</td>
-                            {% for act in active %}
-                                {% if adAli.idAct == act.idAct %}
-                                    <td class="text-{{act.estAct}}">{{ act.estAct }}</td>
-                                {% endif %}
-                            {% endfor %}
-
-                            <td>
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAdAli{{ adAli.idAdAli }}">
-                                    EDITAR
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="editAdAli{{ adAli.idAdAli }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar tipo de evento</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="form_edit_adAli">
-                                                <div class="row g-3 justify-content-center">
-                                                    <input type="hidden" value="{{ adAli.idAdAli }}" name="editAdAli"> 
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "nameAdAli" placeholder="Escriba la nueva cantidad de personas" value = "{{ adAli.nameAdAli }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control"  name= "costAdAli" placeholder="Escriba el nuevo costo" value = "{{ adAli.costAdAli }}" />
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select" name="state">
-                                                            {% for act in active %}
-                                                                <option value="{{ act.idAct }}">{{ act.estAct }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button class="w-50 btn btn-outline-success">Guardar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!--End modal-->
-                            </td>
-                            <td>
-                                <form method="POST" class="confirmar_adAli" >  
-                                    <input type="hidden" value="{{ adAli.idAdAli }}" name="deleteRecord">              
-                                    <button type="submit" class="btn btn-danger">
-                                        BORRAR
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                        <!-- Los datos se cargarán dinámicamente aquí -->
                     </tbody>
                 </table>
             </div>
@@ -690,16 +500,14 @@
                     </div>
                     <div class="modal-body">
                    
+                        <!--Editar Tipo de evento-->
                         <form id="formulario_edicion_eventos" method="post" class="form_edit_tEvent">
                             <div class="row g-3 justify-content-center">
-                          
-                              
                             </div>
                         </form>
 
                         <!-- eliminar evento -->
                         <form method="POST" id="borrar_evento" class="confirmar_tEvent hidden" >  
-                          
                         </form>
 
                         <!-- editar personas -->
@@ -707,9 +515,31 @@
                         </form>
 
                         <!-- eliminar personas -->
-                         <form id="form_personas_eliminar" method="POST" class="confirmar_cPer hidden" >  
+                        <form id="form_personas_eliminar" method="POST" class="confirmar_cPer hidden" >  
                         </form>
 
+                        <!-- Editar Mobiliario -->
+                        <form id="editar_adMob" method="post" class="form_edit_adMob">
+                        </form>
+
+                        <!-- Eliminar Mobiliario -->
+                        <form id="borrar_adMob" method="POST" class="confirmar_adMob hidden" >  
+                        </form>
+
+                        <!-- Editar Decoracion -->
+                        <form id="form_decoracion" method="post" class="form_edit_adDec">
+                        </form>
+
+                        <!-- Eliminar Decoracion -->
+                        <form id="borrar_adDec" method="POST" class="confirmar_adDec hidden" > 
+                            
+                        <!-- Editar Mobiliario -->
+                        <form id="editar_adAli" method="post" class="form_edit_adAli">
+                        </form>
+
+                        <!-- Eliminar Mobiliario -->
+                        <form id="borrar_adAli" method="POST" class="confirmar_adAli hidden" >  
+                        </form>
 
 
                     </div>

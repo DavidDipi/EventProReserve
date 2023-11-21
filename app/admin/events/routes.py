@@ -69,9 +69,31 @@ def listar_events():
                             ots = ots)
 
 
+@events.route("/get_event", methods=["POST"])
+@admin_required
+def get_event_datatable():
+      # Listar eventos
+    events = app.models.TypeEvents.query.all()
+    list_event = []
+    for event in events:
+        if(event.idAct==1):
+            estado="ACTIVO"
+        else:
+            estado="INACTIVO"
+
+        list_event.append({
+            'id':event.idTypeEvent,
+            'Nombre':event.nameTypeEvent,
+            'Descripción':event.descriptionTypeEvent,
+            'Estado':estado
+        })
+    return jsonify({'events':list_event})
+
+
 @events.route("/get_personas", methods=["POST"])
 @admin_required
 def get_person_datatable():
+    print("entro")
       # Listar eventos
        # Listar cantidad de personas
     amountPers = app.models.AmountPeople.query.all()
@@ -114,31 +136,52 @@ def get_mobiliario_datatable():
     return jsonify({'adMobs':list_adMobs})
 
 
-
-
-
-
-
-
-@events.route("/get_event", methods=["POST"])
+@events.route("/get_additional_dec", methods=["POST"])
 @admin_required
-def get_event_datatable():
-      # Listar eventos
-    events = app.models.TypeEvents.query.all()
-    list_event = []
-    for event in events:
-        if(event.idAct==1):
-            estado="ACTIVO"
-        else:
-            estado="INACTIVO"
-
-        list_event.append({
-            'id':event.idTypeEvent,
-            'Nombre':event.nameTypeEvent,
-            'Descripción':event.descriptionTypeEvent,
-            'Estado':estado
+def get_additional_dec_datatable():
+    additional_dec = app.models.AdditionalDec.query.all()
+    list_additional_dec = []
+    for ad_dec in additional_dec:
+        estado = "ACTIVO" if ad_dec.idAct == 1 else "INACTIVO"
+        list_additional_dec.append({
+            'id': ad_dec.idAdDec,
+            'Nombre': ad_dec.nameAdDec,
+            'Costo': ad_dec.costAdDec,
+            'Estado': estado
         })
-    return jsonify({'events':list_event})
+    return jsonify({'additional_dec': list_additional_dec})
+
+
+@events.route("/get_additional_ali", methods=["POST"])
+@admin_required
+def get_additional_ali_datatable():
+    additional_ali = app.models.AdditionalAli.query.all()
+    list_additional_ali = []
+    for ad_ali in additional_ali:
+        estado = "ACTIVO" if ad_ali.idAct == 1 else "INACTIVO"
+        list_additional_ali.append({
+            'id': ad_ali.idAdAli,
+            'Nombre': ad_ali.nameAdAli,
+            'Costo': ad_ali.costAdAli,
+            'Estado': estado
+        })
+    return jsonify({'additional_ali': list_additional_ali})
+
+
+@events.route("/get_others_serv", methods=["POST"])
+@admin_required
+def get_others_serv_datatable():
+    others_serv = app.models.OthersServ.query.all()
+    list_others_serv = []
+    for ot_serv in others_serv:
+        estado = "ACTIVO" if ot_serv.idAct == 1 else "INACTIVO"
+        list_others_serv.append({
+            'id': ot_serv.idOtServ,
+            'Nombre': ot_serv.nameOtServ,
+            'Costo': ot_serv.costOtServ,
+            'Estado': estado
+        })
+    return jsonify({'others_serv': list_others_serv})
 
 
 
@@ -268,6 +311,7 @@ def e_cant_pers(id):
         app.db.session.commit()
         
         return redirect(url_for("events.listar_events"))
+
 
 # BORRAR REGISTRO CANTIDAD DE PERSONAS
 @events.route("/d_cant_pers/<id>", methods=["POST"])

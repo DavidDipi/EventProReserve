@@ -286,7 +286,7 @@ def agg_cant_pers():
             except Exception as e:
                 # Manejar cualquier excepción que pueda ocurrir durante la inserción
                 flash(f'Error: {str(e)}', 'danger')
-    return redirect(url_for("events.listar_events"))
+
 
 
 # EDITAR REGISTRO CANTIDAD DE PERSONAS

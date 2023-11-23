@@ -89,7 +89,7 @@ CREATE TABLE othersServ(
 );
 CREATE TABLE eventsTbl(
 	  idEvent INT AUTO_INCREMENT PRIMARY KEY,
-    idClient INT NOT NULL,
+    idUser INT NOT NULL,
     idTypeEvent INT NOT NULL,
     idAmountPe INT NOT NULL,
     adMob VARCHAR(150) NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE eventsTbl(
     dateCreateCot DATE NOT NULL,
     dateRealizationEvent DATE NULL,
     FOREIGN KEY (idAct) REFERENCES EST_ACTIVE(idAct),
-    FOREIGN KEY (idClient) REFERENCES clientsTbl(idCliente),
+    FOREIGN KEY (idUser) REFERENCES userstbl(idUser),
     FOREIGN KEY (idTypeEvent) REFERENCES typeeventstbl(idTypeEvent),
     FOREIGN KEY (idAmountPe) REFERENCES amountPeople(idAmountPe)
 );

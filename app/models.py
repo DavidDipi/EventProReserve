@@ -99,7 +99,7 @@ class OthersServ(db.Model):
 class EventsTbl(db.Model):
     __tablename__ = 'eventsTbl'
     idEvent = db.Column(db.Integer, primary_key=True)
-    idClient = db.Column(db.Integer, db.ForeignKey('userstbl.idUser'))
+    idUser = db.Column(db.Integer, db.ForeignKey('userstbl.idUser'))
     idTypeEvent = db.Column(db.Integer, db.ForeignKey('typeeventstbl.idTypeEvent'))
     idAmountPe = db.Column(db.Integer, db.ForeignKey('amountPeople.idAmountPe'))
     adMob = db.Column(db.String(150), nullable=False)

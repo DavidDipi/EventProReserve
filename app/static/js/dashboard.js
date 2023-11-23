@@ -71,7 +71,6 @@ $(document).ready(function() {
                     var data = tabla.row($(this).parents('tr')).data();
                     $("#modalEditar .modal-body #formulario_edicion_eventos").empty();
                     $.each(data,function(index, elemento) {
-                        console.log(elemento);
                       
                         if(index=='Estado'){
                             $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label> <select class="form-select" aria-label="Default select" name="state" id="miSelect"> <option value="1">ACTIVO</option>  <option value="2">INACTIVO</option>  </select>')
@@ -79,9 +78,7 @@ $(document).ready(function() {
                             $("#modalEditar .modal-body #formulario_edicion_eventos").append('<input type="hidden" value="'+elemento+'" name="editTypeEvent">');
                         }
                         else if(index =="Descripción"){
-                            console.log(elemento)
-                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="' + index + '">' + index + ':</label><label class="form-control" name="descriptionTypeEvent" id="' + index + '">' + elemento + '</label>');
-
+                            $("#modalEditar .modal-body #formulario_edicion_eventos").append('<label for="'+index+'">'+index+':</label>   <input  name= "descriptionTypeEvent" type="text" id="'+index+'" class="form-control" value="'+elemento+'">');
 
                         }
                         else if(index =="Nombre"){

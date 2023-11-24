@@ -251,7 +251,7 @@ def crea_pdf(ruta_template, info, id_event, rutacss='C:/Users/David/Desktop/mirv
 def descargar_pdf(ruta_salida, id_event):
     id_str = str(id_event)
     nombre_archivo = f'bill{id_str}.pdf'
-    return send_file(ruta_salida, as_attachment=True, attachment_filename=nombre_archivo)
+    return send_file(ruta_salida, as_attachment=True, download_name=nombre_archivo)
     
 
 
@@ -388,7 +388,8 @@ def generate_pdf(id):
         ruta_template='app/client/templates/pages/bill.html'
         
         crea_pdf(ruta_template=ruta_template,info=context, id_event=event.idEvent)
-    
+        
+        return url_for('client.client_home')    
     else:
         return render_template('pages/error.html')
     

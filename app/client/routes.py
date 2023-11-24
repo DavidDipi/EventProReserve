@@ -1,7 +1,8 @@
 import traceback
-from flask import render_template, request, make_response, flash, redirect, url_for, jsonify
+from flask import render_template, request, make_response, flash, redirect, url_for, jsonify,send_file
 from flask_login import current_user
 from flask_wtf import FlaskForm
+import jinja2
 from wtforms import DateField
 from wtforms.validators import InputRequired
 from datetime import datetime, timedelta
@@ -11,6 +12,7 @@ from sqlalchemy import func
 import app
 import os
 import pdfkit
+# from flask_wkhtmltopdf import Wkhtmltopdf
 # from app.context_processors import inject_client_name
 
 # Decorador personalizado para verificar la autorización
@@ -220,6 +222,39 @@ def get_date():
 @client_blueprint.route('/send_data_template',)
 
 
+def crea_pdf(ruta_template, info, id_event, rutacss='C:/Users/David/Desktop/mirvaj-python/app/static/css/bootstrap.min.css'):
+    nombre_template = ruta_template.split('/')[-1]
+    ruta_template = ruta_template.replace(nombre_template, '')
+    
+    template_loader = jinja2.FileSystemLoader('app/client/templates/pages/')
+    env = jinja2.Environment(loader=template_loader)
+    html_template = 'bill.html' 
+    template = env.get_template(html_template)
+    html = template.render(info)
+    
+    options = {
+        'page-size': 'Letter',
+        'orientation': 'Portrait',
+        'encoding': 'UTF-8',
+        'enable-local-file-access': ''
+    }
+    
+    config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
+    id_str = str(id_event)
+    print(id_str)
+    ruta_salida = f'C:/Users/David/Desktop/mirvaj-python/app/static/pdfs/bill{id_str}.pdf'
+    attachment_filename=f'bill{id_str}.pdf'
+    pdfkit.from_string(html, ruta_salida, css=rutacss, options=options, configuration=config)
+    
+    descargar_pdf(ruta_salida=ruta_salida, id_event=id_event)
+    
+def descargar_pdf(ruta_salida, id_event):
+    id_str = str(id_event)
+    nombre_archivo = f'bill{id_str}.pdf'
+    return send_file(ruta_salida, as_attachment=True, attachment_filename=nombre_archivo)
+    
+
+
 @client_blueprint.route('/generate_pdf/<id>', methods=['GET'])
 @client_required
 def generate_pdf(id):
@@ -328,29 +363,32 @@ def generate_pdf(id):
             'client_phone': client_phone,
             'priceTotal': priceTotal
         }
-
-        return render_template('pages/bill.html',
-                        event_id=event.idEvent,
-                        user_email=user_email,
-                        type_event_name=type_event_name,
-                        est_active=est_active,
-                        amount_people=amount_people,
-                        ad_mob_name=ad_mob_names,
-                        ad_dec_name=ad_dec_names,
-                        ad_ali_name=ad_ali_names,
-                        ad_mob_costs=ad_mob_costs,
-                        ad_dec_costs=ad_dec_costs,
-                        ad_ali_costs=ad_ali_costs,
-                        ad_mob_combined=ad_mob_combined,
-                        ad_dec_combined=ad_dec_combined,
-                        ad_ali_combined=ad_ali_combined,
-                        ot_serv_name=ot_serv_name,
-                        ot_serv_cost=ot_serv_cost,
-                        date_create_cot = date_create_cot,
-                        date_realization_event = date_realization_event,
-                        client_fullname = client_fullname,
-                        client_phone = client_phone,
-                        priceTotal=priceTotal)
+        """
+        # Obtener el texto del archivo HTML
+        template_loader = jinja2.FileSystemLoader('app/client/templates/pages/')
+        template_env = jinja2.Environment(loader=template_loader)
+        html_template = 'bill.html' 
+        template = template_env.get_template(html_template)
+        output_text = template.render(context)
+        
+        
+        # Crea una instancia de WKHtmlToPdf
+        pdf_converter = Wkhtmltopdf()
+        
+        config = {
+            'page-size': 'A4',
+            'orientation': 'Landscape'
+        }
+        
+        event_str = str(event)  
+        # Convertir el archivo HTML a PDF
+        pdf_converter.add_input_string(output_text)
+        pdf_converter.render(output_file='bill' + event_str + '.pdf', options=config)"""
+        
+        ruta_template='app/client/templates/pages/bill.html'
+        
+        crea_pdf(ruta_template=ruta_template,info=context, id_event=event.idEvent)
+    
     else:
         return render_template('pages/error.html')
     
@@ -368,3 +406,5 @@ def split_text_multiple(text):
                 quantities.append(quantity[0])  # Tomamos solo el primer valor si hay más de uno
         data_pairs.append((ids, quantities))
     return data_pairs
+
+

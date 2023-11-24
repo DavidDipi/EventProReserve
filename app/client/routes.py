@@ -7,6 +7,7 @@ from wtforms.validators import InputRequired
 from datetime import datetime, timedelta
 from . import client_blueprint
 from functools import wraps
+from sqlalchemy import func
 import app
 import os
 import pdfkit
@@ -71,6 +72,7 @@ def client_home():
 
     idUsuario = current_user.idUser  # Reemplaza esto con el ID del usuario específico
     ult_evts = EventsTbl.query.filter_by(idUser = idUsuario).order_by(EventsTbl.idEvent.desc()).first()
+    print(ult_evts)
     return render_template('home-client.html', 
                            pagina_actual = pagina_actual,
                            events = events,
@@ -221,19 +223,148 @@ def get_date():
 @client_blueprint.route('/generate_pdf/<id>', methods=['GET'])
 @client_required
 def generate_pdf(id):
-    # Obtener los datos del evento desde la base de datos o donde los tengas almacenados
-    # ...
-    id_user = current_user.idUser
-    id_event = id
-    # Renderizar la plantilla HTML con los datos del evento
-    rendered_template = render_template('pages/event_template.html', id=id)
+    from app.models import EventsTbl, TypeEvents, Est_Active, User, AmountPeople, AdditionalMob, AdditionalDec, AdditionalAli, OthersServ, Cliente
+    
+    print(f"ID del evento: {id}")
+    
 
-    # Convertir el HTML a PDF utilizando pdfkit
-    pdf_content = pdfkit.from_string(rendered_template, False)
+    # Realiza la consulta uniéndote a las tablas relacionadas por claves foráneas
+    event_data = app.db.session.query(
+        EventsTbl,
+        func.coalesce(User.emailUser, ''),
+        func.coalesce(TypeEvents.nameTypeEvent, ''),
+        func.coalesce(Est_Active.estAct, ''),
+        func.coalesce(AmountPeople.AmountPe, ''),
+        func.coalesce(AmountPeople.costAmountPe, ''),
+        func.coalesce(EventsTbl.adMob, ''),  # Manejar el valor nulo para adMob
+        func.coalesce(EventsTbl.adDec, ''),  # Manejar el valor nulo para adDec
+        func.coalesce(EventsTbl.adAli, ''),  # Manejar el valor nulo para adAli
+        func.coalesce(EventsTbl.otServ, ''),  # Manejar el valor nulo para otServ
+        EventsTbl.dateCreateCot,
+        EventsTbl.dateRealizationEvent,
+        Cliente.fullnameClient,
+        Cliente.phoneClient
+    ).join(User, EventsTbl.idUser == User.idUser)\
+    .join(TypeEvents, EventsTbl.idTypeEvent == TypeEvents.idTypeEvent)\
+    .join(Est_Active, EventsTbl.idAct == Est_Active.idAct)\
+    .join(AmountPeople, EventsTbl.idAmountPe == AmountPeople.idAmountPe)\
+    .join(Cliente, User.idUser == Cliente.idUser)\
+    .filter(EventsTbl.idEvent == 6)\
+    .first()
+    
+    print(event_data)
 
-    # Crear una respuesta de Flask con el contenido del PDF
-    response = make_response(pdf_content)
-    response.mimetype = 'application/pdf'
-    response.headers['Content-Disposition'] = f'attachment; filename=event_report_client_{id_user}_event_{id_event}.pdf'
+    if event_data:
+        event, user_email, type_event_name, est_active, amount_people, cost_aPeople, adMob, adDec, adAli, otServ, date_create_cot, date_realization_event, client_fullname, client_phone = event_data
+        
+        # Separar los datos de texto en ID y cantidad
+        ad_mob_data = split_text_multiple(event.adMob)
+        ad_dec_data = split_text_multiple(event.adDec)
+        ad_ali_data = split_text_multiple(event.adAli)
+        
+        def get_costs(ids_list, model, id_column, cost_column_name, name_column):
+            costs = []
+            names = []
+            for ids in ids_list:
+                cost = 0
+                name_list = []
+                cost_list = []
+                for id_value, quantity in zip(ids[0], ids[1]):
+                    cost = app.db.session.query(getattr(model, cost_column_name)).filter(getattr(model, id_column) == id_value).scalar() or 0
+                    name = app.db.session.query(getattr(model, name_column)).filter(getattr(model, id_column) == id_value).scalar() or ''
+                    name_list.append(name)
+                    cost_list.append(cost * int(quantity))
+                costs.append(cost_list)
+                names.append(name_list)
+            return costs, names
 
-    return response
+
+        # Obtener los costos para cada campo
+        ad_mob_costs, ad_mob_names = get_costs(ad_mob_data, AdditionalMob, 'idAdMob', 'costAdMob', 'nameAdMob')
+        ad_dec_costs, ad_dec_names = get_costs(ad_dec_data, AdditionalDec, 'idAdDec', 'costAdDec', 'nameAdDec')
+        ad_ali_costs, ad_ali_names = get_costs(ad_ali_data, AdditionalAli, 'idAdAli', 'costAdAli', 'nameAdAli')
+        ot_serv_name = app.db.session.query(OthersServ.nameOtServ).filter(OthersServ.idOtServ == event.otServ).scalar() or ''
+        ot_serv_cost = app.db.session.query(OthersServ.costOtServ).filter(OthersServ.idOtServ == event.otServ).scalar() or 0
+
+
+        ad_mob_combined = list(zip(ad_mob_names, ad_mob_costs))
+        ad_dec_combined = list(zip(ad_dec_names, ad_dec_costs))
+        ad_ali_combined = list(zip(ad_ali_names, ad_ali_costs))
+        
+        # Convertir cost_aPeople a un número (si es una cadena)
+        cost_aPeople = int(cost_aPeople)
+        
+        # Suma de cada lista de costos individuales
+        total_ad_mob_cost = sum(sum(ad_mob) for ad_mob in ad_mob_costs)
+        total_ad_dec_cost = sum(sum(ad_dec) for ad_dec in ad_dec_costs)
+        total_ad_ali_cost = sum(sum(ad_ali) for ad_ali in ad_ali_costs)
+        
+        priceTotal = total_ad_mob_cost + total_ad_dec_cost + total_ad_ali_cost + cost_aPeople
+        
+        print(priceTotal)
+
+        # Aquí puedes trabajar con los datos obtenidos
+        # Por ejemplo, imprimir los nombres relacionados a cada tabla
+        context = {
+            'event_id': event.idEvent,
+            'user_email': user_email,
+            'type_event_name': type_event_name,
+            'est_active': est_active,
+            'amount_people': amount_people,
+            'ad_mob_name': ad_mob_names,
+            'ad_dec_name': ad_dec_names,
+            'ad_ali_name': ad_ali_names,
+            'ad_mob_costs': ad_mob_costs,
+            'ad_dec_costs': ad_dec_costs,
+            'ad_ali_costs': ad_ali_costs,
+            'ad_mob_combined': ad_mob_combined,
+            'ad_dec_combined': ad_dec_combined,
+            'ad_ali_combined': ad_ali_combined,
+            'ot_serv_name': ot_serv_name,
+            'ot_serv_cost': ot_serv_cost,
+            'date_create_cot': date_create_cot,
+            'date_realization_event': date_realization_event,
+            'client_fullname': client_fullname,
+            'client_phone': client_phone,
+            'priceTotal': priceTotal
+        }
+
+        return render_template('pages/bill.html',
+                        event_id=event.idEvent,
+                        user_email=user_email,
+                        type_event_name=type_event_name,
+                        est_active=est_active,
+                        amount_people=amount_people,
+                        ad_mob_name=ad_mob_names,
+                        ad_dec_name=ad_dec_names,
+                        ad_ali_name=ad_ali_names,
+                        ad_mob_costs=ad_mob_costs,
+                        ad_dec_costs=ad_dec_costs,
+                        ad_ali_costs=ad_ali_costs,
+                        ad_mob_combined=ad_mob_combined,
+                        ad_dec_combined=ad_dec_combined,
+                        ad_ali_combined=ad_ali_combined,
+                        ot_serv_name=ot_serv_name,
+                        ot_serv_cost=ot_serv_cost,
+                        date_create_cot = date_create_cot,
+                        date_realization_event = date_realization_event,
+                        client_fullname = client_fullname,
+                        client_phone = client_phone,
+                        priceTotal=priceTotal)
+    else:
+        return render_template('pages/error.html')
+    
+    
+def split_text_multiple(text):
+    data_pairs = []
+    if text and ';' in text:
+        pairs = text.split(';')
+        ids = []
+        quantities = []
+        for pair in pairs:
+            id_value, *quantity = pair.split(':')
+            if quantity:
+                ids.append(id_value)
+                quantities.append(quantity[0])  # Tomamos solo el primer valor si hay más de uno
+        data_pairs.append((ids, quantities))
+    return data_pairs

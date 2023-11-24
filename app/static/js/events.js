@@ -141,11 +141,11 @@ function enableTab() {
 
 
 function sendForm() {
-
+    
     const idUser = $('#idUser').val();
     // Aquí se recopilan todos los datos
+    console.log(idUser + " " + typeEvent + " " + numberPerson + " " + dataMob + " " + dataDec + " " + dataAli + " " + others );
 
-    // console.log(idUser + " " + typeEvent + " " + numberPerson + " " + dataMob + " " + dataDec + " " + dataAli + " " + others );
 
     
     if (typeEvent != null || numberPerson != null){
@@ -164,6 +164,7 @@ function sendForm() {
         console.log('Datos a enviar:', datosParaEnviar);
 
         // Enviar los datos al servidor usando AJAX
+        
         $.ajax({
             type: 'POST',
             url: 'c_event',
@@ -242,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (!blockedDates.includes(selectedDate)) {
                         dateSelect = selectedDate;
                     } else {
-                        alert('Selecciona una fecha posterior a los próximos 15 días.');
+                        alert('Esta fecha no está disponible.');
                     }
                 },
             });
@@ -312,7 +313,7 @@ $(document).ready(function() {
 });
 
 $('#sendForm').on('click', function() {
-    // sendForm();
+    sendForm();
     setTimeout(function() {
         // El código que deseas ejecutar después de un retraso de 8 segundos
         $("#nav-resume-tab").click();

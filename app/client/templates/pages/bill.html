@@ -1,0 +1,440 @@
+<style>
+    .cost {
+        margin-left: 10px; /* Ajusta el espacio entre el nombre y el costo */
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+       }
+       
+       .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+       }   
+       .separator {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+    }
+    .line {
+        flex-grow: 1;
+        height: 5px; 
+        background-color: #FFC107; 
+        margin: 0 10px; 
+    }
+    .name{
+        font-size: 1.5em;
+        margin-left: 5%;
+    }
+    .cost{
+        margin-left: auto;
+        font-size: 1.3em;
+        font-weight: 500;
+    }
+    .img1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        background-color: linear-gradient(90deg,#FFC107,#d3f801 );
+        font-family: system-ui;
+        font-size: 3rem;
+        
+    
+    
+    }
+    .img2 {
+        width: 100px;
+    }
+    .form-data{
+        border: none;
+    }
+    .container-fluid{
+        display: flex;
+    }
+    
+    .col{
+        width: 50%;
+    }
+    .menu2{
+        width: 70px;
+        left: auto;
+    
+    }
+    ol{
+        list-style: none;
+    }
+    .line1 {
+        flex-grow: 1;
+        height: 5px; 
+        background-color: #07e6ff; 
+        margin: 0 10px; }
+        .separator1 {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .line2 {
+            flex-grow: 1;
+            height: 5px; 
+            background-color: #ff0772; 
+            margin: 0 10px; }
+            .separator2 {
+                display: flex;
+                align-items: center;
+                margin: 20px 0;
+            }
+</style>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<div class="container">
+  <div class="img1">
+    <img class="img2" src="/static/img/logo.png" alt="" />
+    <h1 style="color: rgb(255, 213, 0)" class="text-center mt-5">MIRVAJ</h1>
+  </div>
+  <p class="text-center mb-5">Produccion profesional de eventos</p>
+
+  <div class="separator">
+    <div class="line"></div>
+  </div>
+
+  <h2 style="color: cadetblue">Plan Todo Incluido</h2>
+  <div class="col">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <h5 style="color: dodgerblue">Datos del cliente</h5>
+            <div class="fw-bold"
+              >Nombre: {{ client_fullname }}</div
+            >
+            <div class="mb-3">
+              <div class="fw-bold"
+                >Celular:{{client_phone}}</div
+              >
+            </div>
+            <div class="mb-3">
+              <div class="fw-bold"
+                >Email:{{ user_email }}</div
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <h5 style="color: dodgerblue">Datos del evento</h5>
+            <div class="fw-bold">Número de invitados: {{amount_people}}</div>
+          </div>
+          <div class="mb-3">
+            <div class="fw-bold">Fecha de la cotizacion: {{date_create_cot}}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <h2 style="color: palevioletred">Hola!</h2>
+  <ul>
+    “Te brindamos un cordial saludo ”
+  </ul>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/menu.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: orange; margin-left: 40px">Menu</h2>
+      <ol>
+        <li>Entrada: Ensalada o crema</li>
+        <li>Fuerte: Carne de res o cerdo</li>
+        <li>Pechuga de pollo</li>
+        <li>Arroz o vegetales</li>
+        <li>Acompañamiento (papa) o ensalada</li>
+        <li>Postre: A escoger</li>
+        <li>Bebida: Gaseosa</li>
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/pastel.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(255, 0, 174); margin-left: 40px">Ponque</h2>
+      <ol>
+        <li>En pastillaje o crema suave (diseño a escoger)</li>
+        <li>
+          Disponibles en: tradicional masa blanca o negra, tres leches, milky
+          way, brownie o amaretto...
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/vino.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(144, 0, 255); margin-left: 40px">Chanpaña</h2>
+      <ol>
+        <li>Brindis con Vino Espumoso blanco o rosado</li>
+        <div>
+          <ul style="color: aqua"
+            >Nota: Sin champaña, descuenta 1.000 por invitado</
+          >
+        </div>
+        <ul style="color: rgb(255, 0, 102)">
+          Las copas de champaña se ubican en cada puesto de acuerdo al protocolo
+          de bioseguridad.</
+        >
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/refresco.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(0, 123, 255); margin-left: 40px">
+        Bebidas Ilimitadas
+      </h2>
+      <ol>
+        <li>Gaseosas Postobon y Coca-cola</li>
+        <li>Jugo de Naranja</li>
+        <li>Agua mineral</li>
+        <li>Hielo para todo el evento</li>
+        <li>Cocteles con Vodka, zumo de naranja y curaçao</li>
+      </ol>
+    </div>
+  </div>
+  <div class="separator1">
+    <div class="line1"></div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/cocinero.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(240, 53, 53); margin-left: 40px">
+        Personal de Servicio
+      </h2>
+      <ol>
+        <li>1 Coordinador de evento y bioseguridad</li>
+        <li>1 Meseros / incluido coordinador</li>
+        <li>1 Chef o auxiliar de alimentos</li>
+        <li>1 Dj - sujeto a contratación de sonido</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/cubiertos.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(0, 255, 238); margin-left: 40px">Menaje</h2>
+      <ol>
+        <li>Vajilla cuadrada (entrada, fuerte, postre y ponqué)</li>
+        <li>
+          Cubiertos (cuchillo, tenedor, cucharita dulcera y tenedor ponqué)
+        </li>
+        <li>
+          Cristalería (vasos largos y cortos, copas champaña, agua y/o vino)
+        </li>
+        <li>
+          Bandejas, jarras, hieleras, samovares, pala y sierra para ponqués
+        </li>
+        <li>
+          Incluye todo el menaje necesario para el óptimo desarrollo del evento
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/comedor.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(255, 0, 200); margin-left: 40px">Mesas Y Sillas</h2>
+      <ol>
+        <li>Mesas redondas o rectangulares para invitados - 10 puestos c/u</li>
+        <li>Mesa redonda para ubicar el ponqué</li>
+        <li>Mesa redonda pequeña para ubicar el cofre (lluvia de sobres)</li>
+        <li>Mesas para montaje de alimentos y/o zona de bar (bebidas)</li>
+        <li>Sillas Rimax sin brazos</li>
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/ccomedor.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgba(255, 213, 0, 0.913); margin-left: 40px">
+        Manteleria
+      </h2>
+      <ol>
+        <li>
+          Manteles redondos o rectangulares para mesas de invitados (blancos o
+          color disponible)
+        </li>
+        <li>Mantel redondo para mesa de ponqué (color a escoger)</li>
+        <li>Mantel redondo para mesa de cofre (blanco)</li>
+        <li>Tapas o caminos para mesas de invitados (color a escoger)</li>
+        <li>Tapa de lujo para mesa de ponqué (velo blanco)</li>
+        <li>Forros para sillas (multiusos blancos)</li>
+      </ol>
+    </div>
+  </div>
+  <div class="separator2">
+    <div class="line2"></div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/verderon.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(132, 0, 255); margin-left: 40px">Decoración</h2>
+      <ol>
+        <li>
+          Centros de mesa en flores y rosas o cilindros de cristal decorados
+        </li>
+        <li>Arreglo de mesa de ponqué y copas principales decoradas</li>
+        <li>Decoración de cofre, pala y sierra (ponqué)</li>
+        <li>
+          Entrada decorada con antorchas, velas en cristales y pétalos
+          (opcionales)
+        </li>
+        <li>
+          Para Quince años incluye silla para quinceañera y/o candelabro
+          (opcionales)
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/dj.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(255, 0, 72); margin-left: 40px">Sonido</h2>
+      <ol>
+        <li>2 Cabinas de sonido auto-amplificadas</li>
+        <li>1 Micrófono inalámbrico</li>
+        <li>4 Luces audio-ritmicas y laser</li>
+        <li>1 Camara de humo</li>
+        <li>
+          1 Dj - música variada a escoger - Presentación protocolaria (maestría)
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/camion.png" width="50px" height="50px" />
+    <div style="margin-right: 60px">
+      <h2 style="color: rgb(0, 13, 255); margin-left: 40px">Transporte</h2>
+      <ol>
+        <li>
+          Transporte de suministros y personal en Bogotá - perímetro urbano
+        </li>
+        <div>
+          <ul style="color: aqua"
+            >Nota: Transportes fuera de Bogotá tienen costo adicional
+          </ul>
+        </div>
+      </ol>
+    </div>
+  </div>
+
+<section id="aclaraciones">
+
+    <h2 style="color: aquamarine; margin-left: 40px;">Aclaraciones del Servicio</h2>
+    <br>
+    <div class="contenedor">
+        <div>
+            <p>-   No incluye salón - el cliente lo contrata por cuenta propia</p>
+            <p>- Degustación del menú sin costo para eventos contratados</p>
+            <p>- Degustación sin contrato a $40.000, reembolsables si contrata el evento</p>
+            <p>- Whisky no incluido, el cliente lo provee</p>
+            <p>- Después de firmar contrato se agenda una nueva cita para ultimar detalles</p>
+            <p>- Los servicios ilimitados de gaseosa y cócteles son propiedad de la empresa</p>
+            <p>- Todos los artículos incluidos en el plan son en calidad de alquiler para el evento</p>
+            <p>- Montaje en 3 horas aproximadamente el mismo día del evento</p>
+            <p>- Desmontaje en 1 hora aproximadamente el mismo día del evento</p>
+            <p>- Duración del evento, máximo 7 horas continuas (no incluye tiempos de montaje)</p>
+            <p>- Las horas extras se acuerdan con el coordinador del evento</p>
+            <p>- Toda modificación, aclaración y detalles del evento deben quedar por escrito</p>
+            <p>- IMPORTANTE: El evento a realizar debe estar a paz y salvo (sin saldo pendiente); el cliente debe abonar el saldo pendiente antes de iniciar el evento o servir los alimentos</p>
+            <p>- El día del evento solo se reciben pagos en efectivo (no cheques - no tarjetas)</p>
+            <p>- Si el cliente desiste del evento o lo aplaza por más de 90 días calendario, se sancionará el 50% del valor total del plan; dentro de los diez días anteriores, el cliente deberá pagar la totalidad del servicio solicitado, incluso si este fuese cancelado</p>
+            <p>- Se debe realizar contrato de mutuo acuerdo</p>
+            <p>- Por favor, consulte a un asesor para despejar dudas y adelantar la contratación</p>
+        </div>       
+    </div>
+</section>  
+
+<div class="menu" style="display: flex">
+    <img class="menu2" src="/static/img/logo.png" width="50px" height="50px" />
+    <div style="margin-right: 60px; width: 100%;">
+        <h2 style="color: orange; margin-left: 40px; font-size: 2.5em;">Adicionales</h2>
+        <div class="adicional">
+            <h4>Mobiliario adicional:</h4>
+            <div class="list">
+                {% for names, costs in ad_mob_combined %}
+                {% for i in range(names|length) %}
+                <div class="d-flex flex-direction-column">
+                    <span class="name">{{ names[i] }} </span> <span class="cost">&#36;{{ costs[i] }}</span>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="adicional">
+            <h4>Decoracion adicional:</h4>
+            <div class="list">
+                {% for names, costs in ad_dec_combined %}
+                {% for i in range(names|length) %}
+                <div class="d-flex flex-direction-column">
+                    <span class="name">{{ names[i] }} </span> <span class="cost">&#36;{{ costs[i] }}</span>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="adicional">
+            <h4>Alimentos adicionales:</h4>            
+            <div class="list">
+                {% for names, costs in ad_ali_combined %}
+                {% for i in range(names|length) %}
+                <div class="d-flex flex-direction-column">
+                    <span class="name">{{ names[i] }} </span> <span class="cost">&#36;{{ costs[i] }}</span>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="adicional">
+            <h4>Otros servicios:</h4>           
+            <div class="list">
+                <div class="d-flex flex-direction-column">
+                    <span class="name">{{ot_serv_name}} </span> <span class="cost">&#36;{{ot_serv_cost}}</span>
+                </div>
+            </div>
+        </div>
+            
+
+    </div>
+</div>
+<div class="contenedor mt-5 d-flex w-100">
+    <div class="name">
+        <h5 style="color: purple; margin-left: 0; font-size: 1.3em;">Valor Total del Plan {{amount_people}} Personas</h2>
+    </div>
+    <div class="cost">
+        <h5 style="color: purple; margin-right: 40px;font-size: 1.5em;" class="cost">&#36;{{priceTotal}}</h5>
+    </div>       
+</div>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+

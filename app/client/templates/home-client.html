@@ -313,15 +313,47 @@
                         </div>
 
                         <div class="d-flex justify-content-end mt-5">
-                            <button type="submit" class="btn btn-success" id="editEvent">Realizar cotización</button>
+                            <button type="submit" class="btn btn-success" id="editEvent">Actualizar cotización</button>
 
-                            <a  class="btn btn-success" id="editEvent" href="generate_pdf/{{ult_evts.idEvent}}">Realizar cotización</a>
+                            <a  class="btn btn-info" id="editEvent" href="generate_pdf/{{ult_evts.idEvent}}">Guardad y generar PDF</a>
                         </div>
 
                 </form>
             </div>
 
         </div>
+
+        
+        
     </div>
+    <!--
+    <table class="table table-bordered border-warning table-light p-5" id="table">
+        {% for evt in evts %}
+            {% if evt.idUser == users.idUser %}
+                {{evt.idUser}}
+            {% endif %}
+        {% endfor %}
+        <thead>
+            <tr>
+                <th>Tipo de evento</th>
+                <th>Cantidad de personas</th>
+                <th>Fecha de la cotización</th>
+                <th>Fecha de la realizacion</th>
+                <th>Id usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evt in evts %}
+            <tr>
+                <td>{{ evt.idTypeEvent }}</td>
+                <td>{{ evt.idAmountPe }}</td>
+                <td>{{ evt.dateCreateCot }}</td>
+                <td>{{ evt.dateRealizationEvent }}</td>
+                <td>{{ evt.idUser }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>-->
+    
 
 {% endblock %}

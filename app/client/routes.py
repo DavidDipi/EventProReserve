@@ -55,6 +55,8 @@ def client_home():
     ots = app.models.OthersServ.query.all()
     # Evento cotizado
     evts = app.models.EventsTbl.query.all()
+    # Lista de usuarios
+    users = app.models.User.query.all()
     
     # SELECCIONAR FECHA
     
@@ -85,7 +87,9 @@ def client_home():
                            adAlis = adAlis,
                            ots = ots,
                            ult_evts = ult_evts,
-                           form=form)
+                           form=form,
+                           evts = evts,
+                           users=users)
 
 
 @client_blueprint.route('/my-events')
@@ -222,7 +226,7 @@ def get_date():
 @client_blueprint.route('/send_data_template',)
 
 
-def crea_pdf(ruta_template, info, id_event, rutacss='C:/Users/David/Desktop/mirvaj-python/app/static/css/bootstrap.min.css'):
+def crea_pdf(ruta_template, info, id_event, rutacss='C:/Users/David/Desktop/PROYECTO/EventProReserve/app/static/css/bootstrap.min.css'):
     nombre_template = ruta_template.split('/')[-1]
     ruta_template = ruta_template.replace(nombre_template, '')
     
@@ -242,7 +246,7 @@ def crea_pdf(ruta_template, info, id_event, rutacss='C:/Users/David/Desktop/mirv
     config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
     id_str = str(id_event)
     print(id_str)
-    ruta_salida = f'C:/Users/David/Desktop/mirvaj-python/app/static/pdfs/bill{id_str}.pdf'
+    ruta_salida = f'C:/Users/David/Desktop/PROYECTO/EventProReserve/app/static/pdfs/bill{id_str}.pdf'
     attachment_filename=f'bill{id_str}.pdf'
     pdfkit.from_string(html, ruta_salida, css=rutacss, options=options, configuration=config)
     
@@ -284,7 +288,7 @@ def generate_pdf(id):
     .join(Est_Active, EventsTbl.idAct == Est_Active.idAct)\
     .join(AmountPeople, EventsTbl.idAmountPe == AmountPeople.idAmountPe)\
     .join(Cliente, User.idUser == Cliente.idUser)\
-    .filter(EventsTbl.idEvent == 6)\
+    .filter(EventsTbl.idEvent == id)\
     .first()
     
     print(event_data)
@@ -389,7 +393,7 @@ def generate_pdf(id):
         
         crea_pdf(ruta_template=ruta_template,info=context, id_event=event.idEvent)
         
-        return url_for('client.client_home')    
+        return redirect(url_for('client.client_home'))    
     else:
         return render_template('pages/error.html')
     
